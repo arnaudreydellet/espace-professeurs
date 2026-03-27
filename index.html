@@ -5,194 +5,225 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard Professeur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #F7F6F2;
+  --bg: #F5F2EA;
   --surface: #FFFFFF;
-  --surface2: #F0EFE9;
-  --border: #E2E0D8;
-  --text: #1A1917;
-  --text2: #6B6960;
-  --text3: #A8A69E;
-  --green: #1A7A5E;
-  --green-l: #E3F4EE;
-  --green-m: #A8DCC8;
-  --amber: #B8610A;
+  --surface2: #F0EDE5;
+  --border: #E2DDD4;
+  --text: #111111;
+  --text2: #555555;
+  --text3: #999999;
+  --green: #16A368;
+  --green-l: #E6F7F0;
+  --amber: #D97706;
   --amber-l: #FEF3E2;
-  --red: #B52A2A;
-  --red-l: #FDEAEA;
+  --red: #DC2626;
+  --red-l: #FEE2E2;
   --navy: #1A2C5B;
-  --navy-l: #EBF0FA;
-  --r: 10px; --rl: 16px;
+  --navy-l: #EEF1F8;
+  --navy-m: #6B84C4;
+  --r: 10px;
+  --rl: 14px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* LOGIN */
-.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
-.login-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rl); padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(0,0,0,.06); animation: fadeUp .4s ease; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);} }
-.login-logo { width: 44px; height: 44px; border-radius: 12px; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 1.5rem; }
-.login-title { font-size: 22px; font-weight: 600; margin-bottom: .4rem; }
-.login-sub { font-size: 13px; color: var(--text2); margin-bottom: 2rem; line-height: 1.55; }
-.login-label { font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: .4rem; display: block; }
-.login-input { width: 100%; height: 44px; padding: 0 14px; border: 1.5px solid var(--border); border-radius: var(--r); font-family: 'Sora', sans-serif; font-size: 14px; color: var(--text); background: var(--surface2); outline: none; transition: border-color .2s; margin-bottom: 1rem; }
-.login-input:focus { border-color: var(--navy); background: var(--surface); }
-.login-err { font-size: 12px; color: var(--red); margin-bottom: .75rem; display: none; }
-.btn-login { width: 100%; height: 44px; background: var(--navy); color: #fff; border: none; border-radius: var(--r); font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; }
-.btn-login:hover { background: #142248; }
-.btn-login:disabled { background: #8a9fc5; cursor: not-allowed; }
+/* ── LOGIN ── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:2.5rem;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+.login-logo{width:46px;height:46px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;margin-bottom:1.5rem;}
+.login-title{font-size:22px;font-weight:800;color:var(--text);margin-bottom:.3rem;letter-spacing:-.5px;}
+.login-sub{font-size:13px;color:var(--text2);margin-bottom:2rem;line-height:1.55;}
+.login-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:.4rem;display:block;}
+.login-input{width:100%;height:44px;padding:0 14px;border:1.5px solid var(--border);border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--text);background:var(--surface2);outline:none;transition:all .2s;margin-bottom:1rem;}
+.login-input:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 3px var(--navy-l);}
+.login-err{font-size:12px;color:var(--red);margin-bottom:.75rem;display:none;font-weight:500;}
+.btn-login{width:100%;height:44px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;}
+.btn-login:hover{background:#243d80;}
+.btn-login:disabled{background:#8a9fc5;cursor:not-allowed;}
 
-/* DASHBOARD */
-.dashboard { display: none; min-height: 100vh; }
-.dash-header { background: var(--navy); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-.dash-header-left { display: flex; align-items: center; gap: 14px; }
-.dash-logo { width: 36px; height: 36px; border-radius: 9px; background: rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; }
-.dash-title { font-size: 15px; font-weight: 600; color: #fff; }
-.dash-sub { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 1px; }
-.dash-logout { font-size: 12px; color: rgba(255,255,255,.5); cursor: pointer; transition: color .15s; }
-.dash-logout:hover { color: rgba(255,255,255,.85); }
-.dash-main { padding: 2rem; max-width: 1100px; margin: 0 auto; }
+/* ── DASHBOARD ── */
+.dashboard{display:none;min-height:100vh;}
+.dash-header{background:var(--navy);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.dash-header-left{display:flex;align-items:center;gap:12px;}
+.dash-logo{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.dash-title{font-size:15px;font-weight:700;color:#fff;}
+.dash-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;}
+.dash-logout{font-size:12px;color:rgba(255,255,255,.4);cursor:pointer;transition:color .15s;font-weight:500;}
+.dash-logout:hover{color:rgba(255,255,255,.8);}
+.dash-main{padding:2rem 2.5rem;max-width:1200px;margin:0 auto;}
 
-/* KPIs */
-.kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 1.5rem; }
-.kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rl); padding: 1.25rem 1.5rem; }
-.kpi-val { font-size: 32px; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: var(--navy); line-height: 1; margin-bottom: 4px; }
-.kpi-lbl { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); }
-.kpi-card.alert .kpi-val { color: var(--red); }
-.kpi-card.good .kpi-val { color: var(--green); }
-.kpi-card.amber .kpi-val { color: var(--amber); }
+/* ── ALERT BANNER ── */
+.alert-banner{display:none;border-left:3px solid var(--red);background:var(--red-l);padding:12px 18px;border-radius:0 var(--r) var(--r) 0;margin-bottom:1.5rem;}
+.alert-banner-text{font-size:13px;font-weight:600;color:var(--red);}
+.alert-banner-sub{font-size:12px;color:#B91C1C;margin-top:2px;}
 
-/* ALERTE BANNER */
-.alert-banner { display: none; border-left: 3px solid var(--red); background: var(--red-l); padding: 12px 18px; border-radius: 0 var(--r) var(--r) 0; margin-bottom: 1.5rem; }
-.alert-banner-text { font-size: 13px; font-weight: 500; color: var(--red); }
-.alert-banner-sub { font-size: 12px; color: #8a3025; margin-top: 2px; }
+/* ── KPI STRIP ── */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.875rem;margin-bottom:1.75rem;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.25rem 1.5rem;position:relative;overflow:hidden;}
+.kpi-card::after{content:'';position:absolute;bottom:0;left:1.5rem;right:1.5rem;height:3px;border-radius:3px 3px 0 0;background:var(--border);}
+.kpi-card.good::after{background:var(--green);}
+.kpi-card.amber::after{background:var(--amber);}
+.kpi-card.alert::after{background:var(--red);}
+.kpi-card.blue::after{background:var(--navy-m);}
+.kpi-val{font-size:34px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-1.5px;margin-bottom:5px;}
+.kpi-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
+.kpi-card.good .kpi-val{color:var(--green);}
+.kpi-card.alert .kpi-val{color:var(--red);}
+.kpi-card.amber .kpi-val{color:var(--amber);}
 
-/* PANEL */
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rl); padding: 1.5rem 2rem; margin-bottom: 1.5rem; }
-.panel-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.panel-title { font-size: 16px; font-weight: 600; color: var(--text); }
-.panel-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
-.pbadge { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; border: 1px solid; }
-.pbadge-red { background: var(--red-l); color: var(--red); border-color: rgba(181,42,42,.2); }
-.pbadge-green { background: var(--green-l); color: var(--green); border-color: rgba(26,122,94,.2); }
-.pbadge-gray { background: var(--surface2); color: var(--text3); border-color: var(--border); }
+/* ── CLASSES GRID ── */
+.classes-section-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:.3rem;}
+.classes-section-sub{font-size:12px;color:var(--text3);margin-bottom:1.25rem;}
+.classes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.75rem;}
+.classe-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.25rem 1.5rem;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;}
+.classe-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border);transition:background .2s;}
+.classe-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);border-color:rgba(26,44,91,.2);}
+.classe-card:hover::before{background:var(--navy);}
+.classe-card.has-alert::before{background:var(--red);}
+.classe-card.has-alert{border-color:rgba(220,38,38,.15);}
+.classe-card.active-classe::before{background:var(--green);}
+.cc-name{font-size:15px;font-weight:800;color:var(--text);letter-spacing:-.3px;margin-bottom:.2rem;}
+.cc-type{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.875rem;}
+.cc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;}
+.cc-stat{background:var(--bg);border-radius:6px;padding:.5rem .625rem;}
+.cc-stat-val{font-size:20px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.5px;}
+.cc-stat-lbl{font-size:9px;font-weight:700;color:var(--text3);margin-top:2px;letter-spacing:.04em;text-transform:uppercase;}
+.cc-stat.good .cc-stat-val{color:var(--green);}
+.cc-stat.warn .cc-stat-val{color:var(--amber);}
+.cc-stat.danger .cc-stat-val{color:var(--red);}
+.cc-arrow{position:absolute;bottom:1rem;right:1rem;font-size:13px;color:var(--text3);transition:all .18s;}
+.classe-card:hover .cc-arrow{color:var(--navy);transform:translateX(3px);}
 
-/* TRI */
-.sort-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
-.sort-bar-label { font-size: 11px; color: var(--text3); font-weight: 500; }
-.sort-btn { font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); cursor: pointer; font-family: 'Sora', sans-serif; transition: all .15s; }
-.sort-btn:hover { border-color: var(--navy); color: var(--navy); }
-.sort-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+/* ── PANELS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.75rem;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.5rem;}
+.panel-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.panel-title{font-size:15px;font-weight:700;color:var(--text);}
+.panel-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.pbadge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid;}
+.pbadge-red{background:var(--red-l);color:var(--red);border-color:rgba(220,38,38,.2);}
+.pbadge-green{background:var(--green-l);color:var(--green);border-color:rgba(22,163,104,.2);}
+.pbadge-gray{background:var(--surface2);color:var(--text3);border-color:var(--border);}
 
-/* TABLE */
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
-th { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); padding: 0 0 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
-td { padding: 13px 0; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--surface2); vertical-align: middle; }
-th:not(:first-child), td:not(:first-child) { padding-left: 16px; }
-tr:last-child td { border-bottom: none; }
-tbody tr { cursor: pointer; transition: background .1s; }
-tbody tr:hover td { background: var(--surface2); }
-.td-name { color: var(--text); font-weight: 600; font-size: 14px; }
-.td-mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-.td-arr { color: var(--text3); font-size: 16px; }
+/* ── TRI ── */
+.sort-bar{display:flex;align-items:center;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
+.sort-bar-label{font-size:11px;color:var(--text3);font-weight:500;}
+.sort-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.sort-btn:hover{border-color:var(--navy);color:var(--navy);}
+.sort-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 
-/* PROGRESS BAR inline */
-.prog-wrap { display: flex; align-items: center; gap: 8px; }
-.prog-bar { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; min-width: 50px; }
-.prog-fill { height: 100%; border-radius: 3px; transition: width .5s; }
-.prog-fill-green { background: var(--green); }
-.prog-fill-amber { background: var(--amber); }
-.prog-fill-red { background: var(--red); }
-.prog-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text3); white-space: nowrap; }
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:0 0 10px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:12px 0;font-size:13px;color:var(--text2);border-bottom:1px solid var(--surface2);vertical-align:middle;}
+th:not(:first-child),td:not(:first-child){padding-left:14px;}
+tr:last-child td{border-bottom:none;}
+tbody tr{cursor:pointer;transition:background .1s;}
+tbody tr:hover td{background:var(--surface2);}
+.td-name{color:var(--text);font-weight:600;font-size:14px;}
+.td-mono{font-family:'DM Mono',monospace;font-size:12px;}
 
-/* PILLS */
-.pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; border: 1px solid transparent; white-space: nowrap; }
-.pill::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-.pill-green { background: var(--green-l); color: var(--green); border-color: rgba(26,122,94,.15); }
-.pill-green::before { background: var(--green); }
-.pill-amber { background: var(--amber-l); color: var(--amber); border-color: rgba(184,97,10,.15); }
-.pill-amber::before { background: var(--amber); }
-.pill-red { background: var(--red-l); color: var(--red); border-color: rgba(181,42,42,.15); }
-.pill-red::before { background: var(--red); animation: pulse .8s infinite; }
-.pill-gray { background: var(--surface2); color: var(--text3); border-color: var(--border); }
-.pill-gray::before { background: var(--text3); }
-@keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.3;} }
+/* ── PROGRESS ── */
+.prog-wrap{display:flex;align-items:center;gap:7px;}
+.prog-bar{flex:1;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;min-width:44px;}
+.prog-fill{height:100%;border-radius:2px;transition:width .5s;}
+.prog-green{background:var(--green);}
+.prog-amber{background:var(--amber);}
+.prog-red{background:var(--red);}
+.prog-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);white-space:nowrap;}
 
-/* LACUNE TAGS */
-.lacune-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.lacune-tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: var(--navy-l); color: var(--navy); font-weight: 500; }
+/* ── PILLS ── */
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+.pill::before{content:'';width:4px;height:4px;border-radius:50%;flex-shrink:0;}
+.pill-green{background:var(--green-l);color:var(--green);}
+.pill-green::before{background:var(--green);}
+.pill-amber{background:var(--amber-l);color:var(--amber);}
+.pill-amber::before{background:var(--amber);}
+.pill-red{background:var(--red-l);color:var(--red);}
+.pill-red::before{background:var(--red);animation:blink .8s infinite;}
+.pill-gray{background:var(--surface2);color:var(--text3);}
+.pill-gray::before{background:var(--text3);}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-/* BACK */
-.back-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text3); cursor: pointer; margin-bottom: 1.5rem; background: none; border: none; font-family: 'Sora', sans-serif; padding: 0; transition: color .15s; }
-.back-btn:hover { color: var(--text2); }
-.back-btn::before { content: '←'; font-size: 14px; }
+/* ── RANK ── */
+.rank-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--surface2);cursor:pointer;transition:background .1s;}
+.rank-row:hover{background:var(--surface2);}
+.rank-row:last-child{border-bottom:none;}
+.rank-num{font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text3);width:22px;text-align:center;flex-shrink:0;}
+.rank-num.top{color:var(--red);}
+.rank-name{font-size:13px;font-weight:600;color:var(--text);flex:1;}
+.rank-classe{font-size:11px;color:var(--text3);}
+.rank-bar-wrap{flex:2;height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;}
+.rank-bar{height:100%;background:var(--red);border-radius:2px;transition:width .6s;}
+.rank-val{font-size:12px;font-family:'DM Mono',monospace;color:var(--red);font-weight:600;min-width:56px;text-align:right;}
 
-/* DETAIL ÉLÈVE */
-.detail-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--rl); overflow: hidden; margin-bottom: 1.5rem; }
-.dkpi { background: var(--surface); padding: 1.25rem 1.5rem; }
-.dkpi-val { font-size: 32px; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: var(--navy); line-height: 1; margin-bottom: 4px; }
-.dkpi-lbl { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); }
-.dkpi.amber .dkpi-val { color: var(--amber); }
-.dkpi.good .dkpi-val { color: var(--green); }
+/* ── ALERTE ROW ── */
+.alerte-row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--red-l);border:1px solid rgba(220,38,38,.12);border-radius:var(--r);margin-bottom:7px;}
+.alerte-row:last-child{margin-bottom:0;}
+.alerte-name{font-size:13px;font-weight:600;color:var(--text);}
+.alerte-detail{font-size:11px;color:var(--text2);margin-top:2px;}
+.btn-traiter{background:var(--navy);color:#fff;border:none;padding:6px 14px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.btn-traiter:hover{background:#243d80;}
+.btn-traiter:disabled{background:var(--green);cursor:default;}
 
-/* FICHE ROW */
-.fiche-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--surface2); }
-.fiche-row:last-child { border-bottom: none; }
-.fiche-name { font-size: 13px; font-weight: 500; color: var(--text); }
-.fiche-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+/* ── LACUNE TAGS ── */
+.lacune-tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;background:var(--navy-l);color:var(--navy);margin:2px 2px 0 0;}
 
-/* ALERTE ROW */
-.alerte-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--red-l); border: 1px solid rgba(181,42,42,.15); border-radius: var(--r); margin-bottom: 8px; }
-.alerte-row:last-child { margin-bottom: 0; }
-.alerte-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.alerte-detail { font-size: 11px; color: var(--text2); margin-top: 2px; }
-.btn-traiter { background: var(--navy); color: #fff; border: none; padding: 7px 16px; border-radius: var(--r); font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all .15s; white-space: nowrap; }
-.btn-traiter:hover { background: #142248; }
-.btn-traiter:disabled { background: var(--green); cursor: default; }
+/* ── BACK ── */
+.back-btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;margin-bottom:1.5rem;background:none;border:none;font-family:'Inter',sans-serif;padding:0;transition:color .15s;}
+.back-btn:hover{color:var(--text2);}
+.back-btn::before{content:'←';font-size:14px;}
 
-/* CLASSEMENT */
-.rank-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--surface2); cursor: pointer; transition: background .1s; }
-.rank-row:hover { background: var(--surface2); }
-.rank-row:last-child { border-bottom: none; }
-.rank-num { font-size: 16px; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: var(--text3); width: 24px; text-align: center; flex-shrink: 0; }
-.rank-num.top { color: var(--red); }
-.rank-name { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
-.rank-classe { font-size: 11px; color: var(--text3); }
-.rank-bar-wrap { flex: 2; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
-.rank-bar { height: 100%; background: var(--red); border-radius: 2px; transition: width .6s; }
-.rank-val { font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--red); font-weight: 600; min-width: 60px; text-align: right; white-space: nowrap; }
+/* ── DETAIL ELEVE ── */
+.detail-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:1.5rem;}
+.dkpi{background:var(--surface);padding:1.25rem 1.5rem;}
+.dkpi-val{font-size:34px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-1.5px;margin-bottom:4px;}
+.dkpi-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
+.dkpi.good .dkpi-val{color:var(--green);}
+.dkpi.amber .dkpi-val{color:var(--amber);}
 
-/* EMPTY */
-.empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem; text-align: center; }
-.empty-title { font-size: 15px; font-weight: 500; color: var(--text2); margin-bottom: .3rem; }
-.empty-sub { font-size: 12px; color: var(--text3); max-width: 260px; line-height: 1.6; }
+/* ── FICHE ROW ── */
+.fiche-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--surface2);}
+.fiche-row:last-child{border-bottom:none;}
+.fiche-name{font-size:13px;font-weight:600;color:var(--text);}
+.fiche-meta{font-size:11px;color:var(--text3);margin-top:2px;}
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+/* ── EMPTY ── */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;}
+.empty-title{font-size:15px;font-weight:600;color:var(--text2);margin-bottom:.3rem;}
+.empty-sub{font-size:12px;color:var(--text3);max-width:250px;line-height:1.6;}
 
-/* Indicateur de source des données */
-.data-note { font-size: 11px; color: var(--text3); font-style: italic; }
+@media(max-width:900px){
+  .kpi-strip{grid-template-columns:repeat(3,1fr);}
+  .classes-grid{grid-template-columns:1fr 1fr;}
+  .grid-2{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ══ LOGIN ══ -->
 <div class="login-wrap" id="login-wrap">
   <div class="login-card">
     <div class="login-logo">P</div>
     <div class="login-title">Espace professeur</div>
-    <div class="login-sub">Connecte-toi avec ton adresse email pour accéder au suivi de tes classes.</div>
-    <label class="login-label">Adresse email *</label>
-    <input class="login-input" type="email" id="login-email" placeholder="prenom.nom@etablissement.fr">
-    <div class="login-err" id="login-err">Email non reconnu. Vérifie ton adresse ou contacte l'administrateur.</div>
+    <div class="login-sub">Connectez-vous pour accéder au suivi de vos classes.</div>
+    <label class="login-label">Identifiant</label>
+    <input class="login-input" type="text" id="login-id" placeholder="Votre identifiant">
+    <label class="login-label">Mot de passe</label>
+    <input class="login-input" type="password" id="login-mdp" placeholder="••••••••">
+    <div class="login-err" id="login-err">Identifiant ou mot de passe incorrect.</div>
     <button class="btn-login" id="btn-login" onclick="connexion()">Accéder à mon espace →</button>
   </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- ══ DASHBOARD ══ -->
 <div class="dashboard" id="dashboard">
+
   <div class="dash-header">
     <div class="dash-header-left">
       <div class="dash-logo">P</div>
@@ -201,7 +232,7 @@ tbody tr:hover td { background: var(--surface2); }
         <div class="dash-sub" id="dash-classes">—</div>
       </div>
     </div>
-    <div class="dash-logout" onclick="deconnexion()">← Changer de compte</div>
+    <div class="dash-logout" onclick="deconnexion()">← Se déconnecter</div>
   </div>
 
   <div class="dash-main">
@@ -209,34 +240,34 @@ tbody tr:hover td { background: var(--surface2); }
     <!-- ALERTE BANNER -->
     <div class="alert-banner" id="alert-banner">
       <div class="alert-banner-text" id="alert-banner-text">—</div>
-      <div class="alert-banner-sub">Ces élèves ont échoué 3 fois sur une même fiche — une intervention est requise.</div>
+      <div class="alert-banner-sub">Ces élèves ont échoué 3 fois — une intervention est requise.</div>
     </div>
 
-    <!-- VUE LISTE -->
-    <div id="view-liste">
+    <!-- VUE PRINCIPALE -->
+    <div id="view-principal">
 
-      <!-- KPIs — 5 cartes dont "Fiches restantes" -->
-      <div class="kpi-grid">
-        <div class="kpi-card"><div class="kpi-val" id="kpi-eleves">—</div><div class="kpi-lbl">Élèves suivis</div></div>
+      <!-- KPIs -->
+      <div class="kpi-strip">
+        <div class="kpi-card"><div class="kpi-val" id="kpi-diagnostiques">—</div><div class="kpi-lbl">Élèves diagnostiqués</div></div>
         <div class="kpi-card"><div class="kpi-val" id="kpi-lacunes">—</div><div class="kpi-lbl">Total lacunes</div></div>
-        <div class="kpi-card good"><div class="kpi-val" id="kpi-validees">—</div><div class="kpi-lbl">Fiches validées</div></div>
-        <div class="kpi-card amber"><div class="kpi-val" id="kpi-restantes">—</div><div class="kpi-lbl">Fiches restantes</div></div>
-        <div class="kpi-card alert"><div class="kpi-val" id="kpi-alertes">—</div><div class="kpi-lbl">Alertes actives</div></div>
+        <div class="kpi-card blue"><div class="kpi-val" id="kpi-moy">—</div><div class="kpi-lbl">Moy. lacunes / élève</div></div>
+        <div class="kpi-card good"><div class="kpi-val" id="kpi-comblees">—</div><div class="kpi-lbl">Lacunes comblées</div></div>
+        <div class="kpi-card amber"><div class="kpi-val" id="kpi-pct">—</div><div class="kpi-lbl">% lacunes comblées</div></div>
       </div>
 
+      <!-- CARTES CLASSES -->
+      <div class="classes-section-title">Mes classes</div>
+      <div class="classes-section-sub">Cliquez sur une classe pour voir le détail des élèves</div>
+      <div class="classes-grid" id="classes-grid"></div>
+
+      <!-- DIFFICULTÉ + ALERTES -->
       <div class="grid-2">
-        <!-- Classement par difficulté -->
         <div class="panel" style="margin-bottom:0;">
           <div class="panel-header">
-            <div>
-              <div class="panel-title">Élèves les plus en difficulté</div>
-              <div class="panel-sub">Classés par nombre de lacunes détectées</div>
-            </div>
+            <div><div class="panel-title">Élèves les plus en difficulté</div><div class="panel-sub">Classés par nombre de lacunes</div></div>
           </div>
           <div id="classement-difficulte"></div>
         </div>
-
-        <!-- Alertes -->
         <div class="panel" style="margin-bottom:0;">
           <div class="panel-header">
             <div><div class="panel-title">Interventions requises</div><div class="panel-sub">Élèves bloqués · 3 échecs</div></div>
@@ -246,17 +277,20 @@ tbody tr:hover td { background: var(--surface2); }
         </div>
       </div>
 
-      <!-- Tableau élèves -->
+    </div>
+
+    <!-- VUE DÉTAIL CLASSE -->
+    <div id="view-classe" style="display:none;">
+      <button class="back-btn" onclick="showPrincipal()">Retour à mes classes</button>
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.4rem;">Classe</div>
+        <div style="font-size:24px;font-weight:900;color:var(--text);letter-spacing:-.8px;" id="dc-title">—</div>
+      </div>
       <div class="panel">
         <div class="panel-header">
-          <div>
-            <div class="panel-title">Tous mes élèves</div>
-            <div class="panel-sub">Cliquez sur un élève pour voir le détail</div>
-          </div>
-          <span class="pbadge pbadge-gray" id="badge-eleves">—</span>
+          <div><div class="panel-title">Élèves</div><div class="panel-sub">Cliquez sur un élève pour le détail</div></div>
+          <span class="pbadge pbadge-gray" id="dc-badge">—</span>
         </div>
-
-        <!-- Boutons de tri -->
         <div class="sort-bar">
           <span class="sort-bar-label">Trier par :</span>
           <button class="sort-btn active" id="sort-lacunes" onclick="trierPar('lacunes')">Lacunes ↓</button>
@@ -264,23 +298,9 @@ tbody tr:hover td { background: var(--surface2); }
           <button class="sort-btn" id="sort-nom" onclick="trierPar('nom')">Nom A→Z</button>
           <button class="sort-btn" id="sort-alertes" onclick="trierPar('alertes')">Alertes ↓</button>
         </div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Élève</th>
-                <th>Classe</th>
-                <th>Lacunes</th>
-                <th>Fiches assignées</th>
-                <th>Validées</th>
-                <th>Reste à faire</th>
-                <th>Progression</th>
-                <th>Alertes</th>
-                <th>Statut</th>
-                <th></th>
-              </tr>
-            </thead>
+            <thead><tr><th>Élève</th><th>Lacunes</th><th>Fiches assignées</th><th>Validées</th><th>Reste</th><th>Progression</th><th>Alertes</th><th>Statut</th><th></th></tr></thead>
             <tbody id="eleves-tbody"></tbody>
           </table>
         </div>
@@ -289,27 +309,22 @@ tbody tr:hover td { background: var(--surface2); }
 
     <!-- VUE DÉTAIL ÉLÈVE -->
     <div id="view-eleve" style="display:none;">
-      <button class="back-btn" onclick="showListe()">Retour à mes élèves</button>
-      <div style="margin-bottom:1.75rem;">
-        <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.4rem;">Élève</div>
-        <div style="font-size:24px;font-weight:600;color:var(--text);margin-bottom:3px;" id="de-name">—</div>
-        <div style="font-size:13px;color:var(--text3);" id="de-meta">—</div>
+      <button class="back-btn" id="back-classe-btn" onclick="showClasse()">Retour à la classe</button>
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.4rem;">Élève</div>
+        <div style="font-size:24px;font-weight:900;color:var(--text);letter-spacing:-.8px;" id="de-name">—</div>
+        <div style="font-size:13px;color:var(--text3);margin-top:3px;" id="de-meta">—</div>
       </div>
-
-      <!-- KPIs détail : 4 cartes dont lacunes et fiches restantes -->
       <div class="detail-kpis">
         <div class="dkpi"><div class="dkpi-val" id="de-lacunes">—</div><div class="dkpi-lbl">Lacunes détectées</div></div>
         <div class="dkpi"><div class="dkpi-val" id="de-assignees">—</div><div class="dkpi-lbl">Fiches assignées</div></div>
         <div class="dkpi good"><div class="dkpi-val" id="de-validees">—</div><div class="dkpi-lbl">Fiches validées</div></div>
         <div class="dkpi amber"><div class="dkpi-val" id="de-restantes">—</div><div class="dkpi-lbl">Fiches restantes</div></div>
       </div>
-
-      <!-- Lacunes détectées -->
       <div class="panel" id="panel-lacunes-detail" style="display:none;">
         <div class="panel-header"><div><div class="panel-title">Lacunes détectées au diagnostic</div></div></div>
         <div id="de-lacunes-liste"></div>
       </div>
-
       <div class="panel">
         <div class="panel-header"><div><div class="panel-title">Fiches de remédiation</div></div></div>
         <div id="de-fiches"></div>
@@ -320,286 +335,256 @@ tbody tr:hover td { background: var(--surface2); }
 </div>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
-var ETABLISSEMENT = "Fourneyron";
-var DATA = null;
-var currentEleve = null;
-var currentSort = 'lacunes';
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
+var ETABLISSEMENT="Fourneyron";
+var DATA=null, currentEleve=null, currentClasse=null, currentSort='lacunes';
 
-document.getElementById('login-email').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') connexion();
-});
+// ── LOGIN ──
+document.getElementById('login-id').addEventListener('keydown',function(e){if(e.key==='Enter')connexion();});
+document.getElementById('login-mdp').addEventListener('keydown',function(e){if(e.key==='Enter')connexion();});
 
-function connexion() {
-  var email = document.getElementById('login-email').value.trim();
-  if (!email) return;
-  var btn = document.getElementById('btn-login');
-  btn.disabled = true; btn.textContent = 'Connexion...';
-  document.getElementById('login-err').style.display = 'none';
+function connexion(){
+  var id=document.getElementById('login-id').value.trim();
+  var mdp=document.getElementById('login-mdp').value;
+  if(!id||!mdp)return;
+  var btn=document.getElementById('btn-login');
+  btn.disabled=true;btn.textContent='Connexion...';
+  document.getElementById('login-err').style.display='none';
 
-  fetch(SCRIPT_URL + '?type=prof&email=' + encodeURIComponent(email) + '&etablissement=' + ETABLISSEMENT + '&t=' + Date.now())
-    .then(function(r) { return r.json(); })
-    .then(function(json) {
-      if (json.status === 'ok') {
-        DATA = json;
-        afficherDashboard(json);
+  fetch(SCRIPT_URL+'?type=login_prof&identifiant='+encodeURIComponent(id)+'&mot_de_passe='+encodeURIComponent(mdp)+'&etablissement='+ETABLISSEMENT+'&t='+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(j.status==='ok'){
+        DATA=j;
+        afficherDashboard(j);
       } else {
-        document.getElementById('login-err').style.display = 'block';
-        btn.disabled = false; btn.textContent = 'Accéder à mon espace →';
+        document.getElementById('login-err').style.display='block';
+        btn.disabled=false;btn.textContent='Accéder à mon espace →';
       }
     })
-    .catch(function() {
-      document.getElementById('login-err').textContent = 'Erreur de connexion. Réessaie.';
-      document.getElementById('login-err').style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Accéder à mon espace →';
+    .catch(function(){
+      document.getElementById('login-err').textContent='Erreur de connexion. Réessaie.';
+      document.getElementById('login-err').style.display='block';
+      btn.disabled=false;btn.textContent='Accéder à mon espace →';
     });
 }
 
-function afficherDashboard(data) {
-  document.getElementById('login-wrap').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
+// ── AFFICHAGE DASHBOARD ──
+function afficherDashboard(data){
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  document.getElementById('dash-prof-name').textContent=data.nom;
+  document.getElementById('dash-classes').textContent=(data.classes||[]).join(' · ');
 
-  document.getElementById('dash-prof-name').textContent = data.nom;
-  document.getElementById('dash-classes').textContent = data.classes.join(' · ');
+  var eleves=data.eleves||[];
 
-  var eleves = data.eleves || [];
+  // KPIs globaux
+  var totalDiag=eleves.length;
+  var totalLacunes=eleves.reduce(function(s,e){return s+(e.nb_lacunes||0);},0);
+  var moy=totalDiag>0?(totalLacunes/totalDiag).toFixed(1):'—';
+  var totalComblees=eleves.reduce(function(s,e){return s+e.nb_validees;},0);
+  var pct=totalLacunes>0?Math.round(totalComblees/totalLacunes*100):0;
+  var totalAlertes=eleves.reduce(function(s,e){return s+e.alertes.length;},0);
 
-  // Calculs globaux
-  var totalLacunes = 0, totalAssignees = 0, totalValidees = 0, totalAlertes = 0;
-  eleves.forEach(function(e) {
-    totalLacunes += (e.nb_lacunes || 0);
-    totalAssignees += (e.nb_fiches_assignees || e.fiches.length);
-    totalValidees += e.nb_validees;
-    totalAlertes += e.alertes.length;
-  });
-  var totalRestantes = totalAssignees - totalValidees;
-
-  document.getElementById('kpi-eleves').textContent = eleves.length || '—';
-  document.getElementById('kpi-lacunes').textContent = totalLacunes || '—';
-  document.getElementById('kpi-validees').textContent = totalValidees || '—';
-  document.getElementById('kpi-restantes').textContent = totalRestantes >= 0 ? totalRestantes : '—';
-  document.getElementById('kpi-alertes').textContent = totalAlertes || '0';
+  document.getElementById('kpi-diagnostiques').textContent=totalDiag||'—';
+  document.getElementById('kpi-lacunes').textContent=totalLacunes||'—';
+  document.getElementById('kpi-moy').textContent=totalDiag>0?moy:'—';
+  document.getElementById('kpi-comblees').textContent=totalComblees||'—';
+  document.getElementById('kpi-pct').textContent=totalLacunes>0?pct+'%':'—';
 
   // Banner alertes
-  if (totalAlertes > 0) {
-    document.getElementById('alert-banner').style.display = 'block';
-    document.getElementById('alert-banner-text').textContent = totalAlertes + ' élève' + (totalAlertes > 1 ? 's bloqués' : ' bloqué') + ' — intervention requise';
+  if(totalAlertes>0){
+    document.getElementById('alert-banner').style.display='block';
+    document.getElementById('alert-banner-text').textContent=totalAlertes+' élève'+(totalAlertes>1?'s bloqués':' bloqué')+' — intervention requise';
   }
 
-  // Classement par nb lacunes (ou echecs si pas de lacunes)
-  var elevesClasses = eleves.slice().sort(function(a, b) {
-    var la = (a.nb_lacunes || 0), lb = (b.nb_lacunes || 0);
-    if (la !== lb) return lb - la;
-    return (b.nb_echecs || 0) - (a.nb_echecs || 0);
-  }).slice(0, 8);
-
-  var maxLacunes = elevesClasses.length > 0 ? (elevesClasses[0].nb_lacunes || elevesClasses[0].nb_echecs || 1) : 1;
-  var classDiv = document.getElementById('classement-difficulte');
-  if (elevesClasses.every(function(e){ return !e.nb_lacunes && !e.nb_echecs; })) {
-    classDiv.innerHTML = '<div class="empty"><div class="empty-title">Données en attente</div><div class="empty-sub">Le classement apparaîtra dès que les diagnostics seront passés.</div></div>';
+  // Cartes classes
+  var classes=data.classes||[];
+  var grid=document.getElementById('classes-grid');
+  if(classes.length===0){
+    grid.innerHTML='<div style="grid-column:1/-1;"><div class="empty"><div class="empty-title">Aucune classe assignée</div></div></div>';
   } else {
-    classDiv.innerHTML = elevesClasses.map(function(e, i) {
-      var score = e.nb_lacunes || e.nb_echecs || 0;
-      var label = e.nb_lacunes ? score + ' lacune' + (score > 1 ? 's' : '') : score + ' échec' + (score > 1 ? 's' : '');
-      return '<div class="rank-row" onclick="showEleve(\'' + e.eleve_id + '\')">'
-        + '<div class="rank-num' + (i < 3 ? ' top' : '') + '">' + (i+1) + '</div>'
-        + '<div><div class="rank-name">' + esc(e.eleve_nom) + '</div><div class="rank-classe">' + esc(e.classe) + '</div></div>'
-        + '<div class="rank-bar-wrap"><div class="rank-bar" style="width:' + Math.round(score/maxLacunes*100) + '%"></div></div>'
-        + '<div class="rank-val">' + label + '</div>'
-        + '</div>';
+    grid.innerHTML=classes.map(function(cl){
+      var elevesClasse=eleves.filter(function(e){return e.classe===cl;});
+      var nbDiag=elevesClasse.length;
+      var nbLacunes=elevesClasse.reduce(function(s,e){return s+(e.nb_lacunes||0);},0);
+      var nbComblees=elevesClasse.reduce(function(s,e){return s+e.nb_validees;},0);
+      var pctCl=nbLacunes>0?Math.round(nbComblees/nbLacunes*100):0;
+      var nbAlertes=elevesClasse.reduce(function(s,e){return s+e.alertes.length;},0);
+      var cardClass=nbAlertes>0?'has-alert':nbDiag>0?'active-classe':'';
+      var pctClass=pctCl>=80?'good':pctCl>=40?'warn':pctCl>0?'danger':'';
+      return '<div class="classe-card '+cardClass+'" onclick="showClasSeDetail(\''+esc(cl)+'\')"><div class="cc-name">'+esc(cl)+'</div><div class="cc-type">Bac Pro / CAP</div>'
+        +'<div class="cc-stats">'
+        +'<div class="cc-stat"><div class="cc-stat-val">'+nbDiag+'</div><div class="cc-stat-lbl">Élèves</div></div>'
+        +'<div class="cc-stat"><div class="cc-stat-val">'+nbComblees+'</div><div class="cc-stat-lbl">Comblées</div></div>'
+        +'<div class="cc-stat '+pctClass+'"><div class="cc-stat-val">'+(nbLacunes>0?pctCl+'%':'—')+'</div><div class="cc-stat-lbl">% comblé</div></div>'
+        +'</div><div class="cc-arrow">→</div></div>';
     }).join('');
   }
 
-  // Alertes
-  var toutesAlertes = [];
-  eleves.forEach(function(e) {
-    e.alertes.forEach(function(a) { toutesAlertes.push({ eleve: e, fiche: a }); });
-  });
-  document.getElementById('badge-alertes').textContent = toutesAlertes.length + ' alerte' + (toutesAlertes.length !== 1 ? 's' : '');
-  var alertesDiv = document.getElementById('alertes-liste');
-  if (toutesAlertes.length === 0) {
-    alertesDiv.innerHTML = '<div class="empty"><div class="empty-title">Aucune alerte</div><div class="empty-sub">Tout va bien pour l\'instant.</div></div>';
+  renderClassement(eleves);
+  renderAlertes(eleves);
+}
+
+function renderClassement(eleves){
+  var sorted=eleves.slice().sort(function(a,b){return(b.nb_lacunes||0)-(a.nb_lacunes||0);}).slice(0,8);
+  var max=sorted.length>0?(sorted[0].nb_lacunes||1):1;
+  var div=document.getElementById('classement-difficulte');
+  if(sorted.every(function(e){return !e.nb_lacunes;})){
+    div.innerHTML='<div class="empty"><div class="empty-title">Données en attente</div><div class="empty-sub">Le classement apparaîtra dès que les diagnostics seront passés.</div></div>';
   } else {
-    alertesDiv.innerHTML = toutesAlertes.map(function(item) {
+    div.innerHTML=sorted.map(function(e,i){
+      var s=e.nb_lacunes||0;
+      return '<div class="rank-row" onclick="showEleve(\''+e.eleve_id+'\')">'
+        +'<div class="rank-num'+(i<3?' top':'')+'">'+( i+1)+'</div>'
+        +'<div><div class="rank-name">'+esc(e.eleve_nom)+'</div><div class="rank-classe">'+esc(e.classe)+'</div></div>'
+        +'<div class="rank-bar-wrap"><div class="rank-bar" style="width:'+Math.round(s/max*100)+'%"></div></div>'
+        +'<div class="rank-val">'+s+' lacune'+(s>1?'s':'')+'</div>'
+        +'</div>';
+    }).join('');
+  }
+}
+
+function renderAlertes(eleves){
+  var toutes=[];
+  eleves.forEach(function(e){e.alertes.forEach(function(a){toutes.push({eleve:e,fiche:a});});});
+  document.getElementById('badge-alertes').textContent=toutes.length+' alerte'+(toutes.length!==1?'s':'');
+  var div=document.getElementById('alertes-liste');
+  if(toutes.length===0){
+    div.innerHTML='<div class="empty"><div class="empty-title">Aucune alerte</div><div class="empty-sub">Tout va bien pour l\'instant.</div></div>';
+  } else {
+    div.innerHTML=toutes.map(function(item){
       return '<div class="alerte-row"><div>'
-        + '<div class="alerte-name">' + esc(item.eleve.eleve_nom) + ' <span style="font-weight:400;color:var(--text3);">· ' + esc(item.eleve.classe) + '</span></div>'
-        + '<div class="alerte-detail">' + esc(item.fiche.theme) + ' · ' + esc(item.fiche.niveau) + '</div>'
-        + '</div><button class="btn-traiter" onclick="traiterAlerte(this,\'' + esc(item.eleve.eleve_id) + '\',\'' + esc(item.fiche.fiche_id) + '\')">Intervention effectuée ✓</button></div>';
+        +'<div class="alerte-name">'+esc(item.eleve.eleve_nom)+' <span style="font-weight:400;color:var(--text3);">· '+esc(item.eleve.classe)+'</span></div>'
+        +'<div class="alerte-detail">'+esc(item.fiche.theme)+' · '+esc(item.fiche.niveau)+'</div>'
+        +'</div><button class="btn-traiter" onclick="traiterAlerte(this,\''+esc(item.eleve.eleve_id)+'\',\''+esc(item.fiche.fiche_id)+'\')">Intervention effectuée ✓</button></div>';
     }).join('');
   }
+}
 
+// ── VUE CLASSE ──
+function showClasSeDetail(cl){
+  currentClasse=cl;
+  document.getElementById('view-principal').style.display='none';
+  document.getElementById('view-eleve').style.display='none';
+  document.getElementById('view-classe').style.display='block';
+  document.getElementById('dc-title').textContent=cl;
   renderTableau(currentSort);
 }
 
-function trierPar(cle) {
-  currentSort = cle;
-  ['lacunes','restant','nom','alertes'].forEach(function(k) {
-    document.getElementById('sort-' + k).classList.toggle('active', k === cle);
+function renderTableau(cle){
+  if(!DATA)return;
+  currentSort=cle;
+  ['lacunes','restant','nom','alertes'].forEach(function(k){
+    document.getElementById('sort-'+k).classList.toggle('active',k===cle);
   });
-  renderTableau(cle);
-}
+  var eleves=DATA.eleves.filter(function(e){return e.classe===currentClasse;});
+  document.getElementById('dc-badge').textContent=eleves.length+' élève'+(eleves.length!==1?'s':'');
 
-function renderTableau(cle) {
-  if (!DATA) return;
-  var eleves = DATA.eleves.slice();
-
-  eleves.sort(function(a, b) {
-    if (cle === 'lacunes') {
-      var d = (b.nb_lacunes || 0) - (a.nb_lacunes || 0);
-      return d !== 0 ? d : (b.nb_echecs || 0) - (a.nb_echecs || 0);
-    }
-    if (cle === 'restant') {
-      var ra = (a.nb_fiches_assignees || a.fiches.length) - a.nb_validees;
-      var rb = (b.nb_fiches_assignees || b.fiches.length) - b.nb_validees;
-      return rb - ra;
-    }
-    if (cle === 'alertes') return (b.alertes.length) - (a.alertes.length);
-    if (cle === 'nom') return (a.eleve_nom || '').localeCompare(b.eleve_nom || '');
+  eleves.sort(function(a,b){
+    if(cle==='lacunes')return(b.nb_lacunes||0)-(a.nb_lacunes||0);
+    if(cle==='restant'){var ra=(a.nb_fiches_assignees||a.fiches.length)-a.nb_validees,rb=(b.nb_fiches_assignees||b.fiches.length)-b.nb_validees;return rb-ra;}
+    if(cle==='alertes')return b.alertes.length-a.alertes.length;
+    if(cle==='nom')return(a.eleve_nom||'').localeCompare(b.eleve_nom||'');
     return 0;
   });
 
-  var tbody = document.getElementById('eleves-tbody');
-  document.getElementById('badge-eleves').textContent = eleves.length + ' élève' + (eleves.length !== 1 ? 's' : '');
-
-  if (eleves.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text3);">Aucun élève pour l\'instant.</td></tr>';
-    return;
+  var tbody=document.getElementById('eleves-tbody');
+  if(eleves.length===0){
+    tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text3);">Aucun élève.</td></tr>';return;
   }
-
-  tbody.innerHTML = eleves.map(function(e) {
-    var assignees = e.nb_fiches_assignees || e.fiches.length;
-    var restantes = assignees - e.nb_validees;
-    var lacunes = e.nb_lacunes || 0;
-
-    // Barre de progression
-    var pct = assignees > 0 ? Math.round(e.nb_validees / assignees * 100) : 0;
-    var progClass = pct >= 80 ? 'prog-fill-green' : pct >= 40 ? 'prog-fill-amber' : 'prog-fill-red';
-    var progBar = '<div class="prog-wrap"><div class="prog-bar"><div class="' + progClass + ' prog-fill" style="width:' + pct + '%"></div></div><span class="prog-label">' + pct + '%</span></div>';
-
-    // Statut
-    var statut;
-    if (e.alertes && e.alertes.length > 0) {
-      statut = '<span class="pill pill-red">Alerte</span>';
-    } else if (assignees > 0 && e.nb_validees === assignees) {
-      statut = '<span class="pill pill-green">À jour</span>';
-    } else if (e.fiches.length === 0 && lacunes > 0) {
-      statut = '<span class="pill pill-gray">Pas commencé</span>';
-    } else {
-      statut = '<span class="pill pill-amber">En cours</span>';
-    }
-
-    // Colonne lacunes : colorée si beaucoup
-    var lacCouleur = lacunes >= 7 ? 'color:var(--red);font-weight:600;' : lacunes >= 4 ? 'color:var(--amber);font-weight:600;' : '';
-    var lacCell = '<span class="td-mono" style="' + lacCouleur + '">' + (lacunes || '—') + '</span>';
-
-    // Fiches restantes : colorée si beaucoup
-    var restCouleur = restantes >= 5 ? 'color:var(--amber);font-weight:600;' : '';
-    var restCell = '<span class="td-mono" style="' + restCouleur + '">' + (assignees > 0 ? restantes : '—') + '</span>';
-
-    return '<tr onclick="showEleve(\'' + e.eleve_id + '\')">'
-      + '<td class="td-name">' + esc(e.eleve_nom) + '</td>'
-      + '<td style="font-size:12px;color:var(--text2);">' + esc(e.classe) + '</td>'
-      + '<td>' + lacCell + '</td>'
-      + '<td class="td-mono">' + (assignees || '—') + '</td>'
-      + '<td class="td-mono">' + e.nb_validees + '</td>'
-      + '<td>' + restCell + '</td>'
-      + '<td style="min-width:120px;">' + progBar + '</td>'
-      + '<td class="td-mono">' + (e.alertes.length || '—') + '</td>'
-      + '<td>' + statut + '</td>'
-      + '<td class="td-arr">→</td>'
-      + '</tr>';
+  tbody.innerHTML=eleves.map(function(e){
+    var assignees=e.nb_fiches_assignees||e.fiches.length;
+    var restantes=assignees-e.nb_validees;
+    var lacunes=e.nb_lacunes||0;
+    var pct=assignees>0?Math.round(e.nb_validees/assignees*100):0;
+    var progClass=pct>=80?'prog-green':pct>=40?'prog-amber':'prog-red';
+    var progBar='<div class="prog-wrap"><div class="prog-bar"><div class="'+progClass+' prog-fill" style="width:'+pct+'%"></div></div><span class="prog-label">'+pct+'%</span></div>';
+    var statut=e.alertes.length>0?'<span class="pill pill-red">Alerte</span>':assignees>0&&e.nb_validees===assignees?'<span class="pill pill-green">À jour</span>':e.fiches.length===0&&lacunes>0?'<span class="pill pill-gray">Pas commencé</span>':'<span class="pill pill-amber">En cours</span>';
+    var lacCol=lacunes>=7?'color:var(--red);font-weight:700;':lacunes>=4?'color:var(--amber);font-weight:700;':'';
+    return '<tr onclick="showEleve(\''+e.eleve_id+'\')">'
+      +'<td class="td-name">'+esc(e.eleve_nom)+'</td>'
+      +'<td class="td-mono" style="'+lacCol+'">'+(lacunes||'—')+'</td>'
+      +'<td class="td-mono">'+(assignees||'—')+'</td>'
+      +'<td class="td-mono">'+e.nb_validees+'</td>'
+      +'<td class="td-mono">'+(assignees>0?restantes:'—')+'</td>'
+      +'<td style="min-width:110px;">'+progBar+'</td>'
+      +'<td class="td-mono">'+(e.alertes.length||'—')+'</td>'
+      +'<td>'+statut+'</td>'
+      +'<td style="color:var(--text3);text-align:right;">→</td>'
+      +'</tr>';
   }).join('');
 }
 
-function traiterAlerte(btn, eleveId, ficheId) {
-  btn.disabled = true;
-  btn.textContent = 'Enregistrement...';
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: JSON.stringify({ type: 'alerte_traitee', eleve_id: eleveId, fiche_id: ficheId, etablissement: ETABLISSEMENT })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function() {
-    btn.textContent = '✓ Traitée';
-    btn.style.background = 'var(--green)';
-  })
-  .catch(function() {
-    btn.disabled = false;
-    btn.textContent = 'Réessayer';
-  });
-}
+function trierPar(cle){renderTableau(cle);}
 
-function showEleve(eleveId) {
-  var eleve = DATA.eleves.find(function(e) { return e.eleve_id === eleveId; });
-  if (!eleve) return;
-  currentEleve = eleve;
-  document.getElementById('view-liste').style.display = 'none';
-  document.getElementById('view-eleve').style.display = 'block';
-
-  var assignees = eleve.nb_fiches_assignees || eleve.fiches.length;
-  var restantes = assignees - eleve.nb_validees;
-  var lacunes = eleve.nb_lacunes || 0;
-
-  document.getElementById('de-name').textContent = eleve.eleve_nom;
-  document.getElementById('de-meta').textContent = 'Classe : ' + eleve.classe;
-  document.getElementById('de-lacunes').textContent = lacunes || '—';
-  document.getElementById('de-assignees').textContent = assignees || '—';
-  document.getElementById('de-validees').textContent = eleve.nb_validees;
-  document.getElementById('de-restantes').textContent = assignees > 0 ? restantes : '—';
-
-  // Liste des lacunes détectées
-  var lacunesListe = eleve.lacunes_liste || [];
-  var panelLacunes = document.getElementById('panel-lacunes-detail');
-  if (lacunesListe.length > 0) {
-    panelLacunes.style.display = 'block';
-    document.getElementById('de-lacunes-liste').innerHTML = '<div class="lacune-tags">'
-      + lacunesListe.map(function(l) { return '<span class="lacune-tag">' + esc(l) + '</span>'; }).join('')
-      + '</div>';
-  } else if (lacunes > 0) {
-    panelLacunes.style.display = 'block';
-    document.getElementById('de-lacunes-liste').innerHTML = '<p style="font-size:13px;color:var(--text3);">' + lacunes + ' lacune' + (lacunes > 1 ? 's' : '') + ' détectée' + (lacunes > 1 ? 's' : '') + ' au diagnostic.</p>';
+// ── VUE ÉLÈVE ──
+function showEleve(eleveId){
+  var eleve=DATA.eleves.find(function(e){return e.eleve_id===eleveId;});
+  if(!eleve)return;
+  currentEleve=eleve;
+  document.getElementById('view-classe').style.display='none';
+  document.getElementById('view-principal').style.display='none';
+  document.getElementById('view-eleve').style.display='block';
+  var assignees=eleve.nb_fiches_assignees||eleve.fiches.length;
+  var restantes=assignees-eleve.nb_validees;
+  var lacunes=eleve.nb_lacunes||0;
+  document.getElementById('de-name').textContent=eleve.eleve_nom;
+  document.getElementById('de-meta').textContent='Classe : '+eleve.classe;
+  document.getElementById('de-lacunes').textContent=lacunes||'—';
+  document.getElementById('de-assignees').textContent=assignees||'—';
+  document.getElementById('de-validees').textContent=eleve.nb_validees;
+  document.getElementById('de-restantes').textContent=assignees>0?restantes:'—';
+  var lacListe=eleve.lacunes_liste||[];
+  var panelLac=document.getElementById('panel-lacunes-detail');
+  if(lacListe.length>0){
+    panelLac.style.display='block';
+    document.getElementById('de-lacunes-liste').innerHTML='<div style="display:flex;flex-wrap:wrap;gap:4px;padding:4px 0;">'+lacListe.map(function(l){return'<span class="lacune-tag">'+esc(l)+'</span>';}).join('')+'</div>';
+  } else if(lacunes>0){
+    panelLac.style.display='block';
+    document.getElementById('de-lacunes-liste').innerHTML='<p style="font-size:13px;color:var(--text3);">'+lacunes+' lacune'+(lacunes>1?'s':'')+' détectée'+(lacunes>1?'s':'')+' au diagnostic.</p>';
+  } else { panelLac.style.display='none'; }
+  var fichesList=document.getElementById('de-fiches');
+  if(eleve.fiches.length===0){
+    fichesList.innerHTML='<div class="empty"><div class="empty-title">Aucune fiche commencée</div><div class="empty-sub">'+lacunes+' lacune'+(lacunes>1?'s':'')+' à combler.</div></div>';
   } else {
-    panelLacunes.style.display = 'none';
-  }
-
-  // Fiches
-  var fichesList = document.getElementById('de-fiches');
-  if (eleve.fiches.length === 0) {
-    fichesList.innerHTML = '<div class="empty"><div class="empty-title">Aucune fiche commencée</div><div class="empty-sub">L\'élève a ' + lacunes + ' lacune' + (lacunes > 1 ? 's' : '') + ' à combler — ' + assignees + ' fiche' + (assignees > 1 ? 's' : '') + ' lui a été assignée.</div></div>';
-  } else {
-    fichesList.innerHTML = eleve.fiches.map(function(f) {
-      var pill = f.statut === 'valide'
-        ? '<span class="pill pill-green">Validée</span>'
-        : f.statut === 'echec_3_tentatives'
-        ? '<span class="pill pill-red">3 échecs</span>'
-        : '<span class="pill pill-amber">En cours</span>';
-      return '<div class="fiche-row">'
-        + '<div><div class="fiche-name">' + esc(f.fiche_id) + '</div>'
-        + '<div class="fiche-meta">' + esc(f.theme) + ' · ' + esc(f.niveau) + ' · Tentative ' + esc(f.tentative_num) + '</div></div>'
-        + '<div style="display:flex;align-items:center;gap:12px;">'
-        + '<span style="font-family:JetBrains Mono,monospace;font-size:12px;color:var(--text3);">' + (f.score_quiz ? f.score_quiz + '/5' : '—') + '</span>'
-        + pill + '</div></div>';
+    fichesList.innerHTML=eleve.fiches.map(function(f){
+      var pill=f.statut==='valide'?'<span class="pill pill-green">Validée</span>':f.statut==='echec_3_tentatives'?'<span class="pill pill-red">3 échecs</span>':'<span class="pill pill-amber">En cours</span>';
+      return '<div class="fiche-row"><div><div class="fiche-name">'+esc(f.fiche_id)+'</div><div class="fiche-meta">'+esc(f.theme)+' · '+esc(f.niveau)+' · Tentative '+esc(f.tentative_num)+'</div></div>'
+        +'<div style="display:flex;align-items:center;gap:12px;"><span style="font-family:DM Mono,monospace;font-size:12px;color:var(--text3);">'+(f.score_quiz?f.score_quiz+'/5':'—')+'</span>'+pill+'</div></div>';
     }).join('');
   }
 }
 
-function showListe() {
-  document.getElementById('view-eleve').style.display = 'none';
-  document.getElementById('view-liste').style.display = 'block';
+function traiterAlerte(btn,eleveId,ficheId){
+  btn.disabled=true;btn.textContent='Enregistrement...';
+  fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({type:'alerte_traitee',eleve_id:eleveId,fiche_id:ficheId,etablissement:ETABLISSEMENT})})
+    .then(function(r){return r.json();})
+    .then(function(){btn.textContent='✓ Traitée';btn.style.background='var(--green)';})
+    .catch(function(){btn.disabled=false;btn.textContent='Réessayer';});
 }
 
-function deconnexion() {
-  DATA = null; currentEleve = null;
-  document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('login-wrap').style.display = 'flex';
-  document.getElementById('login-email').value = '';
-  document.getElementById('btn-login').disabled = false;
-  document.getElementById('btn-login').textContent = 'Accéder à mon espace →';
+function showPrincipal(){
+  document.getElementById('view-classe').style.display='none';
+  document.getElementById('view-eleve').style.display='none';
+  document.getElementById('view-principal').style.display='block';
+}
+function showClasse(){
+  document.getElementById('view-eleve').style.display='none';
+  document.getElementById('view-classe').style.display='block';
 }
 
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function deconnexion(){
+  DATA=null;currentEleve=null;currentClasse=null;
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('login-id').value='';
+  document.getElementById('login-mdp').value='';
+  document.getElementById('btn-login').disabled=false;
+  document.getElementById('btn-login').textContent='Accéder à mon espace →';
 }
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 </script>
 </body>
 </html>

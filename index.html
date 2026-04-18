@@ -3,375 +3,561 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Espace Professeur</title>
+<title>Académie des Maths · Espace Professeur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 :root {
-  --bg:#F5F2EA; --surface:#FFFFFF; --border:#E2DDD4;
-  --navy:#1A2C5B; --navy-l:#EEF1F8; --sidebar:#111827;
-  --text:#111111; --text2:#555555; --text3:#999999;
-  --green:#16A368; --green-l:#E6F7F0;
-  --amber:#D97706; --amber-l:#FEF3E2;
-  --red:#DC2626; --red-l:#FEE2E2;
-  --r:10px; --rl:14px;
+  --bg:#F7F6F3; --bg2:#EFEDE5; --white:#FFFFFF;
+  --border:rgba(0,0,0,0.07); --border-md:rgba(0,0,0,0.12);
+  --navy:#1B2E5E; --navy-l:#EEF1F9; --navy-mid:#2C4A96;
+  --accent:#4A90E2; --accent-l:#E8F1FB;
+  --text:#111111; --text2:#5A5A5A; --text3:#9A9A9A; --text4:#C0C0C0;
+  --green:#15A362; --green-l:#E6F6EE; --green-dark:#0E7348;
+  --amber:#D47B06; --amber-l:#FEF5E2;
+  --red:#D42626; --red-l:#FEECEC;
+  --sidebar-w:66px; --header-h:58px;
+  --r:10px; --rl:14px; --rx:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.55;overflow-x:hidden;}
+
+/* ═══ LOGIN ═══ */
+.login-overlay{position:fixed;inset:0;background:#0F1729;z-index:500;overflow:hidden;}
+.login-overlay::before{content:'';position:absolute;top:-40%;left:-10%;width:70%;height:100%;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(74,144,226,.28) 0%,rgba(74,144,226,.1) 30%,transparent 65%);pointer-events:none;filter:blur(40px);}
+.login-overlay::after{content:'';position:absolute;bottom:-50%;right:-20%;width:80%;height:120%;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(122,184,245,.14) 0%,transparent 60%);pointer-events:none;filter:blur(60px);}
+.login-grain{position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index:1;}
+.login-brand-top{position:absolute;top:1.75rem;left:2rem;display:flex;align-items:center;gap:10px;z-index:10;}
+.login-brand-logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4A90E2 0%,#7AB8F5 100%);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#0F1729;box-shadow:0 0 20px rgba(74,144,226,.3);}
+.login-brand-name{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.85);}
+.login-status{position:absolute;top:1.75rem;right:2rem;display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.4);z-index:10;}
+.login-status-dot{width:6px;height:6px;border-radius:50%;background:#22D37C;animation:statusPulse 2.4s infinite;}
+@keyframes statusPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.6;transform:scale(.9);}}
+.login-split{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 1fr;height:100vh;max-width:1280px;margin:0 auto;align-items:center;padding:0 3rem;gap:4rem;}
+.login-editorial{padding-right:2rem;}
+.login-headline{font-size:58px;line-height:1;letter-spacing:-2.5px;color:#fff;margin-bottom:1.25rem;font-weight:400;}
+.login-headline .serif{font-family:'Instrument Serif',serif;font-style:italic;background:linear-gradient(180deg,#fff 0%,#B8C5E0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin-right:.1em;}
+.login-headline .sans{display:block;font-family:'Sora',sans-serif;font-weight:700;color:#fff;margin-top:.1em;letter-spacing:-2.8px;}
+.login-tagline{font-size:15px;line-height:1.65;color:rgba(255,255,255,.5);max-width:400px;margin-bottom:2.5rem;}
+.login-form-wrap{position:relative;}
+.login-form-wrap::before{content:'';position:absolute;inset:-1px;border-radius:17px;background:linear-gradient(135deg,rgba(74,144,226,.4) 0%,rgba(255,255,255,.04) 40%,rgba(255,255,255,0) 60%,rgba(122,184,245,.15) 100%);z-index:0;}
+.login-wrap{position:relative;background:rgba(22,30,52,.72);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:2.5rem 2.25rem;width:100%;max-width:420px;margin:0 auto;backdrop-filter:blur(16px);z-index:1;}
+.lr-title{font-size:22px;font-weight:600;color:#fff;letter-spacing:-.6px;margin-bottom:.3rem;}
+.lr-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:2rem;}
+.form-field{position:relative;margin-bottom:1.1rem;}
+.form-lbl{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.55rem;display:block;}
+.form-inp{width:100%;height:46px;padding:0 0 0 2px;border:none;border-bottom:1px solid rgba(255,255,255,.12);background:transparent;font-family:'Sora',sans-serif;font-size:14px;color:#fff;outline:none;transition:border-color .25s;}
+.form-inp::placeholder{color:rgba(255,255,255,.2);}
+.form-inp:focus{border-bottom-color:#7AB8F5;}
+.form-err{font-size:11.5px;color:#FF8B8B;display:none;padding:10px 12px;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;margin-bottom:.85rem;}
+.btn-submit{width:100%;height:48px;background:#fff;color:#0F1729;border:none;border-radius:10px;font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(122,184,245,.25);}
+.btn-submit:disabled{background:rgba(255,255,255,.15);color:rgba(255,255,255,.4);cursor:not-allowed;}
+.btn-arrow{transition:transform .2s;}
+.btn-submit:hover .btn-arrow{transform:translateX(3px);}
+.login-version{position:absolute;bottom:1.75rem;right:2rem;z-index:10;font-size:10px;color:rgba(255,255,255,.2);font-family:'JetBrains Mono',monospace;}
+@media(max-width:960px){.login-split{grid-template-columns:1fr;padding:5rem 2rem 2rem;gap:2rem;}.login-editorial{text-align:center;padding-right:0;}.login-headline{font-size:44px;}}
+
+/* ═══ LOADING ═══ */
+.loading-screen{position:fixed;inset:0;background:#0F1729;z-index:450;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.loading-screen.hidden{display:none;}
+.loading-screen::before{content:'';position:absolute;top:-30%;left:-10%;width:70%;height:90%;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(74,144,226,.22) 0%,rgba(74,144,226,.08) 35%,transparent 65%);pointer-events:none;filter:blur(40px);}
+.loading-screen::after{content:'';position:absolute;bottom:-40%;right:-15%;width:75%;height:100%;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(122,184,245,.12) 0%,transparent 60%);pointer-events:none;filter:blur(60px);}
+.loading-grain{position:absolute;inset:0;pointer-events:none;opacity:.25;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index:1;}
+.loading-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.75rem;}
+.loading-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(74,144,226,.25) 0%,rgba(74,144,226,.1) 100%);border:1px solid rgba(74,144,226,.35);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#7AB8F5;box-shadow:0 0 32px rgba(74,144,226,.2);}
+.loading-text{text-align:center;}
+.loading-greeting{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.5rem;}
+.loading-name{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.6px;line-height:1.1;margin-bottom:.35rem;}
+.loading-role{font-size:13px;color:rgba(255,255,255,.4);}
+.loading-bar-wrap{width:240px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+.loading-bar-fill{height:100%;background:linear-gradient(90deg,#4A90E2,#7AB8F5);border-radius:2px;width:0%;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.loading-steps{display:flex;flex-direction:column;gap:9px;}
+.loading-step{display:flex;align-items:center;gap:10px;font-size:11.5px;color:rgba(255,255,255,.28);transition:color .3s;}
+.loading-step.done{color:rgba(255,255,255,.6);}
+.loading-step.active{color:rgba(255,255,255,.9);}
+.loading-step-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0;transition:background .3s;}
+.loading-step.done .loading-step-dot{background:#22D37C;}
+.loading-step.active .loading-step-dot{background:#4A90E2;animation:statusPulse 1s infinite;}
+
+/* ═══ SHELL ═══ */
+.shell{display:none;min-height:100vh;}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--navy);display:flex;flex-direction:column;z-index:300;}
+.sb-logo-wrap{height:var(--header-h);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,.08);}
+.sb-logo{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;}
+.sb-nav{flex:1;padding:1rem .5rem;display:flex;flex-direction:column;gap:6px;}
+.sb-item{position:relative;width:46px;height:46px;margin:0 auto;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s;color:rgba(255,255,255,.5);}
+.sb-item:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.95);}
+.sb-item.active{background:rgba(255,255,255,.14);color:#fff;}
+.sb-item.active::before{content:'';position:absolute;left:-10px;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:0 3px 3px 0;}
+.sb-ico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.sb-tooltip{position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);background:#111;color:#fff;font-size:11.5px;font-weight:500;padding:5px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;z-index:400;}
+.sb-item:hover .sb-tooltip{opacity:1;}
+.sb-badge{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid var(--navy);display:none;}
+.sb-badge.visible{display:block;}
+.sb-bottom{padding:.75rem .5rem;border-top:1px solid rgba(255,255,255,.08);}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar-w);min-height:100vh;display:flex;flex-direction:column;}
+
+/* ═══ TOPBAR ═══ */
+.topbar{height:var(--header-h);background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:90;gap:1.5rem;}
+.breadcrumb{display:flex;align-items:center;gap:7px;font-size:12px;}
+.bc-item{font-size:12px;color:var(--text3);cursor:pointer;transition:color .15s;}
+.bc-item:hover{color:var(--text2);}
+.bc-item.current{color:var(--text);font-weight:500;cursor:default;}
+.bc-sep{color:var(--text4);font-size:11px;}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.tb-sync{display:flex;align-items:center;gap:6px;padding:0 10px;height:28px;border-radius:14px;background:var(--bg);font-size:10.5px;color:var(--text3);}
+.sync-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.sync-dot.loading{background:var(--amber);animation:pulse .8s infinite;}
+.sync-dot.live{background:var(--green);}
+.sync-dot.error{background:var(--red);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.btn-icon{width:34px;height:34px;border-radius:var(--r);border:1px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .15s;}
+.btn-icon:hover{background:var(--bg);color:var(--text);}
+.btn-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.tb-user{display:flex;align-items:center;gap:9px;padding:0 6px 0 10px;border-left:1px solid var(--border);margin-left:4px;height:28px;}
+.tb-avatar{width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
+.tb-uname{font-size:12px;font-weight:500;color:var(--text2);}
+.tb-logout{font-size:10.5px;color:var(--text3);cursor:pointer;border:none;background:transparent;margin-left:4px;font-family:'Sora',sans-serif;transition:color .15s;}
+.tb-logout:hover{color:var(--text);}
+
+/* ═══ CONTENT ═══ */
+.content{flex:1;padding:1.75rem 2rem 3rem;max-width:1200px;width:100%;margin:0 auto;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .section{display:none;animation:fadeIn .2s ease;}
 .section.active{display:block;}
+.page-header{margin-bottom:1.5rem;}
+.page-title{font-size:26px;font-weight:800;color:var(--text);letter-spacing:-.8px;margin-bottom:.3rem;}
+.page-sub{font-size:13px;color:var(--text3);}
+.back-btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;background:var(--white);border:1px solid var(--border-md);padding:6px 14px;border-radius:var(--r);margin-bottom:1.25rem;transition:all .15s;font-family:'Sora',sans-serif;}
+.back-btn:hover{border-color:var(--navy);color:var(--navy);}
 
-/* TOPBAR */
-#app-header{background:var(--sidebar);padding:.875rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-.sync-dot{width:5px;height:5px;border-radius:50%;}
-.sync-dot.live{background:#22C55E;}
-.sync-dot.loading{background:#F59E0B;animation:blink .6s infinite;}
-.sync-dot.error{background:var(--red);}
+/* ═══ HERO ═══ */
+.hero{position:relative;background:var(--navy);border-radius:var(--rx);padding:2.25rem 2.75rem;margin-bottom:1.75rem;overflow:hidden;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(74,144,226,.35) 0%,transparent 70%);pointer-events:none;}
+.hero-left{position:relative;z-index:2;}
+.hero-kicker{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);display:inline-flex;align-items:center;gap:7px;margin-bottom:.75rem;}
+.hero-kicker::before{content:'';display:inline-block;width:18px;height:1.5px;background:rgba(255,255,255,.3);}
+.hero-title{font-size:36px;font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:.5rem;}
+.hero-title .highlight{background:linear-gradient(135deg,#4A90E2 0%,#7AB8F5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+.hero-right{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem;}
+.hero-date-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--rl);padding:.875rem 1.25rem;text-align:right;min-width:180px;}
+.hero-date-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.35rem;}
+.hero-date-value{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px;}
+.hero-live{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:rgba(255,255,255,.5);}
+.hero-live-dot{width:6px;height:6px;border-radius:50%;background:#22D37C;animation:statusPulse 2.4s infinite;}
 
-/* MAIN */
-.main{padding:2rem 2.75rem;max-width:1100px;margin:0 auto;}
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
-.topbar-title{font-size:21px;font-weight:800;letter-spacing:-.5px;}
-.topbar-sub{font-size:12px;color:var(--text3);margin-top:2px;}
-.btn-ref{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:7px 14px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;}
-.btn-ref:hover{border-color:var(--navy);color:var(--navy);}
+/* ═══ KPI STRIP ═══ */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem;}
+.kpi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:1.3rem 1.5rem;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.kpi-card:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(0,0,0,.06);}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--navy);opacity:.08;}
+.kpi-card.green::before{background:var(--green);opacity:.25;}
+.kpi-card.amber::before{background:var(--amber);opacity:.25;}
+.kpi-card.red::before{background:var(--red);opacity:.25;}
+.kpi-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.875rem;}
+.kpi-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
+.kpi-ico{width:30px;height:30px;border-radius:8px;background:var(--navy-l);color:var(--navy);display:flex;align-items:center;justify-content:center;}
+.kpi-card.green .kpi-ico{background:var(--green-l);color:var(--green-dark);}
+.kpi-card.amber .kpi-ico{background:var(--amber-l);color:var(--amber);}
+.kpi-card.red .kpi-ico{background:var(--red-l);color:var(--red);}
+.kpi-ico svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.kpi-value{font-size:44px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-2px;margin-bottom:4px;}
+.kpi-card.green .kpi-value{color:var(--green-dark);}
+.kpi-card.amber .kpi-value{color:var(--amber);}
+.kpi-card.red .kpi-value{color:var(--red);}
+.kpi-trend{font-size:11px;color:var(--text3);}
 
-/* ALERT */
-.alert-banner{display:none;background:var(--red-l);border-left:3px solid var(--red);border-radius:0 var(--r) var(--r) 0;padding:10px 14px;margin-bottom:1.5rem;}
-.ab-inner{display:flex;align-items:center;gap:9px;}
-.ab-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1s infinite;flex-shrink:0;}
-.ab-txt{font-size:12px;font-weight:600;color:var(--red);}
-.ab-sub{font-size:10px;color:#B91C1C;margin-top:1px;}
-
-/* HERO CARD */
-.hero-card{display:grid;grid-template-columns:auto 1fr 1fr;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:2rem;}
-.hero-cell{padding:2rem 2.25rem;}
-.hero-cell+.hero-cell{border-left:1px solid var(--border);}
-.hero-big{font-size:64px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-3px;}
-.hero-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-top:6px;}
-/* PIE */
-.pie-wrap{position:relative;width:120px;height:120px;flex-shrink:0;}
-.pie-wrap svg{transform:rotate(-90deg);}
-.pie-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.pie-pct{font-size:20px;font-weight:900;color:var(--navy);line-height:1;}
-.pie-sub{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
-.leg-item{display:flex;align-items:center;gap:8px;margin-bottom:.4rem;}
-.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
-.leg-txt{font-size:12px;color:var(--text2);}
-.leg-pct{font-size:13px;font-weight:700;color:var(--text);margin-left:auto;font-family:'DM Mono',monospace;}
-
-/* CLASSES */
-.classes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:2rem;}
-.classe-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
-.classe-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,44,91,.1);}
-.classe-card.has-alert{border-color:rgba(220,38,38,.3);}
-.classe-card.pending{opacity:.65;}
-.cc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem;}
-.cc-name{font-size:16px;font-weight:800;color:var(--navy);}
-.cc-type{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-top:2px;}
-.cc-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;}
-.badge-green{background:var(--green-l);color:var(--green);}
-.badge-gray{background:var(--bg);color:var(--text3);border:1px solid var(--border);}
-.badge-red{background:var(--red-l);color:var(--red);}
-.cc-pie-row{display:flex;align-items:center;gap:12px;margin-bottom:.75rem;}
-.cc-pie{position:relative;width:52px;height:52px;flex-shrink:0;}
-.cc-pie svg{transform:rotate(-90deg);}
-.cc-pie-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.cc-pie-pct{font-size:11px;font-weight:900;color:var(--navy);}
-.cc-info-val{font-size:22px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.5px;}
-.cc-info-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-top:2px;}
-.cc-prog-track{height:4px;background:#E8E4DC;border-radius:2px;overflow:hidden;margin-top:.75rem;}
+/* ═══ CLASSES GRID ═══ */
+.classes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:1.75rem;}
+.classe-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.classe-card:hover{border-color:var(--navy-mid);transform:translateY(-2px);box-shadow:0 6px 20px rgba(27,46,94,.09);}
+.classe-card.has-alert{border-color:rgba(212,38,38,.25);}
+.cc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
+.cc-name{font-size:16px;font-weight:700;color:var(--navy);}
+.cc-type{font-size:10px;color:var(--text3);margin-top:2px;}
+.badge-alert{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--red-l);color:var(--red);}
+.badge-ok{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--green-l);color:var(--green-dark);}
+.badge-wait{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--bg);color:var(--text3);border:1px solid var(--border-md);}
+.cc-ring-row{display:flex;align-items:center;gap:14px;margin-bottom:.875rem;}
+.cc-ring{position:relative;width:54px;height:54px;flex-shrink:0;}
+.cc-ring svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:var(--bg2);stroke-width:8;}
+.ring-fill{fill:none;stroke:var(--green);stroke-width:8;stroke-linecap:butt;}
+.ring-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.ring-pct{font-size:11px;font-weight:700;color:var(--navy);}
+.cc-vals{flex:1;}
+.cc-main-val{font-size:22px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.6px;}
+.cc-main-lbl{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-top:2px;}
+.cc-prog-track{height:3.5px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-bottom:.25rem;}
 .cc-prog-fill{height:100%;background:var(--green);border-radius:2px;}
-.cc-prog-txt{font-size:9px;color:var(--text3);margin-top:4px;}
-.cc-arrow{position:absolute;bottom:14px;right:14px;font-size:14px;color:var(--text3);transition:all .18s;}
+.cc-prog-txt{font-size:10px;color:var(--text3);}
+.cc-arrow{position:absolute;bottom:14px;right:16px;font-size:14px;color:var(--text3);transition:all .18s;}
 .classe-card:hover .cc-arrow{color:var(--navy);transform:translateX(3px);}
 
-/* DETAIL */
-.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;padding:0;transition:color .15s;margin-bottom:1.5rem;}
-.back-btn:hover{color:var(--text);}
-.back-btn::before{content:'←';font-size:14px;}
-.detail-title{font-size:26px;font-weight:900;color:var(--text);letter-spacing:-.7px;}
-.detail-sub{font-size:12px;color:var(--text3);margin-top:2px;margin-bottom:1.75rem;}
-.detail-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:1.75rem;}
-.dkpi{background:var(--surface);padding:1.1rem 1.4rem;}
-.dkpi-val{font-size:32px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-1.2px;margin-bottom:2px;}
-.dkpi-lbl{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
-
-/* TABLE */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem 1.75rem;margin-bottom:1.5rem;}
-.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
-.panel-title{font-size:14px;font-weight:700;}
-.pbadge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:10px;border:1px solid;}
-.pbadge-gray{background:var(--bg);color:var(--text3);border-color:var(--border);}
-.sort-bar{display:flex;align-items:center;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
-.sort-lbl{font-size:11px;color:var(--text3);font-weight:500;}
-.sort-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+/* ═══ PANEL / TABLE ═══ */
+.panel{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:0;margin-bottom:1.25rem;overflow:hidden;}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;border-bottom:1px solid var(--border);}
+.panel-title{font-size:13.5px;font-weight:700;}
+.pbadge{font-size:10px;font-weight:600;padding:3px 11px;border-radius:11px;background:var(--bg);color:var(--text3);border:1px solid var(--border-md);}
+.sort-bar{display:flex;align-items:center;gap:6px;padding:.875rem 1.4rem;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.sort-lbl{font-size:11px;color:var(--text3);font-weight:500;margin-right:2px;}
+.sort-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border-md);background:var(--bg);color:var(--text2);cursor:pointer;font-family:'Sora',sans-serif;transition:all .15s;}
 .sort-btn:hover{border-color:var(--navy);color:var(--navy);}
 .sort-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
-th{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:0 0 9px;text-align:left;border-bottom:1px solid var(--border);}
-td{padding:12px 0;font-size:12px;color:var(--text2);border-bottom:1px solid #F0ECE4;vertical-align:middle;}
-th:not(:first-child),td:not(:first-child){padding-left:14px;}
+th{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:11px 16px;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:12px 16px;font-size:12.5px;color:var(--text2);border-bottom:1px solid #F2EFE8;vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
-tbody tr{cursor:pointer;}
-tbody tr:hover td{background:#F8F5EF;}
+tr:hover td{background:#FDFCF9;}
 .td-name{color:var(--text);font-weight:600;font-size:13px;}
-.td-mono{font-family:'DM Mono',monospace;font-size:11px;}
-.bar-wrap{display:flex;align-items:center;gap:7px;}
-.bar-track{width:64px;height:4px;background:#E8E4DC;border-radius:2px;overflow:hidden;flex-shrink:0;}
-.bar-fill{height:100%;border-radius:2px;}
-.pill{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;}
+.td-mono{font-family:'JetBrains Mono',monospace;font-size:11px;}
+.pill{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:11px;font-size:10px;font-weight:600;}
 .pill::before{content:'';width:4px;height:4px;border-radius:50%;flex-shrink:0;}
-.pill-green{background:var(--green-l);color:var(--green);}.pill-green::before{background:var(--green);}
+.pill-green{background:var(--green-l);color:var(--green-dark);}.pill-green::before{background:var(--green);}
 .pill-amber{background:var(--amber-l);color:var(--amber);}.pill-amber::before{background:var(--amber);}
-.pill-red{background:var(--red-l);color:var(--red);}.pill-red::before{background:var(--red);animation:blink .8s infinite;}
-.pill-gray{background:var(--bg);color:var(--text3);}.pill-gray::before{background:var(--text3);}
+.pill-red{background:var(--red-l);color:var(--red);}.pill-red::before{background:var(--red);animation:pulse .8s infinite;}
+.pill-gray{background:var(--bg);color:var(--text3);border:1px solid var(--border);}.pill-gray::before{background:var(--text3);}
 .pill-navy{background:var(--navy-l);color:var(--navy);}.pill-navy::before{background:var(--navy);}
-
-/* EVAL SCORE ROW */
-.eval-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #F0ECE4;}
-.eval-row:last-child{border-bottom:none;}
-.eval-name{font-size:12px;font-weight:600;color:var(--text);}
-.fiche-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F0ECE4;}
+.bar-wrap{display:flex;align-items:center;gap:8px;}
+.bar-track{width:70px;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;flex-shrink:0;}
+.bar-fill{height:100%;border-radius:2px;}
+.empty{padding:2.5rem;text-align:center;color:var(--text3);font-size:12px;}
+.fiche-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F2EFE8;}
 .fiche-row:last-child{border-bottom:none;}
-.fiche-name{font-size:12px;font-weight:600;color:var(--text);}
-.fiche-meta{font-size:10px;color:var(--text3);margin-top:1px;}
-.btn-traiter{background:var(--navy);color:#fff;border:none;padding:5px 12px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
-.btn-traiter:hover{background:#243d80;}
-.btn-traiter:disabled{background:var(--green);cursor:default;}
-.empty{padding:2rem;text-align:center;color:var(--text3);font-size:12px;}
+.fr-name{font-size:12.5px;font-weight:600;color:var(--text);}
+.fr-sub{font-size:10px;color:var(--text3);margin-top:2px;}
+.eval-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F2EFE8;}
+.eval-row:last-child{border-bottom:none;}
 
-/* LOGIN */
-.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;}
-.login-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,.1);}
-.login-logo{width:44px;height:44px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;margin-bottom:1.25rem;}
-.login-title{font-size:20px;font-weight:800;color:var(--text);margin-bottom:.25rem;letter-spacing:-.4px;}
-.login-sub{font-size:12px;color:var(--text3);margin-bottom:1.75rem;line-height:1.5;}
-.login-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:.35rem;display:block;}
-.login-inp{width:100%;height:42px;padding:0 13px;border:1.5px solid var(--border);border-radius:var(--r);font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:var(--bg);outline:none;transition:all .2s;margin-bottom:.875rem;}
-.login-inp:focus{border-color:var(--navy);background:#fff;}
-.login-err{font-size:11px;color:var(--red);margin-bottom:.625rem;display:none;}
-.btn-login{width:100%;height:42px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
-.btn-login:hover{background:#243d80;}
-.btn-login:disabled{background:#8a9fc5;cursor:not-allowed;}
+/* ═══ DETAIL KPIS ═══ */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:1.5rem;}
+.kpi-cell{background:var(--white);padding:1.15rem 1.4rem;}
+.kpi-val{font-size:32px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-1.3px;margin-bottom:3px;}
+.kpi-lbl{font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
+
+/* ═══ ALERTES ═══ */
+.alerte-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:var(--r);padding:1.25rem 1.4rem;margin-bottom:1rem;display:grid;grid-template-columns:1fr auto;align-items:center;gap:1rem;}
+.alerte-card:last-child{margin-bottom:0;}
+.alerte-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:.25rem;}
+.alerte-meta{font-size:11px;color:var(--text3);}
+.alerte-conseil{font-size:11.5px;color:var(--text2);margin-top:.5rem;line-height:1.5;padding:.5rem .75rem;background:var(--amber-l);border-radius:var(--r);}
+.btn-traiter{background:var(--navy);color:#fff;border:none;padding:7px 16px;border-radius:var(--r);font-family:'Sora',sans-serif;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.btn-traiter:hover{background:var(--navy-mid);}
+.btn-traiter:disabled{background:var(--green);cursor:default;}
+
+/* ═══ STATS VIDE ═══ */
+.stats-empty{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:3rem 2rem;text-align:center;}
+.stats-empty-ico{font-size:32px;margin-bottom:1rem;}
+.stats-empty-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:.5rem;}
+.stats-empty-sub{font-size:13px;color:var(--text3);line-height:1.6;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-screen" id="login-screen">
-  <div class="login-card">
-    <div class="login-logo">P</div>
-    <div class="login-title">Espace professeur</div>
-    <div class="login-sub">Connectez-vous pour accéder au suivi de vos classes.</div>
-    <label class="login-lbl">Identifiant</label>
-    <input class="login-inp" type="text" id="login-id" placeholder="Votre identifiant">
-    <label class="login-lbl">Mot de passe</label>
-    <input class="login-inp" type="password" id="login-mdp" placeholder="••••••••">
-    <div class="login-err" id="login-err">Identifiant ou mot de passe incorrect.</div>
-    <button class="btn-login" id="btn-login" onclick="connexion()">Accéder →</button>
+<!-- ══ LOGIN ══ -->
+<div class="login-overlay" id="login-screen">
+  <div class="login-grain"></div>
+  <div class="login-brand-top">
+    <div class="login-brand-logo">AM</div>
+    <div class="login-brand-name">Diagnostic et remédiation mathématiques</div>
+  </div>
+  <div class="login-status">
+    <div class="login-status-dot"></div>
+    <span>Plateforme en ligne</span>
+  </div>
+  <div class="login-split">
+    <div class="login-editorial">
+      <h1 class="login-headline">
+        <span class="serif">Espace</span>
+        <span class="sans">Professeur</span>
+      </h1>
+      <p class="login-tagline">Suivez la progression de vos élèves et intervenez au bon moment.</p>
+    </div>
+    <div class="login-form-wrap">
+      <div class="login-wrap">
+        <div class="lr-title">Bienvenue</div>
+        <div class="lr-sub">Connectez-vous pour accéder à votre espace.</div>
+        <div class="form-field">
+          <label class="form-lbl">Identifiant</label>
+          <input class="form-inp" type="text" id="login-id" placeholder="Votre identifiant">
+        </div>
+        <div class="form-field">
+          <label class="form-lbl">Mot de passe</label>
+          <input class="form-inp" type="password" id="login-mdp" placeholder="••••••••">
+        </div>
+        <div class="form-err" id="login-err">Identifiant ou mot de passe incorrect.</div>
+        <button class="btn-submit" id="btn-login" onclick="connexion()">
+          <span>Accéder à mon espace</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="login-version">v1.0 · 2026</div>
+</div>
+
+<!-- ══ LOADING ══ -->
+<div class="loading-screen hidden" id="loading-screen">
+  <div class="loading-grain"></div>
+  <div class="loading-inner">
+    <div class="loading-avatar" id="loading-avatar">AR</div>
+    <div class="loading-text">
+      <div class="loading-greeting">Bienvenue</div>
+      <div class="loading-name" id="loading-name">—</div>
+      <div class="loading-role" id="loading-role">Professeur de mathématiques</div>
+    </div>
+    <div class="loading-bar-wrap">
+      <div class="loading-bar-fill" id="loading-bar"></div>
+    </div>
+    <div class="loading-steps">
+      <div class="loading-step" id="lstep-1">
+        <div class="loading-step-dot"></div>
+        <span>Évaluations diagnostiques</span>
+      </div>
+      <div class="loading-step" id="lstep-2">
+        <div class="loading-step-dot"></div>
+        <span>Données de remédiation</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<div id="shell" style="display:none;">
-<!-- TOPBAR -->
-<div id="app-header">
-  <div style="display:flex;align-items:center;gap:10px;">
-    <div style="width:30px;height:30px;border-radius:7px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;">P</div>
-    <div>
-      <div style="font-size:12px;font-weight:700;color:#fff;" id="sb-nom">—</div>
-      <div style="font-size:10px;color:rgba(255,255,255,.35);" id="sb-classes">—</div>
-    </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:16px;">
-    <div style="display:flex;align-items:center;gap:6px;">
-      <div class="sync-dot loading" id="sync-dot"></div>
-      <span style="font-size:10px;color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;" id="sync-txt">Chargement...</span>
-    </div>
-    <span style="font-size:10px;color:rgba(255,255,255,.3);cursor:pointer;text-decoration:underline;" onclick="deconnexion()">Déconnexion</span>
-  </div>
-</div>
+<!-- ══ SHELL ══ -->
+<div class="shell" id="shell">
 
-<main class="main">
-
-  <!-- ALERTE -->
-  <div class="alert-banner" id="alert-banner">
-    <div class="ab-inner"><div class="ab-dot"></div>
-      <div><div class="ab-txt" id="ab-txt">—</div><div class="ab-sub">Élèves bloqués après 3 tentatives — intervention requise.</div></div>
+  <nav class="sidebar">
+    <div class="sb-logo-wrap"><div class="sb-logo">AM</div></div>
+    <div class="sb-nav">
+      <div class="sb-item active" id="sb-accueil" onclick="navVers('accueil')">
+        <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div>
+        <div class="sb-tooltip">Accueil</div>
+      </div>
+      <div class="sb-item" id="sb-classes" onclick="navVers('classes')">
+        <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="sb-tooltip">Mes classes</div>
+      </div>
+      <div class="sb-item" id="sb-alertes" onclick="navVers('alertes')">
+        <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div class="sb-tooltip">Alertes</div>
+        <div class="sb-badge" id="sb-badge-alertes"></div>
+      </div>
+      <div class="sb-item" id="sb-stats" onclick="navVers('stats')">
+        <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M3 20h18M7 16V8m5 8V4m5 12v-6"/></svg></div>
+        <div class="sb-tooltip">Statistiques</div>
+      </div>
     </div>
-  </div>
+    <div class="sb-bottom">
+      <div class="sb-item" onclick="deconnexion()">
+        <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+        <div class="sb-tooltip">Déconnexion</div>
+      </div>
+    </div>
+  </nav>
 
-  <!-- ACCUEIL -->
-  <div class="section active" id="accueil">
+  <div class="main">
     <div class="topbar">
-      <div><div class="topbar-title">Mes classes</div><div class="topbar-sub" id="topbar-sub-accueil">—</div></div>
-      <button class="btn-ref" onclick="chargerDonnees()">↻ Actualiser</button>
-    </div>
-
-    <!-- Hero : 3 données visuelles -->
-    <div class="hero-card">
-      <!-- Nb élèves -->
-      <div class="hero-cell" style="text-align:center;">
-        <div class="hero-big" id="kpi-evalues">—</div>
-        <div class="hero-lbl">Élèves évalués</div>
+      <div class="breadcrumb" id="breadcrumb">
+        <span class="bc-item current">Accueil</span>
       </div>
-      <!-- Camembert -->
-      <div class="hero-cell" style="display:flex;align-items:center;gap:1.5rem;">
-        <div class="pie-wrap">
-          <svg viewBox="0 0 120 120" width="120" height="120">
-            <circle fill="none" stroke="#EF4444" stroke-width="18" cx="60" cy="60" r="46"/>
-            <circle fill="none" stroke="var(--green)" stroke-width="18" cx="60" cy="60" r="46"
-              stroke-dasharray="289" stroke-dashoffset="289" id="pie-acquis"
-              style="transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1);stroke-linecap:butt;"/>
-          </svg>
-          <div class="pie-inner">
-            <div class="pie-pct" id="pie-pct">—</div>
-            <div class="pie-sub">acquis</div>
-          </div>
+      <div class="tb-right">
+        <div class="tb-sync">
+          <div class="sync-dot loading" id="sync-dot"></div>
+          <span id="sync-txt">Chargement...</span>
         </div>
-        <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:.75rem;">Lacunes / Acquis</div>
-          <div class="leg-item">
-            <div class="leg-dot" style="background:var(--green);"></div>
-            <span class="leg-txt">Notions acquises</span>
-            <span class="leg-pct" id="leg-acquis">—</span>
-          </div>
-          <div class="leg-item">
-            <div class="leg-dot" style="background:#EF4444;"></div>
-            <span class="leg-txt">Lacunes</span>
-            <span class="leg-pct" id="leg-lacunes">—</span>
-          </div>
+        <button class="btn-icon" onclick="chargerDonnees()" title="Actualiser">
+          <svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </button>
+        <div class="tb-user">
+          <div class="tb-avatar" id="tb-avatar">AR</div>
+          <div class="tb-uname" id="tb-uname">Professeur</div>
+          <button class="tb-logout" onclick="deconnexion()">Déconnexion</button>
         </div>
-      </div>
-      <!-- Progression -->
-      <div class="hero-cell">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:.5rem;">Progression depuis le début</div>
-        <div style="font-size:48px;font-weight:900;color:var(--green);line-height:1;letter-spacing:-2px;margin-bottom:.5rem;" id="prog-pct">—</div>
-        <div style="height:8px;background:#E8E4DC;border-radius:4px;overflow:hidden;margin-bottom:.4rem;">
-          <div id="prog-fill" style="height:100%;background:var(--green);border-radius:4px;transition:width 1s;width:0%;"></div>
-        </div>
-        <div style="font-size:11px;color:var(--text3);" id="prog-note">—</div>
       </div>
     </div>
 
-    <!-- Cartes classes -->
-    <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:.875rem;">Mes classes</div>
-    <div class="classes-grid" id="classes-grid"></div>
+    <div class="content">
+
+      <!-- ══ ACCUEIL ══ -->
+      <div class="section active" id="section-accueil">
+        <div class="hero">
+          <div class="hero-left">
+            <div class="hero-kicker">Tableau de bord · Remédiation maths</div>
+            <div class="hero-title">Bonjour, <span class="highlight" id="hero-nom">—</span></div>
+            <div class="hero-sub" id="hero-sub">Vos classes · Lycée Benoît Fourneyron</div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-date-card">
+              <div class="hero-date-label">Aujourd'hui</div>
+              <div class="hero-date-value" id="hero-date">—</div>
+            </div>
+            <div class="hero-live">
+              <div class="hero-live-dot"></div>
+              <span>Données en temps réel</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-card">
+            <div class="kpi-head">
+              <div class="kpi-label">Élèves évalués</div>
+              <div class="kpi-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            </div>
+            <div class="kpi-value" id="kpi-evalues">—</div>
+            <div class="kpi-trend" id="kpi-evalues-sub">—</div>
+          </div>
+          <div class="kpi-card amber">
+            <div class="kpi-head">
+              <div class="kpi-label">Fiches assignées</div>
+              <div class="kpi-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            </div>
+            <div class="kpi-value" id="kpi-assignees">—</div>
+            <div class="kpi-trend" id="kpi-assignees-sub">—</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-head">
+              <div class="kpi-label">Fiches validées</div>
+              <div class="kpi-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="kpi-value" id="kpi-validees">—</div>
+            <div class="kpi-trend" id="kpi-validees-sub">—</div>
+          </div>
+          <div class="kpi-card red">
+            <div class="kpi-head">
+              <div class="kpi-label">Alertes actives</div>
+              <div class="kpi-ico"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+            </div>
+            <div class="kpi-value" id="kpi-alertes">—</div>
+            <div class="kpi-trend" id="kpi-alertes-sub">—</div>
+          </div>
+        </div>
+
+        <div class="page-header">
+          <div class="page-title" style="font-size:18px;">Mes classes</div>
+        </div>
+        <div class="classes-grid" id="classes-grid-accueil"></div>
+      </div>
+
+      <!-- ══ MES CLASSES ══ -->
+      <div class="section" id="section-classes">
+        <div id="view-liste-classes">
+          <div class="page-header">
+            <div class="page-title">Mes classes</div>
+            <div class="page-sub" id="classes-sub">—</div>
+          </div>
+          <div class="classes-grid" id="classes-grid-section"></div>
+        </div>
+
+        <div id="view-detail-classe" style="display:none;">
+          <button class="back-btn" onclick="retourClasses()">← Retour aux classes</button>
+          <div class="page-header">
+            <div class="page-title" id="dc-title">—</div>
+            <div class="page-sub" id="dc-sub">—</div>
+          </div>
+          <div class="kpi-row">
+            <div class="kpi-cell"><div class="kpi-val" id="dc-evalues">—</div><div class="kpi-lbl">Évalués</div></div>
+            <div class="kpi-cell"><div class="kpi-val" id="dc-assignees">—</div><div class="kpi-lbl">Assignées</div></div>
+            <div class="kpi-cell"><div class="kpi-val" id="dc-validees">—</div><div class="kpi-lbl">Validées</div></div>
+            <div class="kpi-cell"><div class="kpi-val" id="dc-alertes">—</div><div class="kpi-lbl">Alertes</div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-hdr">
+              <div class="panel-title">Élèves</div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="pbadge" id="dc-badge">—</span>
+              </div>
+            </div>
+            <div class="sort-bar">
+              <span class="sort-lbl">Trier :</span>
+              <button class="sort-btn active" id="sort-assignees" onclick="trierPar('assignees')">Fiches ↓</button>
+              <button class="sort-btn" id="sort-restant" onclick="trierPar('restant')">Restantes ↓</button>
+              <button class="sort-btn" id="sort-alertes" onclick="trierPar('alertes')">Alertes ↓</button>
+              <button class="sort-btn" id="sort-nom" onclick="trierPar('nom')">Nom A→Z</button>
+            </div>
+            <div class="table-wrap">
+              <table><thead><tr><th>Élève</th><th>Éval.</th><th>Assignées</th><th>Validées</th><th>Restantes</th><th>Progression</th><th>Alertes</th><th>Statut</th><th></th></tr></thead>
+              <tbody id="eleves-tbody"></tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <div id="view-detail-eleve" style="display:none;">
+          <button class="back-btn" onclick="retourDetailClasse()">← Retour à la classe</button>
+          <div class="page-header">
+            <div class="page-title" id="de-title">—</div>
+            <div class="page-sub" id="de-sub">—</div>
+          </div>
+          <div class="kpi-row">
+            <div class="kpi-cell"><div class="kpi-val" id="due-assignees">—</div><div class="kpi-lbl">Assignées</div></div>
+            <div class="kpi-cell"><div class="kpi-val" id="due-validees" style="color:var(--green-dark);">—</div><div class="kpi-lbl">Validées</div></div>
+            <div class="kpi-cell"><div class="kpi-val" id="due-restantes" style="color:var(--amber);">—</div><div class="kpi-lbl">Restantes</div></div>
+            <div class="kpi-cell"><div class="kpi-val" id="due-alertes" style="color:var(--red);">—</div><div class="kpi-lbl">Alertes</div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-hdr">
+              <div class="panel-title">Résultats · Évaluation diagnostique · Fractions</div>
+              <span class="pbadge" id="due-date">—</span>
+            </div>
+            <div id="due-eval"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-hdr"><div class="panel-title">Fiches de remédiation</div></div>
+            <div id="due-fiches"></div>
+          </div>
+          <div class="panel" id="due-panel-alertes" style="display:none;">
+            <div class="panel-hdr">
+              <div class="panel-title">Interventions requises</div>
+              <span class="pbadge" style="background:var(--red-l);color:var(--red);border-color:rgba(212,38,38,.2);">⚠ Bloqué</span>
+            </div>
+            <div id="due-alertes-list" style="padding:0 1.4rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ALERTES ══ -->
+      <div class="section" id="section-alertes">
+        <div class="page-header">
+          <div class="page-title">Alertes</div>
+          <div class="page-sub">Élèves bloqués après 3 tentatives — une intervention de votre part est recommandée.</div>
+        </div>
+        <div id="alertes-container">
+          <div class="empty">Chargement...</div>
+        </div>
+      </div>
+
+      <!-- ══ STATISTIQUES ══ -->
+      <div class="section" id="section-stats">
+        <div class="page-header">
+          <div class="page-title">Statistiques</div>
+          <div class="page-sub">Analyses avancées de vos classes — à venir.</div>
+        </div>
+        <div class="stats-empty">
+          <div class="stats-empty-ico">📊</div>
+          <div class="stats-empty-title">Bientôt disponible</div>
+          <div class="stats-empty-sub">Les statistiques avancées (progression par notion, comparaison entre classes, évolution dans le temps) seront disponibles prochainement.</div>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <!-- DETAIL CLASSE -->
-  <div class="section" id="detail-classe">
-    <div class="topbar">
-      <div><div class="topbar-title" id="dc-title">—</div><div class="topbar-sub" id="dc-sub">—</div></div>
-      <button class="btn-ref" onclick="chargerDonnees()">↻ Actualiser</button>
-    </div>
-    <button class="back-btn" onclick="allerVers('accueil')">Retour à mes classes</button>
-
-    <!-- Mini hero classe -->
-    <div class="hero-card" style="margin-bottom:1.75rem;">
-      <div class="hero-cell" style="text-align:center;">
-        <div class="hero-big" style="font-size:52px;" id="dc-kpi-evalues">—</div>
-        <div class="hero-lbl">Élèves évalués</div>
-      </div>
-      <div class="hero-cell" style="display:flex;align-items:center;gap:1.5rem;">
-        <div class="pie-wrap">
-          <svg viewBox="0 0 120 120" width="120" height="120">
-            <circle fill="none" stroke="#EF4444" stroke-width="18" cx="60" cy="60" r="46"/>
-            <circle fill="none" stroke="var(--green)" stroke-width="18" cx="60" cy="60" r="46"
-              stroke-dasharray="289" stroke-dashoffset="289" id="dc-pie"
-              style="transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1);stroke-linecap:butt;"/>
-          </svg>
-          <div class="pie-inner">
-            <div class="pie-pct" id="dc-pie-pct">—</div>
-            <div class="pie-sub">acquis</div>
-          </div>
-        </div>
-        <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:.75rem;">Lacunes / Acquis</div>
-          <div class="leg-item"><div class="leg-dot" style="background:var(--green);"></div><span class="leg-txt">Acquis</span><span class="leg-pct" id="dc-leg-acquis">—</span></div>
-          <div class="leg-item"><div class="leg-dot" style="background:#EF4444;"></div><span class="leg-txt">Lacunes</span><span class="leg-pct" id="dc-leg-lacunes">—</span></div>
-        </div>
-      </div>
-      <div class="hero-cell">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:.5rem;">Progression remédiation</div>
-        <div style="font-size:48px;font-weight:900;color:var(--green);line-height:1;letter-spacing:-2px;margin-bottom:.5rem;" id="dc-prog-pct">—</div>
-        <div style="height:8px;background:#E8E4DC;border-radius:4px;overflow:hidden;margin-bottom:.4rem;">
-          <div id="dc-prog-fill" style="height:100%;background:var(--green);border-radius:4px;transition:width 1s;width:0%;"></div>
-        </div>
-        <div style="font-size:11px;color:var(--text3);" id="dc-prog-note">—</div>
-      </div>
-    </div>
-
-    <!-- Tableau élèves -->
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">Élèves</div>
-        <span class="pbadge pbadge-gray" id="dc-badge">—</span>
-      </div>
-      <div class="sort-bar">
-        <span class="sort-lbl">Trier par :</span>
-        <button class="sort-btn active" id="sort-assignees" onclick="trierPar('assignees')">Fiches assignées ↓</button>
-        <button class="sort-btn" id="sort-restant" onclick="trierPar('restant')">Restantes ↓</button>
-        <button class="sort-btn" id="sort-nom" onclick="trierPar('nom')">Nom A→Z</button>
-        <button class="sort-btn" id="sort-alertes" onclick="trierPar('alertes')">Alertes ↓</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Élève</th><th>Éval.</th><th>Assignées</th><th>Validées</th><th>Restantes</th><th>Progression</th><th>Alertes</th><th>Statut</th><th></th></tr></thead>
-          <tbody id="eleves-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- DETAIL ELEVE -->
-  <div class="section" id="detail-eleve">
-    <div class="topbar">
-      <div><div class="topbar-title" id="de-title">—</div><div class="topbar-sub" id="de-sub">—</div></div>
-      <button class="btn-ref" onclick="chargerDonnees()">↻ Actualiser</button>
-    </div>
-    <button class="back-btn" onclick="allerVers('detail-classe')">Retour à la classe</button>
-    <div class="detail-kpis">
-      <div class="dkpi"><div class="dkpi-val" id="due-assignees">—</div><div class="dkpi-lbl">Assignées</div></div>
-      <div class="dkpi"><div class="dkpi-val" id="due-validees" style="color:var(--green);">—</div><div class="dkpi-lbl">Validées</div></div>
-      <div class="dkpi"><div class="dkpi-val" id="due-restantes" style="color:var(--amber);">—</div><div class="dkpi-lbl">Restantes</div></div>
-      <div class="dkpi"><div class="dkpi-val" id="due-alertes" style="color:var(--red);">—</div><div class="dkpi-lbl">Alertes</div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-title">Résultats évaluation diagnostique · Fractions</div>
-        <span class="pbadge pbadge-gray" id="due-date">—</span>
-      </div>
-      <div id="due-eval"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-hdr"><div class="panel-title">Fiches de remédiation</div></div>
-      <div id="due-fiches"></div>
-    </div>
-    <!-- Alertes élève -->
-    <div class="panel" id="due-panel-alertes" style="display:none;">
-      <div class="panel-hdr">
-        <div class="panel-title">Interventions requises</div>
-        <span class="pbadge" style="background:var(--red-l);color:var(--red);border-color:rgba(220,38,38,.2);">⚠ Bloqué</span>
-      </div>
-      <div id="due-alertes-list"></div>
-    </div>
-  </div>
-
-</main>
 </div>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
-var ETABLISSEMENT = "Fourneyron";
-var DATA_EVAL = [], DATA_REM = [];
-var mesClasses = [], monNom = "";
-var currentClasse = null, currentSort = 'assignees';
+var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
+var ETABLISSEMENT="Fourneyron";
+var DATA_EVAL=[],DATA_REM=[];
+var mesClasses=[],monNom="";
+var currentClasse=null,currentSort='assignees';
 
-var NOMS_FICHES = {
+var NOMS_FICHES={
   'fractions_comprendre':'Comprendre les fractions',
   'fractions_reconnaitre_egales':'Fractions égales',
   'fractions_irreductible':'Fraction irréductible',
@@ -384,199 +570,262 @@ var NOMS_FICHES = {
   'fractions_division':'Diviser par une fraction'
 };
 
-document.getElementById('login-id').addEventListener('keydown', function(e){ if(e.key==='Enter') connexion(); });
-document.getElementById('login-mdp').addEventListener('keydown', function(e){ if(e.key==='Enter') connexion(); });
+document.getElementById('login-id').addEventListener('keydown',function(e){if(e.key==='Enter')connexion();});
+document.getElementById('login-mdp').addEventListener('keydown',function(e){if(e.key==='Enter')connexion();});
 
 function connexion(){
-  var id = document.getElementById('login-id').value.trim();
-  var mdp = document.getElementById('login-mdp').value;
+  var id=document.getElementById('login-id').value.trim();
+  var mdp=document.getElementById('login-mdp').value;
   if(!id||!mdp) return;
-  var btn = document.getElementById('btn-login');
-  btn.disabled=true; btn.textContent='Connexion...';
+  var btn=document.getElementById('btn-login');
+  btn.disabled=true; btn.querySelector('span').textContent='Connexion...';
   document.getElementById('login-err').style.display='none';
   fetch(SCRIPT_URL+'?type=login_prof&identifiant='+encodeURIComponent(id)+'&mot_de_passe='+encodeURIComponent(mdp)+'&etablissement='+ETABLISSEMENT+'&t='+Date.now())
-    .then(function(r){ return r.json(); })
+    .then(function(r){return r.json();})
     .then(function(j){
       if(j.status==='ok'){
-        monNom = j.nom || id;
-        mesClasses = j.classes || [];
+        monNom=j.nom||id;
+        mesClasses=j.classes||[];
+        // Afficher loading screen
         document.getElementById('login-screen').style.display='none';
-        document.getElementById('shell').style.display='block';
-        document.getElementById('sb-nom').textContent = monNom;
-        document.getElementById('sb-classes').textContent = mesClasses.join(' · ');
-        document.getElementById('topbar-sub-accueil').textContent = mesClasses.join(' · ');
+        document.getElementById('loading-screen').classList.remove('hidden');
+        // Mettre à jour le loading avec le nom du prof
+        var parts=(monNom||'').split(' ');
+        var initiales=((parts[0]||'')[0]||'')+((parts[1]||'')[0]||'');
+        document.getElementById('loading-avatar').textContent=initiales.toUpperCase()||'PR';
+        document.getElementById('loading-name').textContent=monNom;
+        document.getElementById('loading-role').textContent='Professeur · '+mesClasses.join(' · ');
+        // Mettre à jour topbar
+        document.getElementById('tb-uname').textContent=monNom;
+        document.getElementById('tb-avatar').textContent=initiales.toUpperCase()||'PR';
+        document.getElementById('hero-nom').textContent=monNom.split(' ')[0]||monNom;
+        document.getElementById('hero-sub').textContent=mesClasses.join(' · ')+' · Lycée Benoît Fourneyron';
         chargerDonnees();
       } else {
         document.getElementById('login-err').style.display='block';
-        btn.disabled=false; btn.textContent='Accéder →';
+        btn.disabled=false; btn.querySelector('span').textContent='Accéder à mon espace';
       }
     })
     .catch(function(){
-      document.getElementById('login-err').textContent='Erreur. Réessayez.';
+      document.getElementById('login-err').textContent='Erreur réseau. Réessayez.';
       document.getElementById('login-err').style.display='block';
-      btn.disabled=false; btn.textContent='Accéder →';
+      btn.disabled=false; btn.querySelector('span').textContent='Accéder à mon espace';
     });
+}
+
+function deconnexion(){
+  document.getElementById('shell').style.display='none';
+  document.getElementById('loading-screen').classList.add('hidden');
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('login-id').value='';
+  document.getElementById('login-mdp').value='';
+  var btn=document.getElementById('btn-login');
+  btn.disabled=false; btn.querySelector('span').textContent='Accéder à mon espace';
+  setLoadingStep(1,''); setLoadingStep(2,''); setLoadingBar(0);
+  DATA_EVAL=[]; DATA_REM=[]; mesClasses=[]; currentClasse=null;
 }
 
 function setSyncState(s,t){
   document.getElementById('sync-dot').className='sync-dot '+s;
   document.getElementById('sync-txt').textContent=t;
 }
+function setLoadingStep(n,state){
+  var el=document.getElementById('lstep-'+n);
+  if(el) el.className='loading-step'+(state?' '+state:'');
+}
+function setLoadingBar(pct){
+  var el=document.getElementById('loading-bar');
+  if(el) el.style.width=pct+'%';
+}
 
 function chargerDonnees(){
   setSyncState('loading','Chargement...');
-  var done=0;
-  function check(){ done++; if(done===2){ renderAccueil(); setSyncState('live','Sync · '+new Date().toLocaleTimeString('fr-FR')); } }
+  var done=0,total=2;
+  setLoadingStep(1,'active'); setLoadingStep(2,''); setLoadingBar(5);
+
+  function check(stepDone){
+    setLoadingStep(stepDone,'done');
+    done++;
+    setLoadingBar(Math.round(done/total*100));
+    if(done<total) setLoadingStep(stepDone+1,'active');
+    if(done===total){
+      setTimeout(function(){
+        renderAll();
+        setSyncState('live','Sync · '+new Date().toLocaleTimeString('fr-FR'));
+        document.getElementById('loading-screen').classList.add('hidden');
+        document.getElementById('shell').style.display='block';
+      },300);
+    }
+  }
+
   fetch(SCRIPT_URL+'?type=evaluations&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&t='+Date.now())
-    .then(function(r){ return r.json(); }).then(function(j){ if(j.status==='ok') DATA_EVAL=j.data||[]; check(); }).catch(function(){ check(); setSyncState('error','Hors ligne'); });
+    .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_EVAL=j.data||[];check(1);}).catch(function(){check(1);setSyncState('error','Hors ligne');});
   fetch(SCRIPT_URL+'?type=remediation&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&t='+Date.now())
-    .then(function(r){ return r.json(); }).then(function(j){ if(j.status==='ok') DATA_REM=j.data||[]; check(); }).catch(function(){ check(); });
+    .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_REM=j.data||[];check(2);}).catch(function(){check(2);});
 }
 
-// HELPERS
-function matchClasse(a,b){ if(!a||!b) return false; return String(a).toLowerCase().indexOf(String(b).toLowerCase())!==-1||String(b).toLowerCase().indexOf(String(a).toLowerCase())!==-1; }
-function evalMC(cl){ return DATA_EVAL.filter(function(r){ return cl?matchClasse(r.classe,cl):mesClasses.some(function(c){ return matchClasse(r.classe,c); }); }); }
-function remMC(cl){ return DATA_REM.filter(function(r){ return cl?matchClasse(r.classe,cl):mesClasses.some(function(c){ return matchClasse(r.classe,c); }); }); }
+// ── HELPERS
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function matchClasse(a,b){if(!a||!b)return false;return String(a).toLowerCase().indexOf(String(b).toLowerCase())!==-1||String(b).toLowerCase().indexOf(String(a).toLowerCase())!==-1;}
+function evalMC(cl){return DATA_EVAL.filter(function(r){return cl?matchClasse(r.classe,cl):mesClasses.some(function(c){return matchClasse(r.classe,c);});});}
+function remMC(cl){return DATA_REM.filter(function(r){return cl?matchClasse(r.classe,cl):mesClasses.some(function(c){return matchClasse(r.classe,c);});});}
 function elevesUniques(evalData){
   var map={};
   evalData.forEach(function(r){
-    if(!map[r.email]) map[r.email]={email:r.email,nom:r.nom,classe:r.classe,date:r.date_evaluation,fiches:[]};
+    if(!map[r.email])map[r.email]={email:r.email,nom:r.nom,classe:r.classe,date:r.date_evaluation,fiches:[]};
     map[r.email].fiches.push({fiche:r.fiche_id,score:parseInt(r.score)||0,assigne:r.assigne==='oui'});
   });
   return Object.values(map);
 }
 function remEleve(email){
   var map={};
-  DATA_REM.filter(function(r){ return String(r.eleve_id).toLowerCase()===email.toLowerCase(); })
-    .forEach(function(r){ if(!map[r.fiche_id]||(parseInt(r.tentative_num)||0)>(parseInt(map[r.fiche_id].tentative_num)||0)) map[r.fiche_id]=r; });
+  DATA_REM.filter(function(r){return String(r.eleve_id).toLowerCase()===email.toLowerCase();})
+    .forEach(function(r){if(!map[r.fiche_id]||(parseInt(r.tentative_num)||0)>(parseInt(map[r.fiche_id].tentative_num)||0))map[r.fiche_id]=r;});
   return Object.values(map);
 }
-function setPie(id, pct){
-  var el=document.getElementById(id);
-  if(!el) return;
-  var circ=289, offset=circ-(pct/100)*circ;
-  el.style.strokeDasharray=circ; el.style.strokeDashoffset=offset;
+function updateHeroDate(){
+  var now=new Date();
+  var days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var months=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  var el=document.getElementById('hero-date');
+  if(el) el.textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
 }
 
-// ACCUEIL
+// ── RENDER ALL
+function renderAll(){
+  updateHeroDate();
+  renderAccueil();
+  renderClassesGridSection();
+  renderAlertes();
+  updateBadgeAlertes();
+}
+
+// ── ACCUEIL
 function renderAccueil(){
-  var ev   = evalMC(null);
-  var rm   = remMC(null);
-  var eleves = elevesUniques(ev).length;
-  var assignees = ev.filter(function(r){ return r.assigne==='oui'; }).length;
-  var maitrisees= ev.filter(function(r){ return r.assigne==='non'; }).length;
-  var totalEv = assignees+maitrisees;
-  var pctAcq  = totalEv>0?Math.round(maitrisees/totalEv*100):0;
-  var validees= rm.filter(function(r){ return r.statut==='quiz_final_valide'; }).length;
-  var pctProg = assignees>0?Math.round(validees/assignees*100):0;
-  var alertes = rm.filter(function(r){ return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non'; }).length;
+  var ev=evalMC(null);
+  var rm=remMC(null);
+  var eleves=elevesUniques(ev).length;
+  var assignees=ev.filter(function(r){return r.assigne==='oui';}).length;
+  var validees=rm.filter(function(r){return r.statut==='quiz_final_valide';}).length;
+  var alertes=rm.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
+  var pctValid=assignees>0?Math.round(validees/assignees*100):0;
 
-  document.getElementById('kpi-evalues').textContent = eleves||'0';
-  setTimeout(function(){ setPie('pie-acquis',pctAcq); },100);
-  document.getElementById('pie-pct').textContent = pctAcq+'%';
-  document.getElementById('leg-acquis').textContent = pctAcq+'%';
-  document.getElementById('leg-lacunes').textContent = (100-pctAcq)+'%';
-  document.getElementById('prog-pct').textContent = pctProg+'%';
-  setTimeout(function(){ document.getElementById('prog-fill').style.width=pctProg+'%'; },100);
-  document.getElementById('prog-note').textContent = validees+' fiche'+(validees>1?'s':'')+' validée'+(validees>1?'s':'')+' sur '+assignees+' assignée'+(assignees>1?'s':'');
+  document.getElementById('kpi-evalues').textContent=eleves||'0';
+  document.getElementById('kpi-evalues-sub').textContent=mesClasses.length+' classe'+(mesClasses.length>1?'s':'');
+  document.getElementById('kpi-assignees').textContent=assignees;
+  document.getElementById('kpi-assignees-sub').textContent='fiches à compléter';
+  document.getElementById('kpi-validees').textContent=pctValid+'%';
+  document.getElementById('kpi-validees-sub').textContent=validees+' / '+assignees+' fiches';
+  document.getElementById('kpi-alertes').textContent=alertes||'0';
+  document.getElementById('kpi-alertes-sub').textContent=alertes>0?'intervention requise':'aucun élève bloqué';
 
-  if(alertes>0){
-    document.getElementById('alert-banner').style.display='block';
-    document.getElementById('ab-txt').textContent=alertes+' élève'+(alertes>1?'s bloqués':' bloqué')+' — intervention requise';
-  } else { document.getElementById('alert-banner').style.display='none'; }
-
-  // Cartes classes
-  document.getElementById('classes-grid').innerHTML = mesClasses.map(function(cl){
-    var evCl = evalMC(cl);
-    var rmCl = remMC(cl);
-    var nbEv = elevesUniques(evCl).length;
-    var aCl  = evCl.filter(function(r){ return r.assigne==='oui'; }).length;
-    var mCl  = evCl.filter(function(r){ return r.assigne==='non'; }).length;
-    var tCl  = aCl+mCl;
-    var pAcq = tCl>0?Math.round(mCl/tCl*100):0;
-    var vCl  = rmCl.filter(function(r){ return r.statut==='quiz_final_valide'; }).length;
-    var pProg= aCl>0?Math.round(vCl/aCl*100):0;
-    var altCl= rmCl.filter(function(r){ return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non'; }).length;
-    var badge= altCl>0?'<span class="cc-badge badge-red">'+altCl+' alerte'+(altCl>1?'s':'')+'</span>'
-      :nbEv>0?'<span class="cc-badge badge-green">Actif</span>'
-      :'<span class="cc-badge badge-gray">En attente</span>';
-    var circ=132, offset=circ-(pAcq/100)*circ;
-    var hasAlert = altCl>0?'has-alert':'';
-    return '<div class="classe-card '+hasAlert+'" onclick="ouvrirClasse(\''+esc(cl)+'\')">'
-      +'<div class="cc-top"><div><div class="cc-name">'+esc(cl)+'</div><div class="cc-type">Bac Pro</div></div>'+badge+'</div>'
-      +'<div class="cc-pie-row">'
-      +'<div class="cc-pie"><svg viewBox="0 0 52 52" width="52" height="52">'
-      +'<circle fill="none" stroke="#EF4444" stroke-width="8" cx="26" cy="26" r="21"/>'
-      +'<circle fill="none" stroke="var(--green)" stroke-width="8" cx="26" cy="26" r="21" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" style="stroke-linecap:butt;"/>'
-      +'</svg><div class="cc-pie-inner"><span class="cc-pie-pct">'+pAcq+'%</span></div></div>'
-      +'<div><div class="cc-info-val">'+nbEv+'</div><div class="cc-info-lbl">Évalués</div></div>'
-      +'</div>'
-      +'<div class="cc-prog-track"><div class="cc-prog-fill" style="width:'+pProg+'%;"></div></div>'
-      +'<div class="cc-prog-txt">'+pProg+'% remédiation · '+vCl+'/'+aCl+' fiches validées</div>'
-      +'<div class="cc-arrow">→</div>'
-      +'</div>';
+  // Mini cartes classes dans accueil
+  document.getElementById('classes-grid-accueil').innerHTML=mesClasses.map(function(cl){
+    return buildClasseCard(cl,true);
   }).join('');
 }
 
-// DETAIL CLASSE
-function ouvrirClasse(cl){
-  currentClasse = cl;
-  var evCl = evalMC(cl);
-  var rmCl = remMC(cl);
-  var nbEv = elevesUniques(evCl).length;
-  var aCl  = evCl.filter(function(r){ return r.assigne==='oui'; }).length;
-  var mCl  = evCl.filter(function(r){ return r.assigne==='non'; }).length;
-  var tCl  = aCl+mCl;
-  var pAcq = tCl>0?Math.round(mCl/tCl*100):0;
-  var vCl  = rmCl.filter(function(r){ return r.statut==='quiz_final_valide'; }).length;
-  var pProg= aCl>0?Math.round(vCl/aCl*100):0;
+function buildClasseCard(cl,small){
+  var evCl=evalMC(cl);
+  var rmCl=remMC(cl);
+  var nbEv=elevesUniques(evCl).length;
+  var aCl=evCl.filter(function(r){return r.assigne==='oui';}).length;
+  var mCl=evCl.filter(function(r){return r.assigne==='non';}).length;
+  var tCl=aCl+mCl;
+  var pAcq=tCl>0?Math.round(mCl/tCl*100):0;
+  var vCl=rmCl.filter(function(r){return r.statut==='quiz_final_valide';}).length;
+  var pProg=aCl>0?Math.round(vCl/aCl*100):0;
+  var altCl=rmCl.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
+  var badge=altCl>0?'<span class="badge-alert">'+altCl+' alerte'+(altCl>1?'s':'')+'</span>'
+    :nbEv>0?'<span class="badge-ok">Actif</span>'
+    :'<span class="badge-wait">En attente</span>';
+  var circ=132,off=circ-(pAcq/100)*circ;
+  var alertCls=altCl>0?' has-alert':'';
+  var onclick=small?'ouvrirClasse(\''+esc(cl)+'\',true)':'ouvrirClasse(\''+esc(cl)+'\',false)';
+  return '<div class="classe-card'+alertCls+'" onclick="'+onclick+'">'
+    +'<div class="cc-header"><div><div class="cc-name">'+esc(cl)+'</div><div class="cc-type">Bac Pro · Lycée Benoît Fourneyron</div></div>'+badge+'</div>'
+    +'<div class="cc-ring-row">'
+    +'<div class="cc-ring"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="ring-bg" cx="27" cy="27" r="21"/><circle class="ring-fill" cx="27" cy="27" r="21" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'"/></svg>'
+    +'<div class="ring-inner"><span class="ring-pct">'+pAcq+'%</span></div></div>'
+    +'<div class="cc-vals"><div class="cc-main-val">'+nbEv+'</div><div class="cc-main-lbl">Évalués</div></div>'
+    +'</div>'
+    +'<div class="cc-prog-track"><div class="cc-prog-fill" style="width:'+pProg+'%;"></div></div>'
+    +'<div class="cc-prog-txt">'+pProg+'% remédiation · '+vCl+'/'+aCl+' fiches validées</div>'
+    +'<div class="cc-arrow">→</div>'
+    +'</div>';
+}
 
-  document.getElementById('dc-title').textContent = cl;
-  document.getElementById('dc-sub').textContent = nbEv+' élève'+(nbEv>1?'s':'')+' évalué'+(nbEv>1?'s':'');
-  document.getElementById('dc-kpi-evalues').textContent = nbEv;
-  setTimeout(function(){ setPie('dc-pie',pAcq); },100);
-  document.getElementById('dc-pie-pct').textContent = pAcq+'%';
-  document.getElementById('dc-leg-acquis').textContent = pAcq+'%';
-  document.getElementById('dc-leg-lacunes').textContent = (100-pAcq)+'%';
-  document.getElementById('dc-prog-pct').textContent = pProg+'%';
-  setTimeout(function(){ document.getElementById('dc-prog-fill').style.width=pProg+'%'; },100);
-  document.getElementById('dc-prog-note').textContent = vCl+' fiche'+(vCl>1?'s':'')+' validée'+(vCl>1?'s':'')+' sur '+aCl;
+// ── CLASSES SECTION
+function renderClassesGridSection(){
+  document.getElementById('classes-sub').textContent=mesClasses.length+' classe'+(mesClasses.length>1?'s':'');
+  document.getElementById('classes-grid-section').innerHTML=mesClasses.map(function(cl){
+    return buildClasseCard(cl,false);
+  }).join('');
+}
+
+// ── OUVRIR CLASSE
+function ouvrirClasse(cl,depuisAccueil){
+  currentClasse=cl;
+  var evCl=evalMC(cl);
+  var rmCl=remMC(cl);
+  var nbEv=elevesUniques(evCl).length;
+  var aCl=evCl.filter(function(r){return r.assigne==='oui';}).length;
+  var vCl=rmCl.filter(function(r){return r.statut==='quiz_final_valide';}).length;
+  var altCl=rmCl.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
+
+  document.getElementById('dc-title').textContent=cl;
+  document.getElementById('dc-sub').textContent=nbEv+' élève'+(nbEv>1?'s':'')+' évalué'+(nbEv>1?'s':'');
+  document.getElementById('dc-evalues').textContent=nbEv;
+  document.getElementById('dc-assignees').textContent=aCl;
+  document.getElementById('dc-validees').textContent=vCl;
+  document.getElementById('dc-alertes').textContent=altCl||'0';
 
   renderTableau('assignees');
-  allerVers('detail-classe');
+
+  // Nav
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('section-classes').classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(function(n){n.classList.remove('active');});
+  document.getElementById('sb-classes').classList.add('active');
+  showClassesView('detail-classe');
+  setBreadcrumb([
+    {label:'Mes classes',onclick:'navVers(\'classes\')'},
+    {label:cl,current:true}
+  ]);
 }
 
 function renderTableau(cle){
-  currentSort = cle;
-  ['assignees','restant','nom','alertes'].forEach(function(k){
-    document.getElementById('sort-'+k).classList.toggle('active',k===cle);
+  currentSort=cle;
+  ['assignees','restant','alertes','nom'].forEach(function(k){
+    var el=document.getElementById('sort-'+k);
+    if(el) el.classList.toggle('active',k===cle);
   });
-  var evCl   = evalMC(currentClasse);
-  var eleves = elevesUniques(evCl).map(function(e){
-    var rem      = remEleve(e.email);
-    var assignees= e.fiches.filter(function(f){ return f.assigne; }).length;
-    var validees = rem.filter(function(r){ return r.statut==='quiz_final_valide'; }).length;
-    var alertes  = rem.filter(function(r){ return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non'; }).length;
+  var evCl=evalMC(currentClasse);
+  var eleves=elevesUniques(evCl).map(function(e){
+    var rem=remEleve(e.email);
+    var assignees=e.fiches.filter(function(f){return f.assigne;}).length;
+    var validees=rem.filter(function(r){return r.statut==='quiz_final_valide';}).length;
+    var alertes=rem.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
     return Object.assign({},e,{assignees:assignees,validees:validees,restantes:assignees-validees,alertesNb:alertes});
   });
-  document.getElementById('dc-badge').textContent = eleves.length+' élève'+(eleves.length>1?'s':'');
+  document.getElementById('dc-badge').textContent=eleves.length+' élève'+(eleves.length>1?'s':'');
   eleves.sort(function(a,b){
     if(cle==='assignees') return b.assignees-a.assignees;
-    if(cle==='restant')   return b.restantes-a.restantes;
-    if(cle==='alertes')   return b.alertesNb-a.alertesNb;
-    if(cle==='nom')       return (a.nom||'').localeCompare(b.nom||'');
+    if(cle==='restant') return b.restantes-a.restantes;
+    if(cle==='alertes') return b.alertesNb-a.alertesNb;
+    if(cle==='nom') return (a.nom||'').localeCompare(b.nom||'');
     return 0;
   });
-  var tbody = document.getElementById('eleves-tbody');
-  if(eleves.length===0){ tbody.innerHTML='<tr><td colspan="9" class="empty">Aucun élève évalué.</td></tr>'; return; }
-  tbody.innerHTML = eleves.map(function(e){
-    var pct = e.assignees>0?Math.round(e.validees/e.assignees*100):100;
-    var barColor = pct>=80?'var(--green)':pct>=40?'var(--amber)':'var(--red)';
-    var statut = e.alertesNb>0?'<span class="pill pill-red">Alerte</span>'
+  var tbody=document.getElementById('eleves-tbody');
+  if(eleves.length===0){tbody.innerHTML='<tr><td colspan="9" class="empty">Aucun élève évalué.</td></tr>';return;}
+  tbody.innerHTML=eleves.map(function(e){
+    var pct=e.assignees>0?Math.round(e.validees/e.assignees*100):100;
+    var barColor=pct>=80?'var(--green)':pct>=40?'var(--amber)':'var(--red)';
+    var statut=e.alertesNb>0?'<span class="pill pill-red">Alerte</span>'
       :e.assignees===0?'<span class="pill pill-green">Tout acquis</span>'
       :e.validees>=e.assignees?'<span class="pill pill-green">Terminé</span>'
       :'<span class="pill pill-amber">En cours</span>';
-    return '<tr onclick="ouvrirEleve(\''+esc(e.email)+'\')">'
+    return '<tr onclick="ouvrirEleve(\''+esc(e.email)+'\')" style="cursor:pointer;">'
       +'<td class="td-name">'+esc(e.nom)+'</td>'
       +'<td><span class="pill pill-navy">✓ Faite</span></td>'
       +'<td class="td-mono">'+e.assignees+'/10</td>'
@@ -585,104 +834,210 @@ function renderTableau(cle){
       +'<td><div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+barColor+';"></div></div><span class="td-mono">'+pct+'%</span></div></td>'
       +'<td class="td-mono">'+(e.alertesNb||'—')+'</td>'
       +'<td>'+statut+'</td>'
-      +'<td style="color:var(--text3);text-align:right;">→</td>'
+      +'<td style="color:var(--text3);">→</td>'
       +'</tr>';
   }).join('');
 }
 
-function trierPar(cle){ renderTableau(cle); }
+function trierPar(cle){renderTableau(cle);}
 
-// DETAIL ELEVE
+// ── OUVRIR ELEVE
 function ouvrirEleve(email){
-  var evEl  = DATA_EVAL.filter(function(r){ return String(r.email).toLowerCase()===email.toLowerCase(); });
-  var rem   = remEleve(email);
-  var nom   = evEl.length>0?evEl[0].nom:email;
-  var classe= evEl.length>0?evEl[0].classe:'';
-  var date  = evEl.length>0?evEl[0].date_evaluation:'';
-  var assignees= evEl.filter(function(r){ return r.assigne==='oui'; }).length;
-  var validees = rem.filter(function(r){ return r.statut==='quiz_final_valide'; }).length;
-  var alertes  = rem.filter(function(r){ return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non'; }).length;
+  var evEl=DATA_EVAL.filter(function(r){return String(r.email).toLowerCase()===email.toLowerCase();});
+  var rem=remEleve(email);
+  var nom=evEl.length>0?evEl[0].nom:email;
+  var classe=evEl.length>0?evEl[0].classe:'';
+  var date=evEl.length>0?evEl[0].date_evaluation:'';
+  var assignees=evEl.filter(function(r){return r.assigne==='oui';}).length;
+  var validees=rem.filter(function(r){return r.statut==='quiz_final_valide';}).length;
+  var alertes=rem.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
 
-  document.getElementById('de-title').textContent = esc(nom);
-  document.getElementById('de-sub').textContent = 'Classe : '+esc(classe);
-  document.getElementById('due-assignees').textContent = assignees;
-  document.getElementById('due-validees').textContent  = validees;
-  document.getElementById('due-restantes').textContent = Math.max(0,assignees-validees);
-  document.getElementById('due-alertes').textContent   = alertes||'0';
-  document.getElementById('due-date').textContent = date?'Éval. du '+date:'—';
+  document.getElementById('de-title').textContent=esc(nom);
+  document.getElementById('de-sub').textContent='Classe : '+esc(classe);
+  document.getElementById('due-assignees').textContent=assignees;
+  document.getElementById('due-validees').textContent=validees;
+  document.getElementById('due-restantes').textContent=Math.max(0,assignees-validees);
+  document.getElementById('due-alertes').textContent=alertes||'0';
+  document.getElementById('due-date').textContent=date?'Éval. du '+date:'—';
 
-  // Scores éval
   var evalHtml='';
   Object.keys(NOMS_FICHES).forEach(function(fid){
-    var ligne  = evEl.find(function(r){ return r.fiche_id===fid; });
-    var score  = ligne?parseInt(ligne.score)||0:null;
-    var assigne= ligne&&ligne.assigne==='oui';
-    var scoreColor = score===null?'var(--text3)':score>=2?'var(--green)':score===1?'var(--amber)':'var(--red)';
-    var badge = score===null?'<span class="pill pill-gray">—</span>'
+    var ligne=evEl.find(function(r){return r.fiche_id===fid;});
+    var score=ligne?parseInt(ligne.score)||0:null;
+    var assigne=ligne&&ligne.assigne==='oui';
+    var scoreColor=score===null?'var(--text3)':score>=2?'var(--green)':score===1?'var(--amber)':'var(--red)';
+    var badge=score===null?'<span class="pill pill-gray">—</span>'
       :assigne?'<span class="pill pill-amber">Fiche assignée</span>'
       :'<span class="pill pill-green">Maîtrisée</span>';
     evalHtml+='<div class="eval-row">'
-      +'<div class="eval-name">'+esc(NOMS_FICHES[fid])+'</div>'
-      +'<div style="display:flex;align-items:center;gap:12px;"><span style="font-family:\'DM Mono\',monospace;font-size:13px;font-weight:700;color:'+scoreColor+';">'+(score!==null?score+'/3':'—')+'</span>'+badge+'</div>'
+      +'<div style="font-size:12.5px;font-weight:600;color:var(--text);">'+esc(NOMS_FICHES[fid])+'</div>'
+      +'<div style="display:flex;align-items:center;gap:12px;"><span style="font-family:\'JetBrains Mono\',monospace;font-size:13px;font-weight:700;color:'+scoreColor+';">'+(score!==null?score+'/3':'—')+'</span>'+badge+'</div>'
       +'</div>';
   });
-  document.getElementById('due-eval').innerHTML = evalHtml||'<div class="empty">Pas encore évalué.</div>';
+  document.getElementById('due-eval').innerHTML=evalHtml||'<div class="empty">Pas encore évalué.</div>';
 
-  // Fiches remédiation
-  var assigneesFiches = evEl.filter(function(r){ return r.assigne==='oui'; }).map(function(r){ return r.fiche_id; });
-  document.getElementById('due-fiches').innerHTML = assigneesFiches.length===0
+  var assigneesFiches=evEl.filter(function(r){return r.assigne==='oui';}).map(function(r){return r.fiche_id;});
+  document.getElementById('due-fiches').innerHTML=assigneesFiches.length===0
     ?'<div class="empty">Aucune fiche assignée — cet élève maîtrise toutes les notions.</div>'
     :assigneesFiches.map(function(fid){
-      var r = rem.find(function(x){ return x.fiche_id===fid; });
-      var pill = !r?'<span class="pill pill-gray">Non commencée</span>'
+      var r=rem.find(function(x){return x.fiche_id===fid;});
+      var pill=!r?'<span class="pill pill-gray">Non commencée</span>'
         :r.statut==='quiz_final_valide'?'<span class="pill pill-green">Validée</span>'
         :r.statut==='echec_3_tentatives'?'<span class="pill pill-red">3 échecs</span>'
         :'<span class="pill pill-amber">En cours</span>';
       return '<div class="fiche-row"><div>'
-        +'<div class="fiche-name">'+esc(NOMS_FICHES[fid]||fid)+'</div>'
-        +(r?'<div class="fiche-meta">Tentative '+r.tentative_num+' · Score : '+(r.score_quiz||'—')+'%</div>':'')
+        +'<div class="fr-name">'+esc(NOMS_FICHES[fid]||fid)+'</div>'
+        +(r?'<div class="fr-sub">Tentative '+r.tentative_num+' · Score : '+(r.score_quiz||'—')+'%</div>':'')
         +'</div>'+pill+'</div>';
     }).join('');
 
-  // Panel alertes si besoin
-  var panelAl = document.getElementById('due-panel-alertes');
-  var alertesData = rem.filter(function(r){ return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non'; });
+  var panelAl=document.getElementById('due-panel-alertes');
+  var alertesData=rem.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';});
   if(alertesData.length>0){
     panelAl.style.display='block';
-    document.getElementById('due-alertes-list').innerHTML = alertesData.map(function(r){
-      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #F0ECE4;">'
-        +'<div><div class="fiche-name">'+esc(NOMS_FICHES[r.fiche_id]||r.fiche_id)+'</div>'
-        +'<div class="fiche-meta">Score : '+(r.score_quiz||'—')+'% · Tentative '+r.tentative_num+'</div></div>'
+    document.getElementById('due-alertes-list').innerHTML=alertesData.map(function(r){
+      return '<div class="alerte-card">'
+        +'<div>'
+        +'<div class="alerte-name">'+esc(NOMS_FICHES[r.fiche_id]||r.fiche_id)+'</div>'
+        +'<div class="alerte-meta">Score : '+(r.score_quiz||'—')+'% · Tentative '+r.tentative_num+'</div>'
+        +(r.points_bloques?'<div class="alerte-conseil">Points bloquants : '+esc(r.points_bloques)+'</div>':'')
+        +'</div>'
         +'<button class="btn-traiter" onclick="traiterAlerte(this,\''+esc(r.eleve_id)+'\',\''+esc(r.fiche_id)+'\')">Intervention effectuée ✓</button>'
         +'</div>';
     }).join('');
-  } else { panelAl.style.display='none'; }
+  } else {panelAl.style.display='none';}
 
-  allerVers('detail-eleve');
+  showClassesView('detail-eleve');
+  setBreadcrumb([
+    {label:'Mes classes',onclick:'navVers(\'classes\')'},
+    {label:currentClasse,onclick:'retourDetailClasse()'},
+    {label:nom,current:true}
+  ]);
 }
 
 function traiterAlerte(btn,eleveId,ficheId){
   btn.disabled=true; btn.textContent='Enregistrement...';
   fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify({type:'alerte_traitee',eleve_id:eleveId,fiche_id:ficheId,etablissement:ETABLISSEMENT})})
-    .then(function(r){ return r.json(); }).then(function(){ btn.textContent='✓ Traitée'; btn.style.background='var(--green)'; })
-    .catch(function(){ btn.disabled=false; btn.textContent='Réessayer'; });
+    .then(function(r){return r.json();}).then(function(){btn.textContent='✓ Traitée';btn.style.background='var(--green)';updateBadgeAlertes();})
+    .catch(function(){btn.disabled=false;btn.textContent='Réessayer';});
 }
 
-function allerVers(id){
-  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
+// ── ALERTES SECTION
+function renderAlertes(){
+  var alertesData=DATA_REM.filter(function(r){
+    return mesClasses.some(function(cl){return matchClasse(r.classe,cl);})
+      && r.statut==='echec_3_tentatives' && r.alerte_traitee==='non';
+  });
+  var container=document.getElementById('alertes-container');
+  if(alertesData.length===0){
+    container.innerHTML='<div class="empty" style="background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:3rem;"><span style="font-size:24px;">✓</span><br><br>Aucune alerte active — tous vos élèves progressent normalement.</div>';
+    return;
+  }
+  // Grouper par élève
+  var parEleve={};
+  alertesData.forEach(function(r){
+    var key=String(r.eleve_id||r.eleve_nom).toLowerCase();
+    if(!parEleve[key]) parEleve[key]={nom:r.eleve_nom,classe:r.classe,email:r.eleve_id,fiches:[]};
+    parEleve[key].fiches.push(r);
+  });
+  container.innerHTML=Object.values(parEleve).map(function(e){
+    return '<div class="panel" style="margin-bottom:1.25rem;">'
+      +'<div class="panel-hdr">'
+      +'<div><div class="panel-title">'+esc(e.nom)+'</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">'+esc(e.classe)+'</div></div>'
+      +'<span class="pbadge" style="background:var(--red-l);color:var(--red);border-color:rgba(212,38,38,.2);">'+e.fiches.length+' blocage'+(e.fiches.length>1?'s':'')+'</span>'
+      +'</div>'
+      +'<div style="padding:0 1.4rem;">'
+      +e.fiches.map(function(r){
+        return '<div class="alerte-card">'
+          +'<div>'
+          +'<div class="alerte-name">'+esc(NOMS_FICHES[r.fiche_id]||r.fiche_id)+'</div>'
+          +'<div class="alerte-meta">Score : '+(r.score_quiz||'—')+'% · Tentative '+r.tentative_num+'</div>'
+          +(r.points_bloques?'<div class="alerte-conseil">Points bloquants : '+esc(r.points_bloques)+'</div>':'')
+          +'</div>'
+          +'<button class="btn-traiter" onclick="traiterAlerte(this,\''+esc(r.eleve_id)+'\',\''+esc(r.fiche_id)+'\')">Intervention effectuée ✓</button>'
+          +'</div>';
+      }).join('')
+      +'</div></div>';
+  }).join('');
 }
-function deconnexion(){
-  DATA_EVAL=[]; DATA_REM=[]; mesClasses=[]; currentClasse=null;
-  document.getElementById('shell').style.display='none';
-  document.getElementById('login-screen').style.display='flex';
-  document.getElementById('login-id').value='';
-  document.getElementById('login-mdp').value='';
-  document.getElementById('btn-login').disabled=false;
-  document.getElementById('btn-login').textContent='Accéder →';
+
+function updateBadgeAlertes(){
+  var n=DATA_REM.filter(function(r){
+    return mesClasses.some(function(cl){return matchClasse(r.classe,cl);})
+      && r.statut==='echec_3_tentatives' && r.alerte_traitee==='non';
+  }).length;
+  var badge=document.getElementById('sb-badge-alertes');
+  if(badge) badge.className='sb-badge'+(n>0?' visible':'');
 }
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-setInterval(function(){ if(document.getElementById('shell').style.display!=='none') chargerDonnees(); },60000);
+
+// ── NAV
+function navVers(dest){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.sb-item').forEach(function(n){n.classList.remove('active');});
+  if(dest==='accueil'){
+    document.getElementById('section-accueil').classList.add('active');
+    document.getElementById('sb-accueil').classList.add('active');
+    setBreadcrumb([{label:'Accueil',current:true}]);
+  } else if(dest==='classes'){
+    document.getElementById('section-classes').classList.add('active');
+    document.getElementById('sb-classes').classList.add('active');
+    showClassesView('liste-classes');
+    setBreadcrumb([{label:'Mes classes',current:true}]);
+  } else if(dest==='alertes'){
+    document.getElementById('section-alertes').classList.add('active');
+    document.getElementById('sb-alertes').classList.add('active');
+    renderAlertes();
+    setBreadcrumb([{label:'Alertes',current:true}]);
+  } else if(dest==='stats'){
+    document.getElementById('section-stats').classList.add('active');
+    document.getElementById('sb-stats').classList.add('active');
+    setBreadcrumb([{label:'Statistiques',current:true}]);
+  }
+}
+
+function showClassesView(view){
+  ['view-liste-classes','view-detail-classe','view-detail-eleve'].forEach(function(v){
+    var el=document.getElementById(v);
+    if(el) el.style.display='none';
+  });
+  document.getElementById('view-'+view).style.display='block';
+}
+
+function retourClasses(){
+  showClassesView('liste-classes');
+  setBreadcrumb([{label:'Mes classes',current:true}]);
+}
+function retourDetailClasse(){
+  showClassesView('detail-classe');
+  setBreadcrumb([
+    {label:'Mes classes',onclick:'navVers(\'classes\')'},
+    {label:currentClasse,current:true}
+  ]);
+}
+
+function setBreadcrumb(parts){
+  var bc=document.getElementById('breadcrumb');
+  var html='';
+  parts.forEach(function(p,i){
+    var cls=p.current?'bc-item current':'bc-item';
+    var onclick=p.onclick?' onclick="'+p.onclick+'"':'';
+    html+='<span class="'+cls+'"'+onclick+'>'+esc(p.label)+'</span>';
+    if(i<parts.length-1) html+='<span class="bc-sep">/</span>';
+  });
+  bc.innerHTML=html;
+}
+
+setInterval(function(){
+  if(document.getElementById('shell').style.display!=='none'){
+    setSyncState('loading','Actualisation...');
+    var done=0,total=2;
+    function chk(){done++;if(done===total){renderAll();setSyncState('live','Sync · '+new Date().toLocaleTimeString('fr-FR'));}}
+    fetch(SCRIPT_URL+'?type=evaluations&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&t='+Date.now())
+      .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_EVAL=j.data||[];chk();}).catch(function(){chk();setSyncState('error','Hors ligne');});
+    fetch(SCRIPT_URL+'?type=remediation&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&t='+Date.now())
+      .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_REM=j.data||[];chk();}).catch(function(){chk();});
+  }
+},60000);
 </script>
 </body>
 </html>

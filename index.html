@@ -258,6 +258,15 @@ tr:hover td{background:#FDFCF9;}
 .stats-empty-ico{font-size:32px;margin-bottom:1rem;}
 .stats-empty-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:.5rem;}
 .stats-empty-sub{font-size:13px;color:var(--text3);line-height:1.6;}
+
+/* ═══ IDENTIFIANTS ═══ */
+.mdp-reveal { font-family:'JetBrains Mono',monospace; font-size:12px; background:var(--bg); border:1px solid var(--border-md); border-radius:6px; padding:3px 8px; cursor:pointer; color:var(--text3); transition:all .15s; user-select:all; }
+.mdp-reveal:hover { border-color:var(--navy); color:var(--navy); background:var(--navy-l); }
+.comptes-filter { display:flex; align-items:center; gap:8px; padding:.875rem 1.4rem; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+.comptes-filter input { height:34px; padding:0 12px; border:1px solid var(--border-md); border-radius:var(--r); font-family:'Sora',sans-serif; font-size:12px; color:var(--text); background:var(--bg); outline:none; width:220px; transition:all .15s; }
+.comptes-filter input:focus { border-color:var(--navy); background:#fff; }
+.comptes-info { font-size:11px; color:var(--text3); padding:.5rem 1.4rem; border-bottom:1px solid var(--border); background:var(--amber-l); display:flex; align-items:center; gap:8px; }
+.comptes-info::before { content:'⚠️'; }
 </style>
 </head>
 <body>
@@ -352,6 +361,10 @@ tr:hover td{background:#FDFCF9;}
       <div class="sb-item" id="sb-stats" onclick="navVers('stats')">
         <div class="sb-ico"><svg viewBox="0 0 24 24"><path d="M3 20h18M7 16V8m5 8V4m5 12v-6"/></svg></div>
         <div class="sb-tooltip">Statistiques</div>
+      </div>
+      <div class="sb-item" id="sb-identifiants" onclick="navVers('identifiants')">
+        <div class="sb-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="sb-tooltip">Identifiants élèves</div>
       </div>
     </div>
     <div class="sb-bottom">
@@ -546,6 +559,31 @@ tr:hover td{background:#FDFCF9;}
         </div>
       </div>
 
+      <!-- ══ IDENTIFIANTS ══ -->
+      <div class="section" id="section-identifiants">
+        <div class="page-header">
+          <div class="page-title">Identifiants élèves</div>
+          <div class="page-sub">Consultez les identifiants et mots de passe de vos élèves en cas de perte.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-title">Comptes élèves — mes classes</div>
+            <span class="pbadge" id="comptes-badge">—</span>
+          </div>
+          <div class="comptes-info">Ces informations sont confidentielles. Ne les partagez qu'avec l'élève concerné.</div>
+          <div class="comptes-filter">
+            <input type="text" id="comptes-search" placeholder="Rechercher un élève..." oninput="filtrerComptes()">
+            <span style="font-size:11px;color:var(--text3);">Cliquez sur le mot de passe pour le copier</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Élève</th><th>Classe</th><th>Email (identifiant)</th><th>Mot de passe</th><th>Mode DYS</th></tr></thead>
+              <tbody id="comptes-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -553,7 +591,7 @@ tr:hover td{background:#FDFCF9;}
 <script>
 var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
 var ETABLISSEMENT="Fourneyron";
-var DATA_EVAL=[],DATA_REM=[];
+var DATA_EVAL=[],DATA_REM=[],DATA_COMPTES=[];
 var mesClasses=[],monNom="";
 var currentClasse=null,currentSort='assignees';
 
@@ -640,7 +678,7 @@ function setLoadingBar(pct){
 
 function chargerDonnees(){
   setSyncState('loading','Chargement...');
-  var done=0,total=2;
+  var done=0,total=3;
   setLoadingStep(1,'active'); setLoadingStep(2,''); setLoadingBar(5);
 
   function check(stepDone){
@@ -662,6 +700,8 @@ function chargerDonnees(){
     .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_EVAL=j.data||[];check(1);}).catch(function(){check(1);setSyncState('error','Hors ligne');});
   fetch(SCRIPT_URL+'?type=remediation&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&t='+Date.now())
     .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_REM=j.data||[];check(2);}).catch(function(){check(2);});
+  fetch(SCRIPT_URL+'?type=comptes&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&classes='+encodeURIComponent(mesClasses.join(','))+'&t='+Date.now())
+    .then(function(r){return r.json();}).then(function(j){if(j.status==='ok')DATA_COMPTES=j.data||[];check(3);}).catch(function(){check(3);});
 }
 
 // ── HELPERS
@@ -992,6 +1032,11 @@ function navVers(dest){
     document.getElementById('section-stats').classList.add('active');
     document.getElementById('sb-stats').classList.add('active');
     setBreadcrumb([{label:'Statistiques',current:true}]);
+  } else if(dest==='identifiants'){
+    document.getElementById('section-identifiants').classList.add('active');
+    document.getElementById('sb-identifiants').classList.add('active');
+    renderComptes();
+    setBreadcrumb([{label:'Identifiants élèves',current:true}]);
   }
 }
 
@@ -1001,6 +1046,53 @@ function showClassesView(view){
     if(el) el.style.display='none';
   });
   document.getElementById('view-'+view).style.display='block';
+}
+
+function renderComptes(filtre){
+  var data=DATA_COMPTES;
+  if(filtre){
+    var q=filtre.toLowerCase();
+    data=data.filter(function(c){
+      return (c.nom||'').toLowerCase().indexOf(q)!==-1
+        ||(c.email||'').toLowerCase().indexOf(q)!==-1
+        ||(c.classe||'').toLowerCase().indexOf(q)!==-1;
+    });
+  }
+  document.getElementById('comptes-badge').textContent=data.length+' élève'+(data.length>1?'s':'');
+  var tbody=document.getElementById('comptes-tbody');
+  if(data.length===0){
+    tbody.innerHTML='<tr><td colspan="5" class="empty">Aucun compte trouvé'+(filtre?' pour "'+esc(filtre)+'"':' — les élèves doivent d\'abord créer leur compte sur l\'espace élève.')+'</td></tr>';
+    return;
+  }
+  // Trier par classe puis par nom
+  data=data.slice().sort(function(a,b){
+    var cc=(a.classe||'').localeCompare(b.classe||'');
+    return cc!==0?cc:(a.nom||'').localeCompare(b.nom||'');
+  });
+  tbody.innerHTML=data.map(function(c){
+    var dysHtml=c.dys==='oui'?'<span class="pill pill-navy">DYS</span>':'<span class="pill pill-gray">Non</span>';
+    return '<tr>'
+      +'<td class="td-name">'+esc(c.nom)+'</td>'
+      +'<td class="td-mono" style="font-size:12px;">'+esc(c.classe)+'</td>'
+      +'<td class="td-mono">'+esc(c.email)+'</td>'
+      +'<td><span class="mdp-reveal" title="Cliquer pour copier" onclick="copierMdp(this,\''+esc(c.mot_de_passe)+'\')">'+esc(c.mot_de_passe)+'</span></td>'
+      +'<td>'+dysHtml+'</td>'
+      +'</tr>';
+  }).join('');
+}
+
+function filtrerComptes(){
+  var q=document.getElementById('comptes-search').value.trim();
+  renderComptes(q||null);
+}
+
+function copierMdp(el,mdp){
+  navigator.clipboard.writeText(mdp).then(function(){
+    var old=el.textContent;
+    el.textContent='✓ Copié';
+    el.style.color='var(--green-dark)';
+    setTimeout(function(){el.textContent=old;el.style.color='';},1500);
+  }).catch(function(){});
 }
 
 function retourClasses(){

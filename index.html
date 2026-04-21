@@ -153,53 +153,50 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-he
 .hero-live{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:rgba(255,255,255,.5);}
 .hero-live-dot{width:6px;height:6px;border-radius:50%;background:#22D37C;animation:statusPulse 2.4s infinite;}
 
-/* ═══ KPI STRIP ═══ */
-.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem;}
-.kpi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:1.3rem 1.5rem;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
-.kpi-card:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(0,0,0,.06);}
-.kpi-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--navy);opacity:.08;}
-.kpi-card.green::before{background:var(--green);opacity:.25;}
-.kpi-card.amber::before{background:var(--amber);opacity:.25;}
-.kpi-card.red::before{background:var(--red);opacity:.25;}
-.kpi-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.875rem;}
-.kpi-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
-.kpi-ico{width:30px;height:30px;border-radius:8px;background:var(--navy-l);color:var(--navy);display:flex;align-items:center;justify-content:center;}
-.kpi-card.green .kpi-ico{background:var(--green-l);color:var(--green-dark);}
-.kpi-card.amber .kpi-ico{background:var(--amber-l);color:var(--amber);}
-.kpi-card.red .kpi-ico{background:var(--red-l);color:var(--red);}
-.kpi-ico svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.kpi-value{font-size:44px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-2px;margin-bottom:4px;}
-.kpi-card.green .kpi-value{color:var(--green-dark);}
-.kpi-card.amber .kpi-value{color:var(--amber);}
-.kpi-card.red .kpi-value{color:var(--red);}
-.kpi-trend{font-size:11px;color:var(--text3);}
-
 /* ═══ CLASSES GRID ═══ */
-.classes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:1.75rem;}
-.classe-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);padding:1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
-.classe-card:hover{border-color:var(--navy-mid);transform:translateY(-2px);box-shadow:0 6px 20px rgba(27,46,94,.09);}
-.classe-card.has-alert{border-color:rgba(212,38,38,.25);}
-.cc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
-.cc-name{font-size:16px;font-weight:700;color:var(--navy);}
-.cc-type{font-size:10px;color:var(--text3);margin-top:2px;}
-.badge-alert{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--red-l);color:var(--red);}
-.badge-ok{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--green-l);color:var(--green-dark);}
-.badge-wait{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--bg);color:var(--text3);border:1px solid var(--border-md);}
-.cc-ring-row{display:flex;align-items:center;gap:14px;margin-bottom:.875rem;}
-.cc-ring{position:relative;width:54px;height:54px;flex-shrink:0;}
-.cc-ring svg{transform:rotate(-90deg);}
-.ring-bg{fill:none;stroke:var(--bg2);stroke-width:8;}
-.ring-fill{fill:none;stroke:var(--green);stroke-width:8;stroke-linecap:butt;}
-.ring-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.ring-pct{font-size:11px;font-weight:700;color:var(--navy);}
-.cc-vals{flex:1;}
-.cc-main-val{font-size:22px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.6px;}
-.cc-main-lbl{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-top:2px;}
-.cc-prog-track{height:3.5px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-bottom:.25rem;}
-.cc-prog-fill{height:100%;background:var(--green);border-radius:2px;}
-.cc-prog-txt{font-size:10px;color:var(--text3);}
-.cc-arrow{position:absolute;bottom:14px;right:16px;font-size:14px;color:var(--text3);transition:all .18s;}
-.classe-card:hover .cc-arrow{color:var(--navy);transform:translateX(3px);}
+.classes-grid{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.75rem;}
+.classe-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);padding:1.75rem 2rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:2.5rem;align-items:center;min-height:140px;}
+.classe-card:hover{border-color:var(--navy-mid);transform:translateY(-2px);box-shadow:0 10px 32px rgba(27,46,94,.1);}
+.classe-card.has-alert{border-color:rgba(212,38,38,.3);}
+.classe-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--navy);opacity:.12;}
+.classe-card.has-alert::before{background:var(--red);opacity:.45;}
+.classe-card.complete::before{background:var(--green);opacity:.5;}
+
+/* Bloc titre à gauche */
+.cc-titleblock{min-width:0;}
+.cc-name{font-size:24px;font-weight:800;color:var(--navy);letter-spacing:-.8px;line-height:1.1;margin-bottom:6px;}
+.cc-type{font-size:11.5px;color:var(--text3);font-weight:500;letter-spacing:.02em;margin-bottom:14px;}
+.cc-status-line{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);padding:6px 12px;background:var(--bg);border-radius:999px;}
+.cc-status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.cc-status-dot.wait{background:var(--text3);}
+.cc-status-dot.alert{background:var(--red);animation:pulse .8s infinite;}
+.classe-card.has-alert .cc-status-line{background:var(--red-l);color:var(--red);}
+.classe-card.complete .cc-status-line{background:var(--green-l);color:var(--green-dark);}
+
+/* Bloc stats au centre */
+.cc-stats-row{display:flex;gap:0;align-self:center;}
+.cc-stat{padding:0 1.75rem;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;min-width:135px;text-align:center;}
+.cc-stat:not(:last-child)::after{content:'';position:absolute;right:0;top:10%;bottom:10%;width:1px;background:var(--border);}
+.cc-stat-val{font-size:42px;font-weight:800;line-height:1;letter-spacing:-1.8px;font-family:'Sora',sans-serif;}
+/* Code couleur par type de stat */
+.cc-stat.s-eleves .cc-stat-val{color:var(--navy);}
+.cc-stat.s-acquis .cc-stat-val{color:var(--green-dark);}
+.cc-stat.s-alertes .cc-stat-val{color:var(--text3);}
+.cc-stat.s-alertes.has-alert .cc-stat-val{color:var(--red);}
+.cc-stat.empty .cc-stat-val{color:var(--text4);}
+.cc-stat-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);line-height:1.2;}
+
+/* Bloc flèche à droite */
+.cc-arrow-cell{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:var(--bg);color:var(--text3);font-size:18px;transition:all .2s;}
+.classe-card:hover .cc-arrow-cell{background:var(--navy);color:#fff;transform:translateX(3px);}
+
+/* Responsive mobile */
+@media(max-width:780px){
+  .classe-card{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem;}
+  .cc-stats-row{justify-content:space-around;}
+  .cc-stat{padding:0 .75rem;min-width:0;flex:1;}
+  .cc-arrow-cell{display:none;}
+}
 
 /* ═══ PANEL / TABLE ═══ */
 .panel{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:0;margin-bottom:1.25rem;overflow:hidden;}
@@ -258,6 +255,28 @@ tr:hover td{background:#FDFCF9;}
 .stats-empty-ico{font-size:32px;margin-bottom:1rem;}
 .stats-empty-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:.5rem;}
 .stats-empty-sub{font-size:13px;color:var(--text3);line-height:1.6;}
+
+/* ═══ STATS — MENU PRINCIPAL ═══ */
+.stats-menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;}
+@media (max-width:800px){.stats-menu-grid{grid-template-columns:1fr;}}
+.stats-menu-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rl);padding:1.75rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.stats-menu-card:hover{border-color:var(--navy-mid);transform:translateY(-2px);box-shadow:0 8px 28px rgba(27,46,94,.1);}
+.stats-menu-card.soon{opacity:.6;cursor:default;pointer-events:none;background:repeating-linear-gradient(45deg,var(--white),var(--white) 10px,#FBF9F3 10px,#FBF9F3 20px);}
+.sm-ico-wrap{width:46px;height:46px;border-radius:12px;background:var(--navy-l);color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;}
+.sm-ico-wrap.amber{background:var(--amber-l);color:var(--amber);}
+.sm-ico-wrap.green{background:var(--green-l);color:var(--green-dark);}
+.sm-ico-wrap.accent{background:var(--accent-l);color:var(--accent);}
+.sm-ico-wrap.red{background:var(--red-l);color:var(--red);}
+.sm-ico-wrap.teal{background:#E1F5EE;color:#0F6E56;}
+.sm-ico-wrap svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.sm-title{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.4px;margin-bottom:.35rem;}
+.sm-desc{font-size:12.5px;color:var(--text3);line-height:1.55;margin-bottom:1.25rem;}
+.sm-foot{display:flex;align-items:center;justify-content:space-between;}
+.sm-badge{font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:11px;background:var(--bg);color:var(--text2);border:1px solid var(--border-md);}
+.sm-badge.soon{background:var(--amber-l);color:var(--amber);border-color:transparent;}
+.sm-badge.alert{background:var(--red-l);color:var(--red);border-color:transparent;}
+.sm-arrow{font-size:16px;color:var(--text3);transition:all .2s;}
+.stats-menu-card:hover .sm-arrow{color:var(--navy);transform:translateX(4px);}
 
 /* ═══ IDENTIFIANTS ═══ */
 .mdp-reveal { font-family:'JetBrains Mono',monospace; font-size:12px; background:var(--bg); border:1px solid var(--border-md); border-radius:6px; padding:3px 8px; cursor:pointer; color:var(--text3); transition:all .15s; user-select:all; }
@@ -418,43 +437,9 @@ tr:hover td{background:#FDFCF9;}
           </div>
         </div>
 
-        <div class="kpi-strip">
-          <div class="kpi-card">
-            <div class="kpi-head">
-              <div class="kpi-label">Élèves évalués</div>
-              <div class="kpi-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-            </div>
-            <div class="kpi-value" id="kpi-evalues">—</div>
-            <div class="kpi-trend" id="kpi-evalues-sub">—</div>
-          </div>
-          <div class="kpi-card amber">
-            <div class="kpi-head">
-              <div class="kpi-label">Fiches assignées</div>
-              <div class="kpi-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-            </div>
-            <div class="kpi-value" id="kpi-assignees">—</div>
-            <div class="kpi-trend" id="kpi-assignees-sub">—</div>
-          </div>
-          <div class="kpi-card green">
-            <div class="kpi-head">
-              <div class="kpi-label">Fiches validées</div>
-              <div class="kpi-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            </div>
-            <div class="kpi-value" id="kpi-validees">—</div>
-            <div class="kpi-trend" id="kpi-validees-sub">—</div>
-          </div>
-          <div class="kpi-card red">
-            <div class="kpi-head">
-              <div class="kpi-label">Alertes actives</div>
-              <div class="kpi-ico"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-            </div>
-            <div class="kpi-value" id="kpi-alertes">—</div>
-            <div class="kpi-trend" id="kpi-alertes-sub">—</div>
-          </div>
-        </div>
-
-        <div class="page-header">
+        <div class="page-header" style="margin-top:.5rem;">
           <div class="page-title" style="font-size:18px;">Mes classes</div>
+          <div class="page-sub" id="accueil-classes-sub" style="margin-top:.2rem;">—</div>
         </div>
         <div class="classes-grid" id="classes-grid-accueil"></div>
       </div>
@@ -548,15 +533,87 @@ tr:hover td{background:#FDFCF9;}
 
       <!-- ══ STATISTIQUES ══ -->
       <div class="section" id="section-stats">
-        <div class="page-header">
-          <div class="page-title">Statistiques</div>
-          <div class="page-sub">Analyses avancées de vos classes — à venir.</div>
+
+        <!-- MENU PRINCIPAL -->
+        <div id="stats-menu" class="stats-view">
+          <div class="page-header">
+            <div class="page-title">Statistiques</div>
+            <div class="page-sub">Analyses détaillées de vos classes — progression, engagement, difficultés.</div>
+          </div>
+          <div class="stats-menu-grid">
+            <!-- Notions acquises -->
+            <div class="stats-menu-card" onclick="ouvrirStatsVue('notions')">
+              <div class="sm-ico-wrap"><svg viewBox="0 0 24 24"><path d="M3 20h18M7 16V8m5 8V4m5 12v-7"/></svg></div>
+              <div class="sm-title">Notions acquises</div>
+              <div class="sm-desc">Répartition des notions maîtrisées et des lacunes dans vos classes, par thème et par niveau.</div>
+              <div class="sm-foot">
+                <div class="sm-badge" id="sm-badge-notions">—</div>
+                <div class="sm-arrow">→</div>
+              </div>
+            </div>
+            <!-- Engagement -->
+            <div class="stats-menu-card" onclick="ouvrirStatsVue('engagement')">
+              <div class="sm-ico-wrap green"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <div class="sm-title">Engagement et progression</div>
+              <div class="sm-desc">Vitesse à laquelle vos élèves avancent dans leurs fiches, et classement des classes par dynamique.</div>
+              <div class="sm-foot">
+                <div class="sm-badge" id="sm-badge-engagement">—</div>
+                <div class="sm-arrow">→</div>
+              </div>
+            </div>
+            <!-- Impact remédiation -->
+            <div class="stats-menu-card" onclick="ouvrirStatsVue('impact')">
+              <div class="sm-ico-wrap teal"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+              <div class="sm-title">Impact de la remédiation</div>
+              <div class="sm-desc">Scores avant / après remédiation — mesure l'efficacité du travail réalisé par vos élèves.</div>
+              <div class="sm-foot">
+                <div class="sm-badge" id="sm-badge-impact">—</div>
+                <div class="sm-arrow">→</div>
+              </div>
+            </div>
+            <!-- Élèves à risque -->
+            <div class="stats-menu-card" onclick="ouvrirStatsVue('risque')">
+              <div class="sm-ico-wrap red"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg></div>
+              <div class="sm-title">Élèves à risque</div>
+              <div class="sm-desc">Concentré des élèves en difficulté persistante pour prioriser vos interventions pédagogiques.</div>
+              <div class="sm-foot">
+                <div class="sm-badge" id="sm-badge-risque">—</div>
+                <div class="sm-arrow">→</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="stats-empty">
-          <div class="stats-empty-ico">📊</div>
-          <div class="stats-empty-title">Bientôt disponible</div>
-          <div class="stats-empty-sub">Les statistiques avancées (progression par notion, comparaison entre classes, évolution dans le temps) seront disponibles prochainement.</div>
+
+        <!-- SOUS-VUES (vides pour l'instant, on les construit après) -->
+        <div id="stats-vue-notions" class="stats-view" style="display:none;">
+          <button class="back-btn" onclick="retourStatsMenu()">← Retour aux statistiques</button>
+          <div class="page-header">
+            <div class="page-title">Notions acquises</div>
+            <div class="page-sub">Bientôt disponible — tu verras ici la répartition détaillée des notions par classe et par thème.</div>
+          </div>
         </div>
+        <div id="stats-vue-engagement" class="stats-view" style="display:none;">
+          <button class="back-btn" onclick="retourStatsMenu()">← Retour aux statistiques</button>
+          <div class="page-header">
+            <div class="page-title">Engagement et progression</div>
+            <div class="page-sub">Bientôt disponible — classement de tes classes par dynamique de progression.</div>
+          </div>
+        </div>
+        <div id="stats-vue-impact" class="stats-view" style="display:none;">
+          <button class="back-btn" onclick="retourStatsMenu()">← Retour aux statistiques</button>
+          <div class="page-header">
+            <div class="page-title">Impact de la remédiation</div>
+            <div class="page-sub">Bientôt disponible — scores avant / après remédiation pour chacune de tes classes.</div>
+          </div>
+        </div>
+        <div id="stats-vue-risque" class="stats-view" style="display:none;">
+          <button class="back-btn" onclick="retourStatsMenu()">← Retour aux statistiques</button>
+          <div class="page-header">
+            <div class="page-title">Élèves à risque</div>
+            <div class="page-sub">Bientôt disponible — liste concentrée des élèves nécessitant une intervention.</div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ══ IDENTIFIANTS ══ -->
@@ -742,23 +799,12 @@ function renderAll(){
 
 // ── ACCUEIL
 function renderAccueil(){
-  var ev=evalMC(null);
-  var rm=remMC(null);
-  var eleves=elevesUniques(ev).length;
-  var assignees=ev.filter(function(r){return r.assigne==='oui';}).length;
-  var validees=rm.filter(function(r){return r.statut==='quiz_final_valide';}).length;
-  var alertes=rm.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
-  var pctValid=assignees>0?Math.round(validees/assignees*100):0;
-
-  document.getElementById('kpi-evalues').textContent=eleves||'0';
-  document.getElementById('kpi-evalues-sub').textContent=mesClasses.length+' classe'+(mesClasses.length>1?'s':'');
-  document.getElementById('kpi-assignees').textContent=assignees;
-  document.getElementById('kpi-assignees-sub').textContent='fiches à compléter';
-  document.getElementById('kpi-validees').textContent=pctValid+'%';
-  document.getElementById('kpi-validees-sub').textContent=validees+' / '+assignees+' fiches';
-  document.getElementById('kpi-alertes').textContent=alertes||'0';
-  document.getElementById('kpi-alertes-sub').textContent=alertes>0?'intervention requise':'aucun élève bloqué';
-
+  // Sous-titre "Mes classes"
+  var subEl=document.getElementById('accueil-classes-sub');
+  if(subEl){
+    var nbCl=mesClasses.length;
+    subEl.textContent=nbCl+' classe'+(nbCl>1?'s':'')+' · Cliquez sur une carte pour voir le détail.';
+  }
   // Mini cartes classes dans accueil
   document.getElementById('classes-grid-accueil').innerHTML=mesClasses.map(function(cl){
     return buildClasseCard(cl,true);
@@ -768,31 +814,55 @@ function renderAccueil(){
 function buildClasseCard(cl,small){
   var evCl=evalMC(cl);
   var rmCl=remMC(cl);
+  // Élèves diagnostiqués
   var nbEv=elevesUniques(evCl).length;
-  var aCl=evCl.filter(function(r){return r.assigne==='oui';}).length;
-  var mCl=evCl.filter(function(r){return r.assigne==='non';}).length;
+  // Notions acquises / totales (sur les élèves évalués)
+  var aCl=evCl.filter(function(r){return r.assigne==='oui';}).length;    // assignées = lacunes
+  var mCl=evCl.filter(function(r){return r.assigne==='non';}).length;    // maîtrisées
   var tCl=aCl+mCl;
   var pAcq=tCl>0?Math.round(mCl/tCl*100):0;
-  var vCl=rmCl.filter(function(r){return r.statut==='quiz_final_valide';}).length;
-  var pProg=aCl>0?Math.round(vCl/aCl*100):0;
+  // Alertes
   var altCl=rmCl.filter(function(r){return r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non';}).length;
-  var badge=altCl>0?'<span class="badge-alert">'+altCl+' alerte'+(altCl>1?'s':'')+'</span>'
-    :nbEv>0?'<span class="badge-ok">Actif</span>'
-    :'<span class="badge-wait">En attente</span>';
-  var circ=132,off=circ-(pAcq/100)*circ;
+  // États
   var alertCls=altCl>0?' has-alert':'';
-  var onclick=small?'ouvrirClasse(\''+esc(cl)+'\',true)':'ouvrirClasse(\''+esc(cl)+'\',false)';
-  return '<div class="classe-card'+alertCls+'" onclick="'+onclick+'">'
-    +'<div class="cc-header"><div><div class="cc-name">'+esc(cl)+'</div><div class="cc-type">Bac Pro · Lycée Benoît Fourneyron</div></div>'+badge+'</div>'
-    +'<div class="cc-ring-row">'
-    +'<div class="cc-ring"><svg viewBox="0 0 54 54" width="54" height="54"><circle class="ring-bg" cx="27" cy="27" r="21"/><circle class="ring-fill" cx="27" cy="27" r="21" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'"/></svg>'
-    +'<div class="ring-inner"><span class="ring-pct">'+pAcq+'%</span></div></div>'
-    +'<div class="cc-vals"><div class="cc-main-val">'+nbEv+'</div><div class="cc-main-lbl">Évalués</div></div>'
+  var emptyCls=nbEv===0?' empty':'';
+  var completeCls=(nbEv>0&&aCl===0)?' complete':'';
+  var onclick='ouvrirClasse(\''+esc(cl)+'\','+(small?'true':'false')+')';
+
+  // Statut textuel dans le bandeau
+  var statusCls,statusTxt;
+  if(nbEv===0){
+    statusCls='wait'; statusTxt="En attente d'élèves diagnostiqués";
+  } else if(altCl>0){
+    statusCls='alert'; statusTxt=altCl+' intervention'+(altCl>1?'s':'')+' requise'+(altCl>1?'s':'');
+  } else if(aCl===0){
+    statusCls=''; statusTxt='Toutes les notions maîtrisées';
+  } else {
+    statusCls=''; statusTxt='Classe active · remédiation en cours';
+  }
+
+  // Affichage stats (avec placeholders "—" si aucun élève évalué)
+  var valEv=nbEv>0?nbEv:'—';
+  var valAcq=nbEv>0?(pAcq+'%'):'—';
+  var valAlt=nbEv>0?(altCl>0?altCl:0):'—';
+  // Classes code couleur : .s-eleves (navy), .s-acquis (vert), .s-alertes (gris/rouge)
+  // + .empty si pas encore de données → stat grise
+  var emptyStat=(nbEv===0)?' empty':'';
+  var alertStat=(nbEv>0&&altCl>0)?' has-alert':'';
+
+  return '<div class="classe-card'+alertCls+emptyCls+completeCls+'" onclick="'+onclick+'">'
+    +'<div class="cc-titleblock">'
+      +'<div class="cc-name">'+esc(cl)+'</div>'
+      +'<div class="cc-type">Bac Pro · Lycée Benoît Fourneyron</div>'
+      +'<div class="cc-status-line"><span class="cc-status-dot '+statusCls+'"></span><span>'+statusTxt+'</span></div>'
     +'</div>'
-    +'<div class="cc-prog-track"><div class="cc-prog-fill" style="width:'+pProg+'%;"></div></div>'
-    +'<div class="cc-prog-txt">'+pProg+'% remédiation · '+vCl+'/'+aCl+' fiches validées</div>'
-    +'<div class="cc-arrow">→</div>'
-    +'</div>';
+    +'<div class="cc-stats-row">'
+      +'<div class="cc-stat s-eleves'+emptyStat+'"><div class="cc-stat-val">'+valEv+'</div><div class="cc-stat-lbl">Élèves<br>diagnostiqués</div></div>'
+      +'<div class="cc-stat s-acquis'+emptyStat+'"><div class="cc-stat-val">'+valAcq+'</div><div class="cc-stat-lbl">Notions<br>acquises</div></div>'
+      +'<div class="cc-stat s-alertes'+emptyStat+alertStat+'"><div class="cc-stat-val">'+valAlt+'</div><div class="cc-stat-lbl">Alertes<br>actives</div></div>'
+    +'</div>'
+    +'<div class="cc-arrow-cell">→</div>'
+  +'</div>';
 }
 
 // ── CLASSES SECTION
@@ -1031,6 +1101,8 @@ function navVers(dest){
   } else if(dest==='stats'){
     document.getElementById('section-stats').classList.add('active');
     document.getElementById('sb-stats').classList.add('active');
+    showStatsView('menu');
+    renderStatsMenu();
     setBreadcrumb([{label:'Statistiques',current:true}]);
   } else if(dest==='identifiants'){
     document.getElementById('section-identifiants').classList.add('active');
@@ -1046,6 +1118,89 @@ function showClassesView(view){
     if(el) el.style.display='none';
   });
   document.getElementById('view-'+view).style.display='block';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STATISTIQUES — navigation interne
+// ═══════════════════════════════════════════════════════════════
+function showStatsView(view){
+  ['stats-menu','stats-vue-notions','stats-vue-engagement','stats-vue-impact','stats-vue-risque'].forEach(function(v){
+    var el=document.getElementById(v);
+    if(el) el.style.display='none';
+  });
+  var id=view==='menu'?'stats-menu':'stats-vue-'+view;
+  var el=document.getElementById(id);
+  if(el) el.style.display='block';
+}
+
+function ouvrirStatsVue(vue){
+  showStatsView(vue);
+  var labels={notions:'Notions acquises',engagement:'Engagement',impact:'Impact remédiation',risque:'Élèves à risque'};
+  setBreadcrumb([
+    {label:'Statistiques',onclick:"navVers('stats')"},
+    {label:labels[vue]||vue,current:true}
+  ]);
+}
+
+function retourStatsMenu(){
+  showStatsView('menu');
+  renderStatsMenu();
+  setBreadcrumb([{label:'Statistiques',current:true}]);
+}
+
+// Calcule et affiche les badges des 4 cartes du menu Stats
+function renderStatsMenu(){
+  var ev=evalMC(null);
+  var rm=remMC(null);
+
+  // Notions : nombre total d'élèves évalués
+  var nbEleves=elevesUniques(ev).length;
+  var badgeNotions=document.getElementById('sm-badge-notions');
+  if(badgeNotions){
+    badgeNotions.textContent=nbEleves>0?(nbEleves+' élève'+(nbEleves>1?'s':'')+' évalué'+(nbEleves>1?'s':'')):'En attente';
+    badgeNotions.className=nbEleves>0?'sm-badge':'sm-badge soon';
+  }
+
+  // Engagement : nombre de fiches commencées (toutes classes confondues)
+  var nbTent=rm.length;
+  var badgeEng=document.getElementById('sm-badge-engagement');
+  if(badgeEng){
+    badgeEng.textContent=nbTent>0?(nbTent+' tentative'+(nbTent>1?'s':'')):'En attente';
+    badgeEng.className=nbTent>0?'sm-badge':'sm-badge soon';
+  }
+
+  // Impact : dépend de la présence d'une éval 2 chez au moins un élève
+  // On regarde si des évaluations ont un numero_eval>=2 (si la donnée existe)
+  var aDesReevals=ev.some(function(r){return (parseInt(r.numero_eval)||1)>=2;});
+  var badgeImp=document.getElementById('sm-badge-impact');
+  if(badgeImp){
+    if(aDesReevals){
+      badgeImp.textContent='Données disponibles';
+      badgeImp.className='sm-badge';
+    } else {
+      badgeImp.textContent='En attente éval. 2';
+      badgeImp.className='sm-badge soon';
+    }
+  }
+
+  // Risque : élèves bloqués (échec 3 tentatives non traité)
+  var bloques={};
+  rm.forEach(function(r){
+    if(r.statut==='echec_3_tentatives'&&r.alerte_traitee==='non'){
+      bloques[String(r.eleve_id||r.eleve_nom).toLowerCase()]=true;
+    }
+  });
+  var nbRisque=Object.keys(bloques).length;
+  var badgeRisque=document.getElementById('sm-badge-risque');
+  if(badgeRisque){
+    if(nbRisque>0){
+      badgeRisque.textContent=nbRisque+' élève'+(nbRisque>1?'s':'');
+      badgeRisque.className='sm-badge alert';
+    } else {
+      badgeRisque.textContent='Aucun blocage';
+      badgeRisque.className='sm-badge';
+    }
+  }
 }
 
 function renderComptes(filtre){

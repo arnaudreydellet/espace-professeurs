@@ -981,6 +981,51 @@ tr:hover td{background:#FDFCF9;}
   border-radius:var(--rl);padding:3.5rem 2rem;text-align:center;
   color:var(--text3);font-family:'Inter Tight',sans-serif;font-size:13px;
 }
+
+/* État vide accueil quand le prof n'a pas encore créé ses classes */
+.accueil-empty-card{
+  background:linear-gradient(180deg,#FEFDFB 0%,#FBF8F1 100%);
+  border:1.5px solid rgba(212,164,100,.28);
+  border-radius:var(--rl);
+  padding:3rem 2.5rem;
+  text-align:center;
+  margin-bottom:1.5rem;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 12px 32px -10px rgba(42,37,26,.10);
+}
+.accueil-empty-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(27,46,94,.06);
+  color:var(--navy);margin-bottom:1.25rem;
+}
+.accueil-empty-icon svg{width:26px;height:26px;}
+.accueil-empty-title{
+  font-family:'Sora',sans-serif;font-size:20px;font-weight:800;
+  color:var(--navy);letter-spacing:-.4px;
+  margin-bottom:.5rem;
+}
+.accueil-empty-text{
+  font-family:'Inter Tight',sans-serif;font-size:14px;line-height:1.6;
+  color:var(--text2);
+  max-width:520px;margin:0 auto 1.5rem;
+}
+.accueil-empty-text strong{color:var(--navy);font-weight:700;}
+.accueil-empty-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 24px;
+  background:var(--navy);color:#fff;
+  border:none;border-radius:999px;
+  font-family:'Inter Tight',sans-serif;font-size:13.5px;font-weight:700;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:all .22s;
+  box-shadow:0 4px 12px rgba(26,44,79,.20);
+}
+.accueil-empty-cta:hover{
+  background:#243D6A;transform:translateY(-1px);
+  box-shadow:0 8px 20px rgba(26,44,79,.28);
+}
+.accueil-empty-cta svg{width:14px;height:14px;}
 .chart-card{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:1.5rem 1.75rem;position:relative;overflow:hidden;}
 .chart-card.full{width:100%;}
 .chart-card-hero{padding-top:1.25rem;padding-bottom:1.25rem;}
@@ -2779,13 +2824,41 @@ function renderAll(){
 }
 
 function renderAccueil(){
-  // Sous-titre
   var nbCl=mesClasses.length;
   var subEl=document.getElementById('accueil-classes-sub');
-  if(subEl) subEl.textContent=nbCl+' classe'+(nbCl>1?'s':'')+' · cliquez sur une carte pour voir le détail.';
-
-  // Cartes classes
   var gridA=document.getElementById('classes-grid-accueil');
+
+  // Cas particulier : aucune classe déclarée → message d'accueil avec CTA
+  if(nbCl===0){
+    if(subEl) subEl.textContent='Aucune classe pour l\'instant — créez vos classes pour commencer.';
+    if(gridA){
+      gridA.style.removeProperty('--cols');
+      gridA.innerHTML=''
+        +'<div class="accueil-empty-card">'
+          +'<div class="accueil-empty-icon">'
+            +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'
+              +'<rect x="3" y="3" width="7" height="7" rx="1"/>'
+              +'<rect x="14" y="3" width="7" height="7" rx="1"/>'
+              +'<rect x="3" y="14" width="7" height="7" rx="1"/>'
+              +'<rect x="14" y="14" width="7" height="7" rx="1"/>'
+            +'</svg>'
+          +'</div>'
+          +'<div class="accueil-empty-title">Bienvenue dans votre espace</div>'
+          +'<div class="accueil-empty-text">'
+            +'Vous n\'avez encore <strong>aucune classe déclarée</strong>, c\'est tout à fait normal pour une première connexion. '
+            +'Rendez-vous dans l\'onglet <strong>Mes classes</strong> pour créer vos classes : vos élèves pourront ensuite les choisir lors de leur inscription, et vous les retrouverez automatiquement ici.'
+          +'</div>'
+          +'<button class="accueil-empty-cta" onclick="navVers(\'mesclasses\')">'
+            +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+            +'Créer mes classes'
+          +'</button>'
+        +'</div>';
+    }
+    return;
+  }
+
+  // Cas normal : affichage des cartes de classes
+  if(subEl) subEl.textContent=nbCl+' classe'+(nbCl>1?'s':'')+' · cliquez sur une carte pour voir le détail.';
   setGridCols(gridA,nbCl);
   gridA.innerHTML=mesClasses.map(function(cl){
     return buildClasseCard(cl);

@@ -113,6 +113,42 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-he
 }
 .login-wrap-band{height:4px;background:linear-gradient(90deg,#1A2C4F 0%,#2A4A7F 40%,#C28A42 100%);}
 .login-wrap-inner{padding:2.25rem 2.25rem 1.75rem;}
+
+/* Onglets de l'écran de login */
+.auth-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(26,44,79,0.12);
+}
+.auth-tab {
+  flex: 1;
+  padding: 12px 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(26,44,79,0.5);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+.auth-tab:hover { color: rgba(26,44,79,0.85); }
+.auth-tab.active {
+  color: #1A2C4F;
+  border-bottom-color: #C9A36B;
+  font-weight: 700;
+}
+.auth-panel { display: none; }
+.auth-panel.active { display: block; }
+.form-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.form-field-row .form-field { margin-bottom: 0; }
 .lr-head{margin-bottom:1.75rem;}
 .lr-title{
   font-family:'Inter Tight',sans-serif;font-size:22px;font-weight:700;
@@ -736,6 +772,129 @@ tr:hover td{background:#FDFCF9;}
   font-family:'Inter Tight',sans-serif;font-size:11.5px;
   color:var(--text3);font-weight:500;
 }
+/* ═══════════════════════════════════════════════════════════
+   CLASSEMENT DES ÉLÈVES — vue par classe
+   ═══════════════════════════════════════════════════════════ */
+.eleves-rank-list{
+  display:flex;flex-direction:column;gap:6px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  padding:8px;
+  margin-bottom:1rem;
+}
+.eleve-rank-row{
+  display:grid;
+  grid-template-columns:36px 38px 1fr 220px 56px 16px;
+  align-items:center;
+  gap:14px;
+  padding:10px 14px 10px 8px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .15s, transform .15s;
+  position:relative;
+}
+.eleve-rank-row:hover{background:rgba(27,46,94,.04);}
+.eleve-rank-row:hover .eleve-rank-arrow{color:var(--navy);transform:translateX(3px);}
+.eleve-rank-row + .eleve-rank-row{border-top:1px solid rgba(20,19,16,.04);}
+
+.eleve-rank-pos{
+  font-family:'Sora',sans-serif;
+  font-size:15px;font-weight:800;
+  color:var(--text3);
+  text-align:center;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.3px;
+}
+.eleve-rank-row.top1 .eleve-rank-pos,
+.eleve-rank-row.top2 .eleve-rank-pos,
+.eleve-rank-row.top3 .eleve-rank-pos{
+  color:#991B1B;
+}
+.eleve-rank-pos-medal{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:50%;
+  font-size:11px;
+}
+.eleve-rank-row.top1 .eleve-rank-pos-medal{background:rgba(212,38,38,.12);}
+.eleve-rank-row.top2 .eleve-rank-pos-medal{background:rgba(212,38,38,.08);}
+.eleve-rank-row.top3 .eleve-rank-pos-medal{background:rgba(180,83,9,.10);}
+
+.eleve-rank-avatar{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#1A2C4F 0%,#2A4A7F 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-size:11.5px;font-weight:700;
+  color:#fff;letter-spacing:-.2px;
+}
+.eleve-rank-row.dys .eleve-rank-avatar{
+  background:linear-gradient(135deg,#7C3AED 0%,#6D28D9 100%);
+}
+
+.eleve-rank-info{
+  min-width:0;display:flex;flex-direction:column;gap:2px;
+}
+.eleve-rank-name{
+  font-family:'Inter Tight',sans-serif;font-size:13.5px;font-weight:700;
+  color:var(--text);letter-spacing:-.1px;line-height:1.2;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.eleve-rank-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:1px 7px;border-radius:999px;
+  font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:.06em;
+  background:rgba(124,58,237,.10);color:var(--purple-deep);
+  width:fit-content;
+}
+.eleve-rank-tag::before{
+  content:'';width:4px;height:4px;border-radius:50%;
+  background:var(--purple);flex-shrink:0;
+}
+
+.eleve-rank-bar{
+  position:relative;height:8px;border-radius:999px;
+  background:rgba(20,19,16,.06);overflow:hidden;
+}
+.eleve-rank-bar-fill{
+  position:absolute;top:0;left:0;height:100%;
+  border-radius:999px;
+  transition:width .8s cubic-bezier(.4,0,.2,1);
+}
+.eleve-rank-bar-fill.good{background:linear-gradient(90deg,#34D399,#15A362);}
+.eleve-rank-bar-fill.mid{background:linear-gradient(90deg,#5DE89C,#22D37C);}
+.eleve-rank-bar-fill.warn{background:linear-gradient(90deg,#FBBF24,#D47B06);}
+.eleve-rank-bar-fill.bad{background:linear-gradient(90deg,#F87171,#D42626);}
+
+.eleve-rank-pct{
+  font-family:'Sora',sans-serif;
+  font-size:16px;font-weight:800;letter-spacing:-.4px;
+  text-align:right;line-height:1;
+  font-variant-numeric:tabular-nums;
+  display:inline-flex;align-items:baseline;justify-content:flex-end;
+}
+.eleve-rank-pct-suffix{font-size:10px;font-weight:700;margin-left:1px;}
+.eleve-rank-pct.good{color:#0E7348;}
+.eleve-rank-pct.mid{color:#0E7348;}
+.eleve-rank-pct.warn{color:#B45309;}
+.eleve-rank-pct.bad{color:#991B1B;}
+.eleve-rank-pct.muted{color:var(--text4);}
+
+.eleve-rank-arrow{
+  color:var(--text3);font-size:14px;
+  transition:transform .22s,color .22s;
+  justify-self:end;
+}
+
+@media (max-width:760px){
+  .eleve-rank-row{
+    grid-template-columns:30px 32px 1fr 50px;
+    gap:10px;padding:10px 10px;
+  }
+  .eleve-rank-row .eleve-rank-bar,
+  .eleve-rank-row .eleve-rank-arrow{display:none;}
+}
+
 .eleves-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
   gap:12px;margin-bottom:1rem;
@@ -792,6 +951,30 @@ tr:hover td{background:#FDFCF9;}
   transition:transform .22s,color .22s;
 }
 .eleve-card:hover .eleve-arrow{color:var(--navy);transform:translateX(3px);}
+
+/* Badge % notions acquises sur la carte élève */
+.eleve-pct{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:flex-end;
+  gap:2px;margin-right:4px;
+  font-family:'Sora',sans-serif;
+}
+.eleve-pct-num{
+  font-size:18px;font-weight:800;letter-spacing:-.5px;line-height:1;
+  display:inline-flex;align-items:baseline;
+  font-variant-numeric:tabular-nums;
+}
+.eleve-pct-num-suffix{font-size:10px;font-weight:700;margin-left:1px;}
+.eleve-pct-num.good{color:#0E7348;}
+.eleve-pct-num.mid{color:#0E7348;}
+.eleve-pct-num.warn{color:#B45309;}
+.eleve-pct-num.bad{color:#991B1B;}
+.eleve-pct-num.muted{color:var(--text4);}
+.eleve-pct-lbl{
+  font-family:'Inter Tight',sans-serif;
+  font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text3);line-height:1;
+}
 
 .eleves-empty{
   background:var(--white);border:1.5px dashed rgba(20,19,16,.12);
@@ -1095,6 +1278,189 @@ tr:hover td{background:#FDFCF9;}
 .comptes-filter input:focus{border-color:var(--navy);background:#fff;}
 .comptes-info{font-family:'Inter Tight',sans-serif;font-size:11px;color:#8B5500;padding:.6rem 1.4rem;border-bottom:1px solid var(--border);background:var(--amber-l);display:flex;align-items:center;gap:8px;}
 .comptes-info::before{content:'⚠';font-size:13px;}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* ═══ MES CLASSES — déclaration des classes par le professeur ═══ */
+/* ═══════════════════════════════════════════════════════════════ */
+#section-mesclasses { padding: 1.5rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+.mc-form-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 26px 18px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 3px rgba(27, 46, 94, 0.04);
+}
+.mc-form-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.3px;
+  margin-bottom: 16px;
+}
+.mc-form-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px 16px; }
+.mc-form-field { display: flex; flex-direction: column; }
+.mc-form-field label {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(27, 46, 94, 0.55);
+  margin-bottom: 6px;
+}
+.mc-form-field input, .mc-form-field select {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px; color: var(--navy);
+  padding: 10px 14px;
+  border: 1px solid var(--border-md);
+  border-radius: 8px;
+  background: var(--bg);
+  transition: border-color 0.15s, background 0.15s;
+  outline: none;
+}
+.mc-form-field input:focus, .mc-form-field select:focus {
+  border-color: var(--navy); background: #fff;
+}
+.mc-form-hint {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; color: var(--text3);
+  margin-top: 10px;
+}
+.mc-form-hint strong { color: var(--navy); font-weight: 600; }
+.mc-form-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 16px; gap: 12px;
+}
+.mc-form-msg {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; flex: 1;
+}
+.mc-form-msg.error { color: #DC2626; }
+.mc-form-msg.success { color: #0E7348; }
+.mc-form-submit {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; font-weight: 600; color: #fff;
+  background: var(--navy);
+  border: none; border-radius: 8px;
+  padding: 10px 18px; cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+.mc-form-submit:hover { background: #142450; }
+.mc-form-submit:active { transform: scale(0.98); }
+.mc-form-submit:disabled { background: rgba(27, 46, 94, 0.3); cursor: not-allowed; }
+
+.mc-list-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px;
+}
+.mc-list-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.2px;
+}
+#mc-count-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; padding: 0 7px;
+  margin-left: 8px;
+  background: rgba(27, 46, 94, 0.08);
+  color: var(--navy);
+  border-radius: 11px;
+  font-size: 11px; font-weight: 700;
+  vertical-align: middle;
+}
+.mc-list-refresh {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; font-weight: 500;
+  color: var(--text3);
+  background: transparent;
+  border: 1px solid var(--border-md);
+  border-radius: 8px;
+  padding: 6px 12px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.mc-list-refresh:hover { color: var(--navy); border-color: rgba(27, 46, 94, 0.3); }
+
+.mc-list {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.mc-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.mc-row:last-child { border-bottom: none; }
+.mc-row:hover { background: rgba(27, 46, 94, 0.02); }
+.mc-row-niveau {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text3);
+}
+.mc-row-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--navy);
+}
+.mc-row-date {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px; color: var(--text3);
+}
+.mc-row-actions { display: flex; gap: 6px; justify-content: flex-end; }
+.mc-row-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: 1px solid var(--border-md);
+  border-radius: 7px;
+  color: var(--text3);
+  cursor: pointer; transition: all 0.15s;
+}
+.mc-row-btn:hover { color: var(--navy); border-color: rgba(27, 46, 94, 0.3); background: rgba(27, 46, 94, 0.03); }
+.mc-row-btn.delete:hover { color: #DC2626; border-color: rgba(220, 38, 38, 0.3); background: rgba(220, 38, 38, 0.04); }
+
+.mc-empty {
+  text-align: center; padding: 48px 24px;
+  color: var(--text3);
+}
+.mc-empty-icon {
+  display: inline-flex; width: 48px; height: 48px;
+  align-items: center; justify-content: center;
+  background: rgba(27, 46, 94, 0.06);
+  border-radius: 50%;
+  margin-bottom: 12px;
+  color: rgba(27, 46, 94, 0.4);
+}
+.mc-empty-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.mc-empty-text {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px;
+}
+.mc-loading {
+  text-align: center; padding: 32px;
+  color: var(--text3);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .mc-form-grid { grid-template-columns: 1fr; }
+  .mc-row { grid-template-columns: 1fr; gap: 6px; }
+  .mc-row-actions { justify-content: flex-end; }
+}
+/* ══ Fin Mes classes ══ */
 </style>
 </head>
 <body>
@@ -1125,27 +1491,81 @@ tr:hover td{background:#FDFCF9;}
       <div class="login-wrap">
         <div class="login-wrap-band"></div>
         <div class="login-wrap-inner">
-          <div class="lr-head">
-            <div class="lr-title">Bienvenue</div>
-            <div class="lr-sub">Connectez-vous pour accéder à votre espace.</div>
+          <!-- Onglets -->
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="auth-tab-login" onclick="switchAuthTab('login')">Se connecter</button>
+            <button class="auth-tab" id="auth-tab-signup" onclick="switchAuthTab('signup')">Créer mon compte</button>
           </div>
-          <div class="form-field">
-            <label class="form-lbl">Identifiant</label>
-            <div class="form-field-wrap">
-              <input class="form-inp" type="text" id="login-id" placeholder="Votre identifiant">
+
+          <!-- Onglet Connexion -->
+          <div class="auth-panel active" id="auth-panel-login">
+            <div class="lr-head">
+              <div class="lr-title">Bienvenue</div>
+              <div class="lr-sub">Connectez-vous pour accéder à votre espace.</div>
             </div>
-          </div>
-          <div class="form-field">
-            <label class="form-lbl">Mot de passe</label>
-            <div class="form-field-wrap">
-              <input class="form-inp" type="password" id="login-mdp" placeholder="••••••••">
+            <div class="form-field">
+              <label class="form-lbl">Email académique</label>
+              <div class="form-field-wrap">
+                <input class="form-inp" type="email" id="login-id" placeholder="marie.dupont@ac-lyon.fr" autocomplete="email">
+              </div>
             </div>
+            <div class="form-field">
+              <label class="form-lbl">Mot de passe</label>
+              <div class="form-field-wrap">
+                <input class="form-inp" type="password" id="login-mdp" placeholder="••••••••">
+              </div>
+            </div>
+            <div class="form-err" id="login-err">Identifiant ou mot de passe incorrect.</div>
+            <button class="btn-submit" id="btn-login" onclick="connexion()">
+              <span class="btn-txt">Accéder à mon espace</span>
+              <span class="btn-arrow">→</span>
+            </button>
           </div>
-          <div class="form-err" id="login-err">Identifiant ou mot de passe incorrect.</div>
-          <button class="btn-submit" id="btn-login" onclick="connexion()">
-            <span class="btn-txt">Accéder à mon espace</span>
-            <span class="btn-arrow">→</span>
-          </button>
+
+          <!-- Onglet Création de compte -->
+          <div class="auth-panel" id="auth-panel-signup">
+            <div class="lr-head">
+              <div class="lr-title">Créer mon compte</div>
+              <div class="lr-sub">Votre proviseur doit avoir préalablement déclaré votre adresse académique.</div>
+            </div>
+            <div class="form-field-row">
+              <div class="form-field">
+                <label class="form-lbl">Prénom</label>
+                <div class="form-field-wrap">
+                  <input class="form-inp" type="text" id="signup-prenom" placeholder="Marie" autocomplete="given-name">
+                </div>
+              </div>
+              <div class="form-field">
+                <label class="form-lbl">Nom</label>
+                <div class="form-field-wrap">
+                  <input class="form-inp" type="text" id="signup-nom" placeholder="Dupont" autocomplete="family-name">
+                </div>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Email académique</label>
+              <div class="form-field-wrap">
+                <input class="form-inp" type="email" id="signup-email" placeholder="marie.dupont@ac-lyon.fr" autocomplete="email">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Mot de passe</label>
+              <div class="form-field-wrap">
+                <input class="form-inp" type="password" id="signup-mdp" placeholder="8 caractères minimum" autocomplete="new-password">
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl">Confirmer le mot de passe</label>
+              <div class="form-field-wrap">
+                <input class="form-inp" type="password" id="signup-mdp2" placeholder="••••••••" autocomplete="new-password">
+              </div>
+            </div>
+            <div class="form-err" id="signup-err"></div>
+            <button class="btn-submit" id="btn-signup" onclick="creerCompteProf()">
+              <span class="btn-txt">Créer mon compte</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
         </div>
         <div class="login-wrap-foot">
           <span class="login-wrap-foot-brand">Plateforme de remédiation mathématique</span>
@@ -1221,6 +1641,11 @@ tr:hover td{background:#FDFCF9;}
         <div class="sb-item-bg"></div>
         <div class="sb-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <div class="sb-item-lbl">Identifiants</div>
+      </div>
+      <div class="sb-item" id="sb-mesclasses" onclick="navVers('mesclasses')">
+        <div class="sb-item-bg"></div>
+        <div class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div class="sb-item-lbl">Mes classes</div>
       </div>
     </div>
     <div class="sb-bottom">
@@ -1608,6 +2033,73 @@ tr:hover td{background:#FDFCF9;}
         </div>
       </div>
 
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- ═══ SECTION : MES CLASSES (déclaration des classes prof) ═══ -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div class="section" id="section-mesclasses">
+        <div class="page-header">
+          <div class="page-kicker">Configuration</div>
+          <div class="page-title">Mes classes</div>
+          <div class="page-sub">Déclarez les classes dont vous avez la charge. Elles apparaîtront automatiquement dans la liste des classes disponibles lors de l'inscription de vos élèves.</div>
+        </div>
+
+        <!-- Formulaire de création -->
+        <div class="mc-form-card">
+          <div class="mc-form-title">Créer une nouvelle classe</div>
+          <div class="mc-form-grid">
+            <div class="mc-form-field">
+              <label for="mc-niveau">Niveau</label>
+              <select id="mc-niveau">
+                <option value="">— Choisir le niveau —</option>
+                <optgroup label="Collège">
+                  <option value="6ème">6ème</option>
+                  <option value="5ème">5ème</option>
+                  <option value="4ème">4ème</option>
+                  <option value="3ème">3ème</option>
+                </optgroup>
+                <optgroup label="Lycée général et technologique">
+                  <option value="Seconde GT">Seconde GT</option>
+                  <option value="Première GT">Première GT</option>
+                  <option value="Terminale GT">Terminale GT</option>
+                </optgroup>
+                <optgroup label="Lycée professionnel — Bac Pro">
+                  <option value="2nde Pro">2nde Pro</option>
+                  <option value="1ère Pro">1ère Pro</option>
+                  <option value="Terminale Pro">Terminale Pro</option>
+                </optgroup>
+                <optgroup label="Lycée professionnel — CAP">
+                  <option value="1ère année CAP">1ère année CAP</option>
+                  <option value="2ème année CAP">2ème année CAP</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="mc-form-field">
+              <label for="mc-appellation">Appellation</label>
+              <input type="text" id="mc-appellation" placeholder="Ex : A, B, TEBE, 1, AMA…" autocomplete="off">
+            </div>
+          </div>
+          <div class="mc-form-hint">Le nom complet sera affiché ainsi : <strong><span id="mc-preview">— niveau — — appellation —</span></strong></div>
+          <div class="mc-form-actions">
+            <div class="mc-form-msg" id="mc-form-msg"></div>
+            <button class="mc-form-submit" id="mc-form-submit" onclick="creerClasse()">
+              <span class="mc-form-submit-txt">Ajouter la classe</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Liste des classes -->
+        <div class="mc-list-header">
+          <div class="mc-list-title">Mes classes <span id="mc-count-badge"></span></div>
+          <button class="mc-list-refresh" onclick="renderMesClasses()" title="Rafraîchir">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Rafraîchir</span>
+          </button>
+        </div>
+        <div class="mc-list" id="mc-list"></div>
+      </div>
+      <!-- ═══ FIN SECTION MES CLASSES ═══ -->
+
     </div>
   </div>
 </div>
@@ -1619,7 +2111,7 @@ tr:hover td{background:#FDFCF9;}
 var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
 var ETABLISSEMENT="Fourneyron";
 var DATA_EVAL=[],DATA_REM=[],DATA_COMPTES=[];
-var mesClasses=[],monNom="";
+var mesClasses=[],monNom="",monEmail="";
 var currentClasse=null,currentSort='assignees';
 
 var NOMS_FICHES={
@@ -1674,6 +2166,140 @@ setInterval(tickClock,30000);
 document.getElementById('login-id').addEventListener('keydown',function(e){if(e.key==='Enter')connexion();});
 document.getElementById('login-mdp').addEventListener('keydown',function(e){if(e.key==='Enter')connexion();});
 
+// ═══════════════════════════════════════════════════════════════════
+// ═══ ONGLETS LOGIN/CRÉATION DE COMPTE                            ═══
+// ═══════════════════════════════════════════════════════════════════
+
+function switchAuthTab(tab){
+  var tabLogin = document.getElementById('auth-tab-login');
+  var tabSignup = document.getElementById('auth-tab-signup');
+  var panelLogin = document.getElementById('auth-panel-login');
+  var panelSignup = document.getElementById('auth-panel-signup');
+  if(tab === 'signup'){
+    tabLogin.classList.remove('active');
+    tabSignup.classList.add('active');
+    panelLogin.classList.remove('active');
+    panelSignup.classList.add('active');
+  } else {
+    tabSignup.classList.remove('active');
+    tabLogin.classList.add('active');
+    panelSignup.classList.remove('active');
+    panelLogin.classList.add('active');
+  }
+}
+
+// Pré-remplit l'email de signup si l'URL contient ?email=...
+(function _initSignupEmailFromURL(){
+  try {
+    var search = window.location.search || '';
+    var params = {};
+    search.replace(/^\?/, '').split('&').forEach(function(pair){
+      if(!pair) return;
+      var kv = pair.split('=');
+      params[decodeURIComponent(kv[0]||'')] = decodeURIComponent(kv[1]||'');
+    });
+    if(params.email){
+      var inp = document.getElementById('signup-email');
+      if(inp) inp.value = params.email.toLowerCase();
+      // Bascule directement sur l'onglet création de compte si on arrive via le mail
+      switchAuthTab('signup');
+      // Nettoyer l'URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  } catch(e){}
+})();
+
+// Validation basique d'email
+function _isEmailValidProf(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function creerCompteProf(){
+  var prenom = (document.getElementById('signup-prenom').value || '').trim();
+  var nom = (document.getElementById('signup-nom').value || '').trim();
+  var email = (document.getElementById('signup-email').value || '').trim().toLowerCase();
+  var mdp = document.getElementById('signup-mdp').value;
+  var mdp2 = document.getElementById('signup-mdp2').value;
+  var err = document.getElementById('signup-err');
+  var btn = document.getElementById('btn-signup');
+
+  err.style.display = 'none';
+  err.textContent = '';
+
+  if(!prenom || !nom || !email || !mdp || !mdp2){
+    err.textContent = 'Merci de remplir tous les champs.';
+    err.style.display = 'block';
+    return;
+  }
+  if(!_isEmailValidProf(email)){
+    err.textContent = "L'adresse email ne semble pas valide.";
+    err.style.display = 'block';
+    return;
+  }
+  if(mdp.length < 8){
+    err.textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+    err.style.display = 'block';
+    return;
+  }
+  if(mdp !== mdp2){
+    err.textContent = 'Les deux mots de passe ne correspondent pas.';
+    err.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.querySelector('.btn-txt').textContent = 'Création...';
+
+  var payload = {
+    type: 'creer_compte_prof',
+    prenom: prenom,
+    nom: nom,
+    email: email,
+    mot_de_passe: mdp
+  };
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(j){
+    btn.disabled = false;
+    btn.querySelector('.btn-txt').textContent = 'Créer mon compte';
+    if(j.status === 'ok'){
+      // Bascule vers l'onglet connexion + pré-remplit l'email
+      switchAuthTab('login');
+      document.getElementById('login-id').value = email;
+      document.getElementById('login-mdp').value = '';
+      document.getElementById('login-mdp').focus();
+      // Message de succès dans la zone d'erreur login (couleur verte temporaire)
+      var loginErr = document.getElementById('login-err');
+      loginErr.textContent = '✓ Compte créé. Connectez-vous avec votre mot de passe.';
+      loginErr.style.display = 'block';
+      loginErr.style.color = '#0E7348';
+      setTimeout(function(){
+        loginErr.style.color = '';
+        loginErr.style.display = 'none';
+        loginErr.textContent = 'Identifiant ou mot de passe incorrect.';
+      }, 8000);
+      // Vider le formulaire
+      ['signup-prenom','signup-nom','signup-email','signup-mdp','signup-mdp2'].forEach(function(id){
+        document.getElementById(id).value = '';
+      });
+    } else {
+      err.textContent = j.message || 'Erreur lors de la création.';
+      err.style.display = 'block';
+    }
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.querySelector('.btn-txt').textContent = 'Créer mon compte';
+    err.textContent = 'Erreur réseau. Veuillez réessayer.';
+    err.style.display = 'block';
+  });
+}
+
 function connexion(){
   var id=document.getElementById('login-id').value.trim();
   var mdp=document.getElementById('login-mdp').value;
@@ -1686,6 +2312,7 @@ function connexion(){
     .then(function(j){
       if(j.status==='ok'){
         monNom=j.nom||id;
+        monEmail=id.toLowerCase().trim();
         mesClasses=j.classes||[];
         document.getElementById('login-screen').style.display='none';
         document.getElementById('loading-screen').classList.remove('hidden');
@@ -1712,6 +2339,192 @@ function connexion(){
     });
 }
 
+
+// ═══════════════════════════════════════════════════════════════════
+// ═══ MES CLASSES — déclaration des classes par le professeur     ═══
+// ═══════════════════════════════════════════════════════════════════
+
+// Met à jour la prévisualisation du nom de classe en temps réel
+function _updateMcPreview(){
+  var niv = document.getElementById('mc-niveau').value || '— niveau —';
+  var app = (document.getElementById('mc-appellation').value || '').trim() || '— appellation —';
+  document.getElementById('mc-preview').textContent = niv + ' ' + app;
+}
+
+// Crée une nouvelle classe
+function creerClasse(){
+  var msgEl = document.getElementById('mc-form-msg');
+  var btn   = document.getElementById('mc-form-submit');
+  var niveau = document.getElementById('mc-niveau').value;
+  var appellation = (document.getElementById('mc-appellation').value || '').trim();
+
+  msgEl.className = 'mc-form-msg'; msgEl.textContent = '';
+
+  if(!niveau){
+    msgEl.className = 'mc-form-msg error';
+    msgEl.textContent = 'Merci de choisir un niveau.'; return;
+  }
+  if(!appellation){
+    msgEl.className = 'mc-form-msg error';
+    msgEl.textContent = 'Merci de saisir une appellation (ex : A, B, TEBE…).'; return;
+  }
+
+  btn.disabled = true;
+  var originalTxt = btn.querySelector('.mc-form-submit-txt').textContent;
+  btn.querySelector('.mc-form-submit-txt').textContent = 'Ajout…';
+
+  var payload = {
+    type: 'creer_classe',
+    etablissement: ETABLISSEMENT,
+    prof_email: monEmail,
+    niveau: niveau,
+    appellation: appellation
+  };
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+  })
+  .then(function(r){return r.json();})
+  .then(function(j){
+    btn.disabled = false;
+    btn.querySelector('.mc-form-submit-txt').textContent = originalTxt;
+    if(j.status==='ok'){
+      msgEl.className = 'mc-form-msg success';
+      msgEl.textContent = '✓ Classe ajoutée';
+      document.getElementById('mc-niveau').value = '';
+      document.getElementById('mc-appellation').value = '';
+      _updateMcPreview();
+      renderMesClasses();
+      setTimeout(function(){ msgEl.textContent=''; msgEl.className='mc-form-msg'; }, 3000);
+    } else {
+      msgEl.className = 'mc-form-msg error';
+      msgEl.textContent = j.message || 'Erreur inconnue.';
+    }
+  })
+  .catch(function(){
+    btn.disabled = false;
+    btn.querySelector('.mc-form-submit-txt').textContent = originalTxt;
+    msgEl.className = 'mc-form-msg error';
+    msgEl.textContent = 'Erreur réseau.';
+  });
+}
+
+// Affiche la liste des classes du prof
+function renderMesClasses(){
+  var listEl = document.getElementById('mc-list');
+  var badgeEl = document.getElementById('mc-count-badge');
+  if(!listEl) return;
+  listEl.innerHTML = '<div class="mc-loading">Chargement…</div>';
+  if(badgeEl) badgeEl.textContent = '';
+
+  fetch(SCRIPT_URL+'?type=lister_classes_prof&etablissement='+encodeURIComponent(ETABLISSEMENT)+'&prof_email='+encodeURIComponent(monEmail)+'&t='+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(j.status!=='ok' || !Array.isArray(j.data)){
+        listEl.innerHTML = '<div class="mc-empty"><div class="mc-empty-title">Impossible de charger</div><div class="mc-empty-text">'+(j.message||'Erreur serveur')+'</div></div>';
+        return;
+      }
+      var classes = j.data;
+      if(badgeEl) badgeEl.textContent = classes.length;
+
+      if(classes.length === 0){
+        listEl.innerHTML = '<div class="mc-empty">'
+          +'<div class="mc-empty-icon"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>'
+          +'<div class="mc-empty-title">Aucune classe déclarée pour le moment</div>'
+          +'<div class="mc-empty-text">Utilisez le formulaire ci-dessus pour ajouter votre première classe.</div>'
+        +'</div>';
+        return;
+      }
+
+      // Tri : par niveau puis appellation
+      var ordreNiveau = {
+        '6ème':1,'5ème':2,'4ème':3,'3ème':4,
+        'Seconde GT':5,'Première GT':6,'Terminale GT':7,
+        '2nde Pro':8,'1ère Pro':9,'Terminale Pro':10,
+        '1ère année CAP':11,'2ème année CAP':12
+      };
+      classes.sort(function(a,b){
+        var na = ordreNiveau[a.niveau] || 99;
+        var nb = ordreNiveau[b.niveau] || 99;
+        if(na !== nb) return na - nb;
+        return (a.appellation||'').localeCompare(b.appellation||'');
+      });
+
+      listEl.innerHTML = classes.map(function(c){
+        var dateFmt = '';
+        if(c.date_creation){
+          try {
+            var d = new Date(c.date_creation);
+            if(!isNaN(d.getTime())) dateFmt = 'Créée le ' + d.toLocaleDateString('fr-FR');
+          } catch(e){}
+        }
+        return '<div class="mc-row">'
+          +'<div class="mc-row-niveau">'+escHtml(c.niveau)+'</div>'
+          +'<div class="mc-row-name">'+escHtml(c.niveau)+' '+escHtml(c.appellation)+'</div>'
+          +'<div class="mc-row-date">'+dateFmt+'</div>'
+          +'<div class="mc-row-actions">'
+            +'<button class="mc-row-btn delete" title="Supprimer cette classe" onclick="supprimerClasse(\''+escAttr(c.niveau)+'\', \''+escAttr(c.appellation)+'\')">'
+              +'<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>'
+            +'</button>'
+          +'</div>'
+        +'</div>';
+      }).join('');
+    })
+    .catch(function(){
+      listEl.innerHTML = '<div class="mc-empty"><div class="mc-empty-title">Erreur réseau</div><div class="mc-empty-text">Impossible de charger les classes.</div></div>';
+    });
+}
+
+// Supprime une classe
+function supprimerClasse(niveau, appellation){
+  if(!confirm('Supprimer la classe "' + niveau + ' ' + appellation + '" ?\n\nLes élèves déjà inscrits dans cette classe ne seront pas supprimés, mais cette classe ne sera plus proposée à l\'inscription.')) return;
+  var payload = {
+    type: 'supprimer_classe',
+    etablissement: ETABLISSEMENT,
+    prof_email: monEmail,
+    niveau: niveau,
+    appellation: appellation
+  };
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+  })
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(j.status==='ok'){ renderMesClasses(); }
+    else { alert('Erreur : '+(j.message||'inconnue')); }
+  })
+  .catch(function(){ alert('Erreur réseau.'); });
+}
+
+// Helpers d'échappement (réutilisés pour la liste)
+function escHtml(s){
+  return String(s||'').replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+function escAttr(s){
+  return String(s||'').replace(/['"\\]/g, function(c){ return '\\'+c; });
+}
+
+// Listeners de prévisualisation (s'attachent une fois le DOM prêt)
+(function _attachMcListeners(){
+  function attach(){
+    var n = document.getElementById('mc-niveau');
+    var a = document.getElementById('mc-appellation');
+    if(n) n.addEventListener('change', _updateMcPreview);
+    if(a) a.addEventListener('input', _updateMcPreview);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', attach);
+  } else { attach(); }
+})();
+
+// ═══ Fin Mes classes ═══
+
 function deconnexion(){
   document.getElementById('shell').style.display='none';
   document.getElementById('loading-screen').classList.add('hidden');
@@ -1721,7 +2534,7 @@ function deconnexion(){
   var btn=document.getElementById('btn-login');
   btn.disabled=false; btn.querySelector('.btn-txt').textContent='Accéder à mon espace';
   setLoadingStep(1,''); setLoadingStep(2,''); setLoadingStep(3,''); setLoadingBar(0);
-  DATA_EVAL=[]; DATA_REM=[]; DATA_COMPTES=[]; mesClasses=[]; currentClasse=null;
+  DATA_EVAL=[]; DATA_REM=[]; DATA_COMPTES=[]; mesClasses=[]; monEmail=""; currentClasse=null;
 }
 
 function setSyncState(s,t){
@@ -2457,21 +3270,68 @@ function renderClasseEleves(cl){
     return;
   }
 
-  // Tri alphabétique par nom
-  eleves.sort(function(a,b){return (a.nom||'').localeCompare(b.nom||'');});
+  // Tri : élèves en plus grande difficulté en premier (% notions acquises croissant).
+  // Pour chaque élève, on calcule son % d'acquisition à partir des lignes evCl.
+  function _pctAcquisEleve(email){
+    var emailNorm=String(email||'').toLowerCase();
+    var lignesEleve=evCl.filter(function(r){return String(r.email).toLowerCase()===emailNorm;});
+    var acquises=lignesEleve.filter(function(r){return r.assigne==='non';}).length;
+    var totales=lignesEleve.length;
+    return totales>0 ? (acquises/totales*100) : null;
+  }
+  // On stocke le pct sur chaque objet pour pouvoir trier puis l'afficher au besoin.
+  eleves.forEach(function(e){ e._pctAcq=_pctAcquisEleve(e.email); });
+  eleves.sort(function(a,b){
+    // Les élèves sans données vont en fin de liste
+    if(a._pctAcq===null && b._pctAcq===null) return (a.nom||'').localeCompare(b.nom||'');
+    if(a._pctAcq===null) return 1;
+    if(b._pctAcq===null) return -1;
+    // Ordre croissant du % d'acquisition → ceux en plus grande difficulté en premier
+    if(a._pctAcq !== b._pctAcq) return a._pctAcq - b._pctAcq;
+    // En cas d'égalité, ordre alphabétique pour stabilité
+    return (a.nom||'').localeCompare(b.nom||'');
+  });
 
-  container.innerHTML='<div class="eleves-grid">'
-    +eleves.map(function(e){
+  container.innerHTML='<div class="eleves-rank-list">'
+    +eleves.map(function(e, idx){
       var dys=isDys(e.email);
-      return '<div class="eleve-card'+(dys?' dys':'')+'" onclick="ouvrirEleveFromList(\''+esc(e.email)+'\')">'
-        +'<div class="eleve-avatar">'+initiales(e.nom)+'</div>'
-        +'<div class="eleve-body">'
-          +'<div class="eleve-name">'+esc(e.nom)+'</div>'
-          +(dys
-            ? '<div class="eleve-tags"><span class="eleve-tag eleve-tag-dys">DYS</span></div>'
-            : '')
+      var pct=e._pctAcq;
+      var rang=idx+1;
+      var topCls='';
+      if(rang===1) topCls=' top1';
+      else if(rang===2) topCls=' top2';
+      else if(rang===3) topCls=' top3';
+
+      // Position : médaillons rouges pour les 3 premiers (en difficulté), chiffre simple ensuite
+      var posHtml;
+      if(rang<=3 && pct!==null){
+        posHtml='<div class="eleve-rank-pos"><span class="eleve-rank-pos-medal">'+rang+'</span></div>';
+      } else {
+        posHtml='<div class="eleve-rank-pos">'+rang+'</div>';
+      }
+
+      // % et barre de progression
+      var pctHtml, barHtml;
+      if(pct===null){
+        pctHtml='<div class="eleve-rank-pct muted">—</div>';
+        barHtml='<div class="eleve-rank-bar"></div>';
+      } else {
+        var pctR=Math.round(pct);
+        var col=classeColorFromPct(pctR);
+        pctHtml='<div class="eleve-rank-pct '+col+'">'+pctR+'<span class="eleve-rank-pct-suffix">%</span></div>';
+        barHtml='<div class="eleve-rank-bar"><div class="eleve-rank-bar-fill '+col+'" style="width:'+pctR+'%;"></div></div>';
+      }
+
+      return '<div class="eleve-rank-row'+(dys?' dys':'')+topCls+'" onclick="ouvrirEleveFromList(\''+esc(e.email)+'\')">'
+        +posHtml
+        +'<div class="eleve-rank-avatar">'+initiales(e.nom)+'</div>'
+        +'<div class="eleve-rank-info">'
+          +'<div class="eleve-rank-name">'+esc(e.nom)+'</div>'
+          +(dys?'<span class="eleve-rank-tag">DYS</span>':'')
         +'</div>'
-        +'<span class="eleve-arrow">→</span>'
+        +barHtml
+        +pctHtml
+        +'<span class="eleve-rank-arrow">→</span>'
       +'</div>';
     }).join('')
   +'</div>';
@@ -3193,6 +4053,11 @@ function navVers(dest){
     document.getElementById('sb-identifiants').classList.add('active');
     renderComptes();
     setBreadcrumb([{label:'Identifiants élèves',current:true}]);
+  } else if(dest==='mesclasses'){
+    document.getElementById('section-mesclasses').classList.add('active');
+    document.getElementById('sb-mesclasses').classList.add('active');
+    renderMesClasses();
+    setBreadcrumb([{label:'Mes classes',current:true}]);
   }
 }
 

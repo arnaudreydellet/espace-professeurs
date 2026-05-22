@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Académie des Maths · Espace Professeur</title>
+<title>AlphΩ · Espace Professeur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,14..144,300;0,14..144,400;0,14..144,500;0,14..144,600;1,14..144,300;1,14..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F7F6F3; --bg2:#EFEDE5; --paper:#F4F2EE; --white:#FFFFFF;
@@ -96,6 +97,108 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-he
   display:block;font-family:'Inter Tight',sans-serif;
   font-weight:800;color:#1A2C4F;letter-spacing:.22em;text-transform:uppercase;
 }
+
+/* ═══ Design AlphΩ pour la page de login ═══ */
+.login-headline-alpha {
+  font-family: 'Montserrat', 'Inter Tight', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(36px, 5.5vw, 72px) !important;
+  letter-spacing: -1.5px !important;
+  text-transform: none !important;
+  color: #1A2C4F !important;
+  line-height: 1 !important;
+  margin-bottom: 1.2rem !important;
+  display: inline-flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  min-height: 1em;
+}
+.login-headline-alpha .alpha-typed { display: inline-block; }
+.login-headline-alpha .alpha-typed .om-svg {
+  display: inline-block;
+  height: 0.78em;
+  width: auto;
+  margin-left: 4px;
+  vertical-align: -0.04em;
+}
+.login-headline-alpha .alpha-typed .om-svg path { fill: #C28A42; }
+.login-headline-alpha .alpha-cursor {
+  display: inline-block;
+  width: 3px;
+  background: #C28A42;
+  margin-left: 8px;
+  height: 0.7em;
+  align-self: center;
+  border-radius: 1px;
+  animation: alphaBlink 0.9s step-end infinite;
+}
+@keyframes alphaBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.login-headline-alpha .alpha-cursor.hidden { display: none; }
+.login-divider {
+  width: 50px;
+  height: 1px;
+  background: #C28A42;
+  margin: 0 auto 1.2rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.login-divider.visible { opacity: 1; }
+.login-tagline-alpha {
+  font-family: 'Inter Tight', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: clamp(13px, 1.4vw, 15px) !important;
+  color: #1A2C4F !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase !important;
+  min-height: 1.4em;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.login-tagline-alpha.visible { opacity: 1; }
+.login-tagline-alpha .sep {
+  color: #C28A42;
+  margin: 0 14px;
+  font-weight: 400;
+}
+@media (max-width: 720px) {
+  .login-tagline-alpha { letter-spacing: 2px !important; }
+  .login-tagline-alpha .sep { margin: 0 8px; }
+}
+
+/* ═══ Logo AlphΩ mini (topbar du dashboard) ═══ */
+.alpha-brand-mini {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: 'Montserrat', 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #1A2C4F;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.alpha-brand-mini .om-svg-mini {
+  display: inline-block;
+  height: 0.85em;
+  width: auto;
+  margin-left: 1px;
+  vertical-align: -0.04em;
+}
+.alpha-brand-mini .om-svg-mini path { fill: #C28A42; }
+.tb-etab-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #6B5A3C;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
 .login-tagline{
   font-size:15px;color:#7A7568;font-weight:400;letter-spacing:-.1px;
   min-height:1.4em;text-align:center;
@@ -1515,7 +1618,7 @@ tr:hover td{background:#FDFCF9;}
   <div class="login-bg-c1"></div>
   <div class="login-bg-c2"></div>
   <div class="login-brand-top">
-    <div class="login-brand-top-logo">AM</div>
+    <div class="login-brand-top-logo">AΩ</div>
     <div class="login-brand-top-name">Espace Professeur</div>
   </div>
   <div class="login-status">
@@ -1526,11 +1629,13 @@ tr:hover td{background:#FDFCF9;}
   </div>
   <div class="login-split">
     <div class="login-editorial">
-      <h1 class="login-headline">
-        <span class="serif">Espace</span>
-        <span class="sans">Professeur</span>
+      <h1 class="login-headline login-headline-alpha">
+        <span class="alpha-typed" id="alpha-typed"></span><span class="alpha-cursor" id="alpha-cursor"></span>
       </h1>
-      <p class="login-tagline"><span id="login-typewriter"></span><span class="login-tagline-cursor"></span></p>
+      <div class="login-divider" id="login-divider"></div>
+      <p class="login-tagline login-tagline-alpha" id="login-tagline-alpha">
+        <span class="tw">Diagnostiquer</span><span class="sep">·</span><span class="tw">Remédier</span><span class="sep">·</span><span class="tw">Progresser</span>
+      </p>
     </div>
     <div class="login-form-wrap">
       <div class="login-wrap">
@@ -1704,8 +1809,13 @@ tr:hover td{background:#FDFCF9;}
 
   <div class="main">
     <div class="topbar">
-      <div class="breadcrumb" id="breadcrumb">
-        <span class="bc-item current">Accueil</span>
+      <div class="tb-left" style="display:flex;align-items:center;gap:14px;">
+        <span class="alpha-brand-mini" title="AlphΩ — Diagnostic et remédiation mathématiques" aria-label="AlphΩ">Alph<svg class="om-svg-mini" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M 50 6 C 25 6, 14 26, 14 48 C 14 64, 22 75, 30 81 L 8 81 L 8 94 L 40 94 L 40 81 L 36 81 C 29 75, 24 65, 24 50 C 24 32, 35 20, 50 20 C 65 20, 76 32, 76 50 C 76 65, 71 75, 64 81 L 60 81 L 60 94 L 92 94 L 92 81 L 70 81 C 78 75, 86 64, 86 48 C 86 26, 75 6, 50 6 Z"/></svg></span>
+        <span class="tb-etab-name" id="tb-etab-name">—</span>
+        <span style="width:1px;height:18px;background:rgba(0,0,0,0.08);"></span>
+        <div class="breadcrumb" id="breadcrumb">
+          <span class="bc-item current">Accueil</span>
+        </div>
       </div>
       <div class="tb-right">
         <div class="tb-sync">
@@ -2154,7 +2264,7 @@ tr:hover td{background:#FDFCF9;}
 // CONFIG (inchangé du fichier prof original)
 // ═══════════════════════════════════════════════════════════════
 var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxlBMjVXIg58lsopoeQ5sEZW-jcQIOrOtnWwCGVtHLGjcmpi9exaYZ3oAEre4deZum2/exec";
-var ETABLISSEMENT="Fourneyron";
+var ETABLISSEMENT="";
 var DATA_EVAL=[],DATA_REM=[],DATA_COMPTES=[];
 var mesClasses=[],monNom="",monEmail="";
 var currentClasse=null,currentSort='assignees';
@@ -2173,29 +2283,30 @@ var NOMS_FICHES={
 };
 
 // ═══════════════════════════════════════════════════════════════
-// LOGIN — typewriter + horloge
+// LOGIN — animation typewriter "Professeur" + horloge
 // ═══════════════════════════════════════════════════════════════
-var TYPEWRITER_PHRASES=[
-  "Suivez la progression de vos élèves.",
-  "Identifiez les blocages au bon moment.",
-  "Intervenez là où ça compte vraiment."
-];
-var twIdx=0,twChar=0,twDeleting=false;
+// Tape "Professeur" lettre par lettre puis fait apparaître le divider doré
+// et la tagline DIAGNOSTIQUER · REMÉDIER · PROGRESSER
 function typewriter(){
-  var el=document.getElementById('login-typewriter');
-  if(!el) return;
-  var phrase=TYPEWRITER_PHRASES[twIdx];
-  if(!twDeleting){
-    twChar++;
-    el.textContent=phrase.substring(0,twChar);
-    if(twChar>=phrase.length){twDeleting=true;setTimeout(typewriter,2200);return;}
-    setTimeout(typewriter,38);
-  } else {
-    twChar--;
-    el.textContent=phrase.substring(0,twChar);
-    if(twChar<=0){twDeleting=false;twIdx=(twIdx+1)%TYPEWRITER_PHRASES.length;setTimeout(typewriter,400);return;}
-    setTimeout(typewriter,18);
+  var typedEl = document.getElementById('alpha-typed');
+  var cursorEl = document.getElementById('alpha-cursor');
+  var dividerEl = document.getElementById('login-divider');
+  var taglineEl = document.getElementById('login-tagline-alpha');
+  if(!typedEl) return;
+  var chars = "Espace Professeur".split("");
+  var i = 0;
+  function typeChar(){
+    if (i < chars.length) {
+      typedEl.innerHTML += chars[i];
+      i++;
+      setTimeout(typeChar, 110);
+    } else {
+      setTimeout(function(){ if(cursorEl) cursorEl.classList.add('hidden'); }, 700);
+      setTimeout(function(){ if(dividerEl) dividerEl.classList.add('visible'); }, 350);
+      setTimeout(function(){ if(taglineEl) taglineEl.classList.add('visible'); }, 600);
+    }
   }
+  setTimeout(typeChar, 500);
 }
 function tickClock(){
   var d=new Date();
@@ -2352,25 +2463,30 @@ function connexion(){
   var btn=document.getElementById('btn-login');
   btn.disabled=true; btn.querySelector('.btn-txt').textContent='Connexion...';
   document.getElementById('login-err').style.display='none';
-  fetch(SCRIPT_URL+'?type=login_prof&identifiant='+encodeURIComponent(id)+'&mot_de_passe='+encodeURIComponent(mdp)+'&etablissement='+ETABLISSEMENT+'&t='+Date.now())
+  fetch(SCRIPT_URL+'?type=login_prof&identifiant='+encodeURIComponent(id)+'&mot_de_passe='+encodeURIComponent(mdp)+'&t='+Date.now())
     .then(function(r){return r.json();})
     .then(function(j){
       if(j.status==='ok'){
         monNom=j.nom||id;
         monEmail=id.toLowerCase().trim();
         mesClasses=j.classes||[];
+        // ⚠ NOUVEAU : récupérer et stocker l'établissement du prof connecté
+        ETABLISSEMENT=j.etablissement||"";
         document.getElementById('login-screen').style.display='none';
         document.getElementById('loading-screen').classList.remove('hidden');
         var parts=(monNom||'').split(' ');
         var initiales=((parts[0]||'')[0]||'')+((parts[1]||'')[0]||'');
         document.getElementById('loading-avatar').textContent=initiales.toUpperCase()||'PR';
         document.getElementById('loading-name').textContent=monNom;
-        document.getElementById('loading-role').textContent='Professeur · '+mesClasses.join(' · ');
+        document.getElementById('loading-role').textContent='Professeur · '+ETABLISSEMENT;
         document.getElementById('tb-uname').textContent=monNom;
         document.getElementById('tb-avatar').textContent=initiales.toUpperCase()||'PR';
         document.getElementById('hero-nom').textContent=monNom;
         document.getElementById('hero-classes').textContent=mesClasses.join(' · ');
         document.getElementById('ap-hero-prof').textContent='Professeur · '+mesClasses.length+' classe'+(mesClasses.length>1?'s':'');
+        // ⚠ NOUVEAU : injecter le nom de l'établissement dans le topbar
+        var tbEtab = document.getElementById('tb-etab-name');
+        if(tbEtab) tbEtab.textContent = ETABLISSEMENT;
         chargerDonnees();
       } else {
         document.getElementById('login-err').style.display='block';
@@ -2930,7 +3046,7 @@ function buildClasseCard(cl){
   return '<div class="classe-card'+alertCls+emptyCls+'" onclick="ouvrirClasse(\''+esc(cl)+'\')">'
     +'<div class="cc-head">'
       +'<div class="cc-head-text">'
-        +'<span class="cc-kicker">Bac Pro · Fourneyron</span>'
+        +'<span class="cc-kicker">'+esc(ETABLISSEMENT)+'</span>'
         +'<span class="cc-name">'+esc(cl)+'</span>'
       +'</div>'
       +statusBadge

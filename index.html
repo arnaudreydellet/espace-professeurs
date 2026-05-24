@@ -24,6 +24,20 @@
   --r:10px; --rl:14px; --rx:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
+/* ═══════════════════════════════════════════════════════════════
+   SCALING FLUIDE — la racine grossit légèrement sur grand écran
+   ─────────────────────────────────────────────────────────────
+   < 1366px : 16px (taille standard, portable)
+   1366-2200px : interpolation linéaire entre 16px et 19px
+   > 2200px : 19px (plafond, évite les polices grotesques sur 4K)
+
+   Comme la plupart des tailles d'espacement sont en rem (padding, gap,
+   margin), tout l'écosystème grandit ensemble avec les polices.
+   ═══════════════════════════════════════════════════════════════ */
+html {
+  font-size: clamp(16px, 0.36vw + 11.08px, 19px);
+}
+
 body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.55;overflow-x:hidden;}
 
 /* ═══════════════════════════════════════════════════════════════
@@ -472,7 +486,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-he
 /* ═══════════════════════════════════════════════════════════════
    CONTENT + section
    ═══════════════════════════════════════════════════════════════ */
-.content{flex:1;padding:1.25rem 2rem 2.5rem;max-width:1400px;width:100%;margin:0 auto;}
+.content{flex:1;padding:1.25rem 2rem 2.5rem;max-width:1800px;width:100%;margin:0 auto;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .section{display:none;animation:fadeIn .2s ease;}
 .section.active{display:block;}
